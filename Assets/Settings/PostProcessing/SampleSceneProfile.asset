@@ -66,13 +66,13 @@ MonoBehaviour:
     dimension: 1
   animCycleTime:
     m_OverrideState: 1
-    m_Value: 0.25
+    m_Value: 2.5
   strength:
     m_OverrideState: 1
     m_Value: 0.15
   tiling:
     m_OverrideState: 1
-    m_Value: 50
+    m_Value: 25
   smudge:
     m_OverrideState: 1
     m_Value: 0
@@ -122,7 +122,7 @@ MonoBehaviour:
   active: 1
   kernelSize:
     m_OverrideState: 1
-    m_Value: 15
+    m_Value: 10
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
