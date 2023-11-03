@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73633e41467f60244a85eae1562ec76f, type: 3}
+  m_Name: Volcano's Shadow Morning & Evening
+  m_EditorClassIdentifier: 
+  blockStyle: 0
+  win1: 0
+  win2: 0
+  win3: 1
+  win4: 0
+  atmosphereProfile: {fileID: 11400000, guid: 8cc0487e978305c49a20079f78f36ba0, type: 2}
+  skyZenithColor: {r: 0, g: 0, b: 0, a: 0}
+  skyHorizonColor: {r: 0.4, g: 0.11764705, b: 0.18268128, a: 1}
+  cloudColor: {r: 0.43529412, g: 0.13333336, b: 0.21476413, a: 0}
+  cloudHighlightColor: {r: 5.992157, g: 0.26240164, b: 0.03137261, a: 1}
+  highAltitudeCloudColor: {r: 0.3735849, g: 0.2988679, b: 0.2988679, a: 1}
+  sunlightColor: {r: 0.7924528, g: 0.5644357, b: 0.5644357, a: 0}
+  moonlightColor: {r: 0, g: 0, b: 0, a: 0}
+  starColor: {r: 0, g: 0, b: 0, a: 1}
+  ambientLightHorizonColor: {r: 0.4018868, g: 0.116395496, b: 0.116395496, a: 1}
+  ambientLightZenithColor: {r: 0.3018868, g: 0.027055884, b: 0.027055884, a: 0}
+  ambientLightMultiplier: 1
+  galaxyIntensity: 1
+  fogDensity: 2
+  fogColor1: {r: 0, g: 0, b: 0, a: 0}
+  fogColor2: {r: 0.03773582, g: 0.0048059775, b: 0.0048059775, a: 0.1}
+  fogColor3: {r: 0.21568628, g: 0, b: 0.047110513, a: 0.45}
+  fogColor4: {r: 0.16037738, g: 0.035555363, b: 0.15967558, a: 0.75}
+  fogColor5: {r: 0.31529707, g: 0.022516914, b: 0.4339623, a: 1}
+  fogFlareColor: {r: 3.1980038, g: 0.16593418, b: 0.5531276, a: 1}
+  gradientExponent: 0.959
+  atmosphereVariationMin: 0.23
+  atmosphereVariationMax: 0.73
+  atmosphereBias: 0.663
+  sunSize: 2.24
+  sunColor: {r: 4.7099004, g: 0.95531, b: 2.0314655, a: 1}
+  sunFalloff: 35.9
+  sunFlareColor: {r: 3.9999995, g: 0, b: 0.37882227, a: 1}
+  moonFalloff: 25
+  moonFlareColor: {r: 0, g: 0, b: 0, a: 0}
+  galaxy1Color: {r: 0, g: 1.0039216, b: 2, a: 1}
+  galaxy2Color: {r: 0.23529412, g: 0.9098039, b: 0.15686275, a: 1}
+  galaxy3Color: {r: 1.333744, g: 0.62876505, b: 3.6392157, a: 1}
+  lightScatteringColor: {r: 7.999999, g: 0, b: 2.1829336, a: 1}
+  fogStart1: 2
+  fogStart2: 5
+  fogStart3: 10
+  fogStart4: 30
+  fogHeight: 0.736
+  fogLightFlareIntensity: 2
+  fogLightFlareFalloff: 4.5
+  fogLightFlareSquish: 5.15
+  cloudMoonColor: {r: 0, g: 0, b: 0, a: 0}
+  cloudSunHighlightFalloff: 19.1
+  cloudMoonHighlightFalloff: 30
+  cloudTextureColor: {r: 1, g: 1, b: 1, a: 1}
+  atmosphereVariation: 0.663
+  skyColor: {r: 0.3018868, g: 0.027055884, b: 0.027055884, a: 0}
+  fogColor: {r: 0.5377358, g: 0.13554142, b: 0.04819329, a: 0}
+  simpleSunColor: {r: 0.7924528, g: 0.5644357, b: 0.5644357, a: 0}
+  simpleCloudColor: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 0}
+  moonColor: {r: 0, g: 0, b: 0, a: 0}
+  nightFXAmount: 0
+  baseChance: 1
+  chances: []

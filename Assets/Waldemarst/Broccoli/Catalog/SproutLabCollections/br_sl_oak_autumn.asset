@@ -1,0 +1,2998 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c98f0170c469685ac5dc4630b73f4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  branchDescriptorCollection:
+    descriptorImplId: 0
+    descriptorImplName: Undefined Descriptor
+    snapshots:
+    - id: 1
+      snapshotType: 
+      processorId: 0
+      seed: -649532048
+      activeLevels: 2
+      curve:
+        _closed: 0
+        _axis: 0
+        nodes: []
+        resolutionAngle: 5
+        alwaysIncludeNodeAsPoint: 0
+        noiseResolution: 4
+        noiseStrength: 0.2
+        noiseFactorAtFirstNode: 0
+        noiseFactorAtLastNode: 0
+        noiseScaleAtFirstNode: 1
+        noiseScaleAtLastNode: 1
+        noiseLengthOffset: 0
+        noiseLengthScale: 1
+        spareNoiseOffsetAtFirstPoint: 0
+        referenceForward: {x: 0, y: 1, z: 0}
+        normalMode: 0
+        referenceNormal: {x: 0, y: 0, z: 1}
+        fixedNormal: {x: 0, y: 0, z: 1}
+        _guid: dbf030e7-86b2-4698-a08b-c6cef79ee7ae
+        simplifyBias: 0
+        distanceStep: 0.05
+      girthAtBase: 0.016125001
+      girthAtTop: 0.00075
+      noiseResolution: 0.502
+      noiseAtBase: 0.839
+      noiseAtTop: 0.826
+      noiseScaleAtBase: 0.202
+      noiseScaleAtTop: 0.845
+      branchLevelDescriptors:
+      - isEnabled: 1
+        minFrequency: 1
+        maxFrequency: 1
+        radius: 0
+        minRange: 0
+        maxRange: 1
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        minLengthAtBase: 0.44175392
+        maxLengthAtBase: 0.634555
+        minLengthAtTop: 0.22500001
+        maxLengthAtTop: 0.3
+        lengthCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minPlaneAlignAtTop: 0
+        maxPlaneAlignAtTop: 0
+        minPlaneAlignAtBase: 0
+        maxPlaneAlignAtBase: 0
+      - isEnabled: 1
+        minFrequency: 1
+        maxFrequency: 5
+        radius: 0
+        minRange: 0
+        maxRange: 1
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        minLengthAtBase: 0.46323532
+        maxLengthAtBase: 0.5382353
+        minLengthAtTop: 0.78088236
+        maxLengthAtTop: 0.85588235
+        lengthCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+        minParallelAlignAtTop: 0.56818193
+        maxParallelAlignAtTop: 0.92045456
+        minParallelAlignAtBase: -0.37651515
+        maxParallelAlignAtBase: -0.1378788
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minPlaneAlignAtTop: 0
+        maxPlaneAlignAtTop: 0
+        minPlaneAlignAtBase: -0.52
+        maxPlaneAlignAtBase: 0.22666669
+      - isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 7
+        radius: 0
+        minRange: 0
+        maxRange: 1
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        minLengthAtBase: 0.22500001
+        maxLengthAtBase: 0.3
+        minLengthAtTop: 0.22500001
+        maxLengthAtTop: 0.3
+        lengthCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+        minParallelAlignAtTop: 0.625
+        maxParallelAlignAtTop: 0.8181818
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0.39772728
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minPlaneAlignAtTop: 0
+        maxPlaneAlignAtTop: 0
+        minPlaneAlignAtBase: 0
+        maxPlaneAlignAtBase: 0
+      - isEnabled: 1
+        minFrequency: 2
+        maxFrequency: 3
+        radius: 0
+        minRange: 0
+        maxRange: 1
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        minLengthAtBase: 0.22500001
+        maxLengthAtBase: 0.3
+        minLengthAtTop: 0.22500001
+        maxLengthAtTop: 0.3
+        lengthCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+        minParallelAlignAtTop: 0.76878613
+        maxParallelAlignAtTop: 0.76878613
+        minParallelAlignAtBase: 0.433526
+        maxParallelAlignAtBase: 0.433526
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minPlaneAlignAtTop: 0
+        maxPlaneAlignAtTop: 0
+        minPlaneAlignAtBase: 0
+        maxPlaneAlignAtBase: 0
+      sproutASubmeshIndex: 1
+      sproutBSubmeshIndex: -1
+      sproutCrownSubmeshIndex: -1
+      sproutASubmeshCount: 0
+      sproutBSubmeshCount: 0
+      sproutCrownSubmeshCount: 0
+      sproutASize: 0.09
+      sproutAScaleAtBase: 1.2
+      sproutAScaleAtTop: 0.4
+      sproutAScaleVariance: 0.488
+      sproutAScaleMode: 0
+      sproutAFlipAlign: 0.613
+      sproutANormalRandomness: 0.575
+      sproutABendingAtTop: 0
+      sproutABendingAtBase: 0
+      sproutASideBendingAtTop: 0
+      sproutASideBendingAtBase: 0
+      sproutALevelDescriptors:
+      - isEnabled: 1
+        minFrequency: 1
+        maxFrequency: 4
+        minParallelAlignAtTop: 0.5260116
+        maxParallelAlignAtTop: 0.5260116
+        minParallelAlignAtBase: 0.31791908
+        maxParallelAlignAtBase: 0.31791908
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0.32947975
+        maxParallelAlignAtTop: 0.47976875
+        minParallelAlignAtBase: 0.32947975
+        maxParallelAlignAtBase: 0.7919075
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0.625
+        maxParallelAlignAtTop: 0.8863636
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0.17045455
+        minGravityAlignAtTop: 0.38636363
+        maxGravityAlignAtTop: 0.60227275
+        minGravityAlignAtBase: 0.20454545
+        maxGravityAlignAtBase: 0.44318175
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0.41618496
+        maxParallelAlignAtTop: 0.80924845
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0.25433525
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      sproutBSize: 0.075
+      sproutBScaleAtBase: 1
+      sproutBScaleAtTop: 1
+      sproutBScaleVariance: 0
+      sproutBScaleMode: 0
+      sproutBFlipAlign: 0.8
+      sproutBNormalRandomness: 0.5
+      sproutBBendingAtTop: 0
+      sproutBBendingAtBase: 0
+      sproutBSideBendingAtTop: 0
+      sproutBSideBendingAtBase: 0
+      sproutBLevelDescriptors:
+      - isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      polygonAreas: []
+      lodCount: 3
+      lastSproutPosition: {x: 0, y: 0, z: 0}
+      crownEnabled: 0
+      crownMinRange: 0
+      crownMaxRange: 0
+      crownProbability: 0
+      crownMinFrequency: 0
+      crownMaxFrequency: 0
+      crownDepth: 0
+      crownSize: 0
+      crownScaleAtTop: 0
+      crownScaleAtBase: 0
+      crownScaleVariance: 0
+      sproutCrownLevelDescriptor:
+        isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+    - id: 2
+      snapshotType: 
+      processorId: 0
+      seed: -1947610560
+      activeLevels: 2
+      curve:
+        _closed: 0
+        _axis: 0
+        nodes: []
+        resolutionAngle: 5
+        alwaysIncludeNodeAsPoint: 0
+        noiseResolution: 4
+        noiseStrength: 0.2
+        noiseFactorAtFirstNode: 0
+        noiseFactorAtLastNode: 0
+        noiseScaleAtFirstNode: 1
+        noiseScaleAtLastNode: 1
+        noiseLengthOffset: 0
+        noiseLengthScale: 1
+        spareNoiseOffsetAtFirstPoint: 0
+        referenceForward: {x: 0, y: 1, z: 0}
+        normalMode: 0
+        referenceNormal: {x: 0, y: 0, z: 1}
+        fixedNormal: {x: 0, y: 0, z: 1}
+        _guid: bf38bb0f-6e75-4dd3-bd55-70575f8cb3a6
+        simplifyBias: 0
+        distanceStep: 0.05
+      girthAtBase: 0.009075
+      girthAtTop: 0.00075
+      noiseResolution: 0.57
+      noiseAtBase: 0.819
+      noiseAtTop: 0.786
+      noiseScaleAtBase: 0.338
+      noiseScaleAtTop: 0.68
+      branchLevelDescriptors:
+      - isEnabled: 1
+        minFrequency: 1
+        maxFrequency: 1
+        radius: 0
+        minRange: 0
+        maxRange: 1
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        minLengthAtBase: 0.22500001
+        maxLengthAtBase: 0.30727458
+        minLengthAtTop: 0.22500001
+        maxLengthAtTop: 0.3
+        lengthCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minPlaneAlignAtTop: 0
+        maxPlaneAlignAtTop: 0
+        minPlaneAlignAtBase: 0
+        maxPlaneAlignAtBase: 0
+      - isEnabled: 1
+        minFrequency: 3
+        maxFrequency: 6
+        radius: 0
+        minRange: 0
+        maxRange: 1
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        minLengthAtBase: 0.2655738
+        maxLengthAtBase: 0.34057373
+        minLengthAtTop: 0.45942622
+        maxLengthAtTop: 0.5344262
+        lengthCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+        minParallelAlignAtTop: 0.56818193
+        maxParallelAlignAtTop: 0.92045456
+        minParallelAlignAtBase: 0.056818184
+        maxParallelAlignAtBase: 0.29545453
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minPlaneAlignAtTop: 0
+        maxPlaneAlignAtTop: 0
+        minPlaneAlignAtBase: 0
+        maxPlaneAlignAtBase: 0
+      - isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 7
+        radius: 0
+        minRange: 0
+        maxRange: 1
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        minLengthAtBase: 0.14385247
+        maxLengthAtBase: 0.21885258
+        minLengthAtTop: 0.13934427
+        maxLengthAtTop: 0.21434432
+        lengthCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+        minParallelAlignAtTop: 0.625
+        maxParallelAlignAtTop: 0.8181818
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0.39772728
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minPlaneAlignAtTop: 0
+        maxPlaneAlignAtTop: 0
+        minPlaneAlignAtBase: 0
+        maxPlaneAlignAtBase: 0
+      - isEnabled: 1
+        minFrequency: 1
+        maxFrequency: 1
+        radius: 0
+        minRange: 0
+        maxRange: 1
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        minLengthAtBase: 0.22500001
+        maxLengthAtBase: 0.3
+        minLengthAtTop: 0.22500001
+        maxLengthAtTop: 0.3
+        lengthCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minPlaneAlignAtTop: 0
+        maxPlaneAlignAtTop: 0
+        minPlaneAlignAtBase: 0
+        maxPlaneAlignAtBase: 0
+      sproutASubmeshIndex: 1
+      sproutBSubmeshIndex: -1
+      sproutCrownSubmeshIndex: -1
+      sproutASubmeshCount: 0
+      sproutBSubmeshCount: 0
+      sproutCrownSubmeshCount: 0
+      sproutASize: 0.08
+      sproutAScaleAtBase: 1.2
+      sproutAScaleAtTop: 0.46
+      sproutAScaleVariance: 0.413
+      sproutAScaleMode: 0
+      sproutAFlipAlign: 0.64
+      sproutANormalRandomness: 0.5
+      sproutABendingAtTop: 0
+      sproutABendingAtBase: 0
+      sproutASideBendingAtTop: 0
+      sproutASideBendingAtBase: 0
+      sproutALevelDescriptors:
+      - isEnabled: 0
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 1
+        minFrequency: 3
+        maxFrequency: 6
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 1
+        minFrequency: 2
+        maxFrequency: 3
+        minParallelAlignAtTop: 0.625
+        maxParallelAlignAtTop: 0.8863636
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0.17045455
+        minGravityAlignAtTop: 0.38636363
+        maxGravityAlignAtTop: 0.60227275
+        minGravityAlignAtBase: 0.20454545
+        maxGravityAlignAtBase: 0.44318175
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      sproutBSize: 0.04575
+      sproutBScaleAtBase: 1.49
+      sproutBScaleAtTop: 1
+      sproutBScaleVariance: 0
+      sproutBScaleMode: 0
+      sproutBFlipAlign: 0.8
+      sproutBNormalRandomness: 0.5
+      sproutBBendingAtTop: 0
+      sproutBBendingAtBase: 0
+      sproutBSideBendingAtTop: 0
+      sproutBSideBendingAtBase: 0
+      sproutBLevelDescriptors:
+      - isEnabled: 0
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 0
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 1
+        minFrequency: 1
+        maxFrequency: 2
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      polygonAreas: []
+      lodCount: 3
+      lastSproutPosition: {x: 0, y: 0, z: 0}
+      crownEnabled: 0
+      crownMinRange: 0
+      crownMaxRange: 0
+      crownProbability: 0
+      crownMinFrequency: 0
+      crownMaxFrequency: 0
+      crownDepth: 0
+      crownSize: 0
+      crownScaleAtTop: 0
+      crownScaleAtBase: 0
+      crownScaleVariance: 0
+      sproutCrownLevelDescriptor:
+        isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+    - id: 3
+      snapshotType: 
+      processorId: 0
+      seed: 1810018434
+      activeLevels: 2
+      curve:
+        _closed: 0
+        _axis: 0
+        nodes: []
+        resolutionAngle: 5
+        alwaysIncludeNodeAsPoint: 0
+        noiseResolution: 4
+        noiseStrength: 0.2
+        noiseFactorAtFirstNode: 0
+        noiseFactorAtLastNode: 0
+        noiseScaleAtFirstNode: 1
+        noiseScaleAtLastNode: 1
+        noiseLengthOffset: 0
+        noiseLengthScale: 1
+        spareNoiseOffsetAtFirstPoint: 0
+        referenceForward: {x: 0, y: 1, z: 0}
+        normalMode: 0
+        referenceNormal: {x: 0, y: 0, z: 1}
+        fixedNormal: {x: 0, y: 0, z: 1}
+        _guid: 73e8b441-1eec-40e3-8f59-b8cc9cd47621
+        simplifyBias: 0
+        distanceStep: 0.05
+      girthAtBase: 0.009075
+      girthAtTop: 0.00075
+      noiseResolution: 0.628
+      noiseAtBase: 0.833
+      noiseAtTop: 0.853
+      noiseScaleAtBase: 0.28
+      noiseScaleAtTop: 0.75
+      branchLevelDescriptors:
+      - isEnabled: 1
+        minFrequency: 1
+        maxFrequency: 1
+        radius: 0
+        minRange: 0
+        maxRange: 1
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        minLengthAtBase: 0.22500001
+        maxLengthAtBase: 0.30727458
+        minLengthAtTop: 0.22500001
+        maxLengthAtTop: 0.3
+        lengthCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minPlaneAlignAtTop: 0
+        maxPlaneAlignAtTop: 0
+        minPlaneAlignAtBase: 0
+        maxPlaneAlignAtBase: 0
+      - isEnabled: 1
+        minFrequency: 1
+        maxFrequency: 2
+        radius: 0
+        minRange: 0
+        maxRange: 1
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        minLengthAtBase: 0.075
+        maxLengthAtBase: 0.14999996
+        minLengthAtTop: 0.10207328
+        maxLengthAtTop: 0.1770733
+        lengthCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+        minParallelAlignAtTop: 0.56818193
+        maxParallelAlignAtTop: 0.92045456
+        minParallelAlignAtBase: 0.056818184
+        maxParallelAlignAtBase: 0.29545453
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minPlaneAlignAtTop: 0
+        maxPlaneAlignAtTop: 0
+        minPlaneAlignAtBase: 0
+        maxPlaneAlignAtBase: 0
+      - isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 7
+        radius: 0
+        minRange: 0
+        maxRange: 1
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        minLengthAtBase: 0.14385247
+        maxLengthAtBase: 0.21885258
+        minLengthAtTop: 0.13934427
+        maxLengthAtTop: 0.21434432
+        lengthCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+        minParallelAlignAtTop: 0.625
+        maxParallelAlignAtTop: 0.8181818
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0.39772728
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minPlaneAlignAtTop: 0
+        maxPlaneAlignAtTop: 0
+        minPlaneAlignAtBase: 0
+        maxPlaneAlignAtBase: 0
+      - isEnabled: 1
+        minFrequency: 1
+        maxFrequency: 1
+        radius: 0
+        minRange: 0
+        maxRange: 1
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        minLengthAtBase: 0.22500001
+        maxLengthAtBase: 0.3
+        minLengthAtTop: 0.22500001
+        maxLengthAtTop: 0.3
+        lengthCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minPlaneAlignAtTop: 0
+        maxPlaneAlignAtTop: 0
+        minPlaneAlignAtBase: 0
+        maxPlaneAlignAtBase: 0
+      sproutASubmeshIndex: 1
+      sproutBSubmeshIndex: -1
+      sproutCrownSubmeshIndex: -1
+      sproutASubmeshCount: 0
+      sproutBSubmeshCount: 0
+      sproutCrownSubmeshCount: 0
+      sproutASize: 0.08
+      sproutAScaleAtBase: 1
+      sproutAScaleAtTop: 0.46
+      sproutAScaleVariance: 0.484
+      sproutAScaleMode: 0
+      sproutAFlipAlign: 0.64
+      sproutANormalRandomness: 0.5
+      sproutABendingAtTop: 0
+      sproutABendingAtBase: 0
+      sproutASideBendingAtTop: 0
+      sproutASideBendingAtBase: 0
+      sproutALevelDescriptors:
+      - isEnabled: 0
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 1
+        minFrequency: 3
+        maxFrequency: 6
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 1
+        minFrequency: 3
+        maxFrequency: 5
+        minParallelAlignAtTop: 0.625
+        maxParallelAlignAtTop: 0.8863636
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0.17045455
+        minGravityAlignAtTop: 0.38636363
+        maxGravityAlignAtTop: 0.60227275
+        minGravityAlignAtBase: 0.20454545
+        maxGravityAlignAtBase: 0.44318175
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      sproutBSize: 0.04575
+      sproutBScaleAtBase: 1.49
+      sproutBScaleAtTop: 1
+      sproutBScaleVariance: 0
+      sproutBScaleMode: 0
+      sproutBFlipAlign: 0.8
+      sproutBNormalRandomness: 0.5
+      sproutBBendingAtTop: 0
+      sproutBBendingAtBase: 0
+      sproutBSideBendingAtTop: 0
+      sproutBSideBendingAtBase: 0
+      sproutBLevelDescriptors:
+      - isEnabled: 0
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 0
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 1
+        minFrequency: 1
+        maxFrequency: 2
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      polygonAreas: []
+      lodCount: 3
+      lastSproutPosition: {x: 0, y: 0, z: 0}
+      crownEnabled: 0
+      crownMinRange: 0
+      crownMaxRange: 0
+      crownProbability: 0
+      crownMinFrequency: 0
+      crownMaxFrequency: 0
+      crownDepth: 0
+      crownSize: 0
+      crownScaleAtTop: 0
+      crownScaleAtBase: 0
+      crownScaleVariance: 0
+      sproutCrownLevelDescriptor:
+        isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+    - id: 4
+      snapshotType: 
+      processorId: 0
+      seed: -1263052860
+      activeLevels: 2
+      curve:
+        _closed: 0
+        _axis: 0
+        nodes: []
+        resolutionAngle: 5
+        alwaysIncludeNodeAsPoint: 0
+        noiseResolution: 4
+        noiseStrength: 0.2
+        noiseFactorAtFirstNode: 0
+        noiseFactorAtLastNode: 0
+        noiseScaleAtFirstNode: 1
+        noiseScaleAtLastNode: 1
+        noiseLengthOffset: 0
+        noiseLengthScale: 1
+        spareNoiseOffsetAtFirstPoint: 0
+        referenceForward: {x: 0, y: 1, z: 0}
+        normalMode: 0
+        referenceNormal: {x: 0, y: 0, z: 1}
+        fixedNormal: {x: 0, y: 0, z: 1}
+        _guid: da850302-0a6e-47d9-9e56-0f5964a36870
+        simplifyBias: 0
+        distanceStep: 0.05
+      girthAtBase: 0.016125001
+      girthAtTop: 0.00075
+      noiseResolution: 0.642
+      noiseAtBase: 0.839
+      noiseAtTop: 0.826
+      noiseScaleAtBase: 0.202
+      noiseScaleAtTop: 0.845
+      branchLevelDescriptors:
+      - isEnabled: 1
+        minFrequency: 1
+        maxFrequency: 1
+        radius: 0
+        minRange: 0
+        maxRange: 1
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        minLengthAtBase: 0.44175392
+        maxLengthAtBase: 0.634555
+        minLengthAtTop: 0.22500001
+        maxLengthAtTop: 0.3
+        lengthCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minPlaneAlignAtTop: 0
+        maxPlaneAlignAtTop: 0
+        minPlaneAlignAtBase: 0
+        maxPlaneAlignAtBase: 0
+      - isEnabled: 1
+        minFrequency: 1
+        maxFrequency: 5
+        radius: 0
+        minRange: 0
+        maxRange: 1
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        minLengthAtBase: 0.46323532
+        maxLengthAtBase: 0.5382353
+        minLengthAtTop: 0.78088236
+        maxLengthAtTop: 0.85588235
+        lengthCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+        minParallelAlignAtTop: 0.56818193
+        maxParallelAlignAtTop: 0.92045456
+        minParallelAlignAtBase: -0.37651515
+        maxParallelAlignAtBase: -0.1378788
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minPlaneAlignAtTop: 0
+        maxPlaneAlignAtTop: 0
+        minPlaneAlignAtBase: -0.52
+        maxPlaneAlignAtBase: 0.22666669
+      - isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 7
+        radius: 0
+        minRange: 0
+        maxRange: 1
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        minLengthAtBase: 0.22500001
+        maxLengthAtBase: 0.3
+        minLengthAtTop: 0.22500001
+        maxLengthAtTop: 0.3
+        lengthCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+        minParallelAlignAtTop: 0.625
+        maxParallelAlignAtTop: 0.8181818
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0.39772728
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minPlaneAlignAtTop: 0
+        maxPlaneAlignAtTop: 0
+        minPlaneAlignAtBase: 0
+        maxPlaneAlignAtBase: 0
+      - isEnabled: 1
+        minFrequency: 2
+        maxFrequency: 3
+        radius: 0
+        minRange: 0
+        maxRange: 1
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        minLengthAtBase: 0.22500001
+        maxLengthAtBase: 0.3
+        minLengthAtTop: 0.22500001
+        maxLengthAtTop: 0.3
+        lengthCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+        minParallelAlignAtTop: 0.76878613
+        maxParallelAlignAtTop: 0.76878613
+        minParallelAlignAtBase: 0.433526
+        maxParallelAlignAtBase: 0.433526
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minPlaneAlignAtTop: 0
+        maxPlaneAlignAtTop: 0
+        minPlaneAlignAtBase: 0
+        maxPlaneAlignAtBase: 0
+      sproutASubmeshIndex: 1
+      sproutBSubmeshIndex: -1
+      sproutCrownSubmeshIndex: -1
+      sproutASubmeshCount: 0
+      sproutBSubmeshCount: 0
+      sproutCrownSubmeshCount: 0
+      sproutASize: 0.09
+      sproutAScaleAtBase: 1.2
+      sproutAScaleAtTop: 0.4
+      sproutAScaleVariance: 0.488
+      sproutAScaleMode: 0
+      sproutAFlipAlign: 0.613
+      sproutANormalRandomness: 0.575
+      sproutABendingAtTop: 0
+      sproutABendingAtBase: 0
+      sproutASideBendingAtTop: 0
+      sproutASideBendingAtBase: 0
+      sproutALevelDescriptors:
+      - isEnabled: 1
+        minFrequency: 1
+        maxFrequency: 4
+        minParallelAlignAtTop: 0.5260116
+        maxParallelAlignAtTop: 0.5260116
+        minParallelAlignAtBase: 0.31791908
+        maxParallelAlignAtBase: 0.31791908
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0.32947975
+        maxParallelAlignAtTop: 0.47976875
+        minParallelAlignAtBase: 0.32947975
+        maxParallelAlignAtBase: 0.7919075
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0.625
+        maxParallelAlignAtTop: 0.8863636
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0.17045455
+        minGravityAlignAtTop: 0.38636363
+        maxGravityAlignAtTop: 0.60227275
+        minGravityAlignAtBase: 0.20454545
+        maxGravityAlignAtBase: 0.44318175
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0.41618496
+        maxParallelAlignAtTop: 0.80924845
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0.25433525
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      sproutBSize: 0.075
+      sproutBScaleAtBase: 1
+      sproutBScaleAtTop: 1
+      sproutBScaleVariance: 0
+      sproutBScaleMode: 0
+      sproutBFlipAlign: 0.8
+      sproutBNormalRandomness: 0.5
+      sproutBBendingAtTop: 0
+      sproutBBendingAtBase: 0
+      sproutBSideBendingAtTop: 0
+      sproutBSideBendingAtBase: 0
+      sproutBLevelDescriptors:
+      - isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      - isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+      polygonAreas: []
+      lodCount: 3
+      lastSproutPosition: {x: 0, y: 0, z: 0}
+      crownEnabled: 0
+      crownMinRange: 0
+      crownMaxRange: 0
+      crownProbability: 0
+      crownMinFrequency: 0
+      crownMaxFrequency: 0
+      crownDepth: 0
+      crownSize: 0
+      crownScaleAtTop: 0
+      crownScaleAtBase: 0
+      crownScaleVariance: 0
+      sproutCrownLevelDescriptor:
+        isEnabled: 1
+        minFrequency: 5
+        maxFrequency: 9
+        minParallelAlignAtTop: 0
+        maxParallelAlignAtTop: 0
+        minParallelAlignAtBase: 0
+        maxParallelAlignAtBase: 0
+        minGravityAlignAtTop: 0
+        maxGravityAlignAtTop: 0
+        minGravityAlignAtBase: 0
+        maxGravityAlignAtBase: 0
+        minRange: 0
+        maxRange: 1
+        distribution: 0
+        distributionCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 1
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        spacingVariance: 0
+    variations: []
+    snapshotIndex: 0
+    lastSnapshotIndex: 3
+    variationIndex: -1
+    lastVariationIndex: -1
+    branchAlbedoTexture: {fileID: 2800000, guid: ac52998d0ceb24a8d8438b2b399e35e9, type: 3}
+    branchNormalTexture: {fileID: 2800000, guid: 21feba73c7aad467ab0fdc04da14aa1a, type: 3}
+    branchTextureYDisplacement: 2
+    sproutStyleA:
+      minColorSaturation: 1
+      maxColorSaturation: 1
+      sproutSaturationMode: 0
+      invertSproutSaturationMode: 0
+      sproutSaturationVariance: 0
+      minColorShade: 0.75
+      maxColorShade: 1
+      minColorTint: 0.19795918
+      maxColorTint: 0.6564626
+      colorTint: {r: 0.8396226, g: 0.17845789, b: 0.0039604935, a: 1}
+      sproutTintMode: 0
+      invertSproutTintMode: 0
+      sproutTintVariance: 0
+      metallic: 0.114
+      glossiness: 0.218
+      subsurface: 1
+      sproutMapAlphas:
+      - 1
+      - 0.8
+      sproutMapAreas:
+      - enabled: 1
+        x: 0.034545455
+        y: 0.5418182
+        width: 0.24727273
+        height: 0.42727274
+        pivotX: 0.5514706
+        pivotY: 0.004255319
+        texture: {fileID: 2800000, guid: 62ff5abbbec2eac23b7a1f004192b128, type: 3}
+        normalMap: {fileID: 2800000, guid: fa30a5e6a2ac405f39bad9abc3544d2f, type: 3}
+        extraMap: {fileID: 0}
+        subsurfaceMap: {fileID: 0}
+      - enabled: 1
+        x: 0.027272727
+        y: 0.04909091
+        width: 0.30363637
+        height: 0.39636365
+        pivotX: 0.5778443
+        pivotY: 0.036697246
+        texture: {fileID: 2800000, guid: 62ff5abbbec2eac23b7a1f004192b128, type: 3}
+        normalMap: {fileID: 2800000, guid: fa30a5e6a2ac405f39bad9abc3544d2f, type: 3}
+        extraMap: {fileID: 0}
+        subsurfaceMap: {fileID: 0}
+    sproutStyleB:
+      minColorSaturation: 1
+      maxColorSaturation: 1
+      sproutSaturationMode: 0
+      invertSproutSaturationMode: 0
+      sproutSaturationVariance: 0
+      minColorShade: 0.75
+      maxColorShade: 1
+      minColorTint: 0
+      maxColorTint: 0.2
+      colorTint: {r: 1, g: 1, b: 1, a: 1}
+      sproutTintMode: 0
+      invertSproutTintMode: 0
+      sproutTintVariance: 0
+      metallic: 0.158
+      glossiness: 0.278
+      subsurface: 1.057
+      sproutMapAlphas: []
+      sproutMapAreas: []
+    sproutStyleCrown:
+      minColorSaturation: 1
+      maxColorSaturation: 1
+      sproutSaturationMode: 0
+      invertSproutSaturationMode: 0
+      sproutSaturationVariance: 0
+      minColorShade: 0.75
+      maxColorShade: 1
+      minColorTint: 0
+      maxColorTint: 0.2
+      colorTint: {r: 1, g: 1, b: 1, a: 1}
+      sproutTintMode: 0
+      invertSproutTintMode: 0
+      sproutTintVariance: 0
+      metallic: 0
+      glossiness: 0
+      subsurface: 1
+      sproutMapAlphas: []
+      sproutMapAreas: []
+    branchColorShade: 1
+    branchColorSaturation: 1
+    enableAO: 0
+    samplesAO: 5
+    strengthAO: 0.5
+    enablePreviewAO: 0
+    bgColor: {r: 0.28, g: 0.38, b: 0.47, a: 1}
+    planeSize: 1
+    planeTint: {r: 1, g: 1, b: 1, a: 1}
+    showRuler: 1
+    rulerColor: {r: 1, g: 1, b: 1, a: 1}
+    gizmosColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    gizmosLineWidth: 0.5
+    gizmosUnitSize: 0.3
+    showAxisGizmo: 1
+    axisGizmoSize: 0.15
+    gizmosOutlineWidth: 1
+    gizmosOutlineAlpha: 0.5
+    exportMode: 1
+    exportPath: 
+    exportPrefix: branch
+    exportPrefixVariation: variation
+    exportTake: 0
+    exportTextureSize: 3
+    exportAtlasPadding: 10
+    exportAlbedoEnabled: 1
+    exportTexturesFlags: 15
+    atlasAlbedoTexture: {fileID: 0}
+    atlasNormalsTexture: {fileID: 0}
+    atlasExtrasTexture: {fileID: 0}
+    atlasSubsurfaceTexture: {fileID: 0}
