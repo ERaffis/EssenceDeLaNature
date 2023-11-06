@@ -52,7 +52,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -186,20 +186,20 @@ LODGroup:
   m_AnimateCrossFading: 0
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.9
-    fadeTransitionWidth: 0.4
+  - screenRelativeHeight: 0.6
+    fadeTransitionWidth: 0.2
     renderers:
     - renderer: {fileID: 5614604054002165698}
-  - screenRelativeHeight: 0.7
-    fadeTransitionWidth: 0.4
+  - screenRelativeHeight: 0.3
+    fadeTransitionWidth: 0.2
     renderers:
     - renderer: {fileID: 2166681258789726597}
-  - screenRelativeHeight: 0.39999998
-    fadeTransitionWidth: 0.4
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0.2
     renderers:
     - renderer: {fileID: 6801062589771094027}
   - screenRelativeHeight: 0
-    fadeTransitionWidth: 0.4
+    fadeTransitionWidth: 0.2
     renderers:
     - renderer: {fileID: 928742279164228254}
   m_Enabled: 1
@@ -278,7 +278,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -318,7 +318,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6016042062647214523}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 599eb9842805191a4ad9ccfe9f38d4c3, type: 3}
   m_Name: 
@@ -413,7 +413,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -453,7 +453,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6301731282988397671}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 599eb9842805191a4ad9ccfe9f38d4c3, type: 3}
   m_Name: 
@@ -547,7 +547,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1

@@ -806,7 +806,8 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Standalone: DISTANT_LANDS;COZY_WEATHER;COZY_URP
+    Standalone: DISTANT_LANDS;COZY_WEATHER;COZY_URP;MOREMOUNTAINS_NICEVIBRATIONS_INSTALLED
+    WebGL: DISTANT_LANDS;COZY_WEATHER;COZY_URP
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}
