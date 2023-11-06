@@ -99,7 +99,7 @@ Material:
     - _FogIntensity1: 1
     - _FogOffset: 0
     - _FogOffset1: 1
-    - _FogSmoothness: 2000
+    - _FogSmoothness: 173.20508
     - _FogSmoothness1: 100
     - _GlossMapScale: 1
     - _Glossiness: 0.5
