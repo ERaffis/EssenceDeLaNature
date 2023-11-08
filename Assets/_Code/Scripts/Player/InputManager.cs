@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class InputManager : MonoBehaviour
 {
@@ -24,11 +25,16 @@ public class InputManager : MonoBehaviour
 
     [Header("Is the menu")]
     public bool _inMenu;
+    public bool _inPauseMenu;
 
     [Header("References")]
     [Tooltip("DESCRIPTION")]
-    public GameObject _pauseMenu;
     public GameObject _album;
+    public GameObject _pauseMenu;
+    public CinemachineVirtualCamera _playerCam;
+    public CinemachineVirtualCamera _menuCam;
+    public Volume _mainVolume;
+    public Volume _menuVolume;
 
 
     [Header("Input Manager Instance")]
@@ -55,6 +61,11 @@ public class InputManager : MonoBehaviour
         _inMenu = false;
         _controls.FindActionMap("BasicControls").Enable();
         _controls.FindActionMap("Menu").Disable();
+        _playerCam.Priority = 10;
+        _menuCam.Priority = 0;
+        _mainVolume.priority = 10;
+        _menuVolume.priority = 0;
+        _inPauseMenu = false;
 
     }
 
@@ -87,35 +98,118 @@ public class InputManager : MonoBehaviour
 
     public void OnAlbum(InputValue value)
     {
-        _album.SetActive(!_album.activeSelf);
-        _inMenu = !_inMenu;
+        if (_inPauseMenu == false)
+        {
+            _pauseMenu.SetActive(false);
+            _album.SetActive(true);
 
-        SetCursorState(!_inMenu);
+            _inMenu = !_inMenu;
+
+            SetCursorState(!_inMenu);
+
+            if (_inMenu)
+            {
+                _controls.FindActionMap("BasicControls").Disable();
+                _controls.FindActionMap("Menu").Enable();
+                _playerCam.Priority = 0;
+                _menuCam.Priority = 10;
+                _mainVolume.priority = 0;
+                _menuVolume.priority = 10;
+            }
+            else
+            {
+                _controls.FindActionMap("BasicControls").Enable();
+                _controls.FindActionMap("Menu").Disable();
+                _playerCam.Priority = 10;
+                _menuCam.Priority = 0;
+                _mainVolume.priority = 10;
+                _menuVolume.priority = 0;
+                _pauseMenu.SetActive(true);
+                _album.SetActive(false);
+            }
+        }
+
     }
     public void OnAlbum()
     {
-        _album.SetActive(!_album.activeSelf);
-        _inMenu = !_inMenu;
+        if (_inPauseMenu == false)
+        {
+            _pauseMenu.SetActive(false);
+            _album.SetActive(true);
 
-        SetCursorState(!_inMenu);
+            _inMenu = !_inMenu;
+
+            SetCursorState(!_inMenu);
+
+            if (_inMenu)
+            {
+                _controls.FindActionMap("BasicControls").Disable();
+                _controls.FindActionMap("Menu").Enable();
+                _playerCam.Priority = 0;
+                _menuCam.Priority = 10;
+                _mainVolume.priority = 0;
+                _menuVolume.priority = 10;
+            }
+            else
+            {
+                _controls.FindActionMap("BasicControls").Enable();
+                _controls.FindActionMap("Menu").Disable();
+                _playerCam.Priority = 10;
+                _menuCam.Priority = 0;
+                _mainVolume.priority = 10;
+                _menuVolume.priority = 0;
+                _pauseMenu.SetActive(true);
+                _album.SetActive(false);
+            }
+        }
     }
 
-    public void OnMenu(InputValue value)
+    public void OnMenu()
     {
-        _pauseMenu.SetActive(!_pauseMenu.activeSelf);
-        SetCursorState(!_pauseMenu.activeSelf);
-        if (_pauseMenu.activeSelf)
+
+
+
+        if (!_inMenu && !_album.activeSelf)
         {
-            print("Menu Opened");
+            _inPauseMenu = true;
+            _inMenu = true;
+            _pauseMenu.SetActive(true);
+            _album.SetActive(false);
+            SetCursorState(false);
+
+
             _controls.FindActionMap("BasicControls").Disable();
             _controls.FindActionMap("Menu").Enable();
+
+            _playerCam.Priority = 0;
+            _menuCam.Priority = 10;
+            _mainVolume.priority = 0;
+            _menuVolume.priority = 10;
+            
         }
-        else
+        else if (_inMenu && _album.activeSelf)
         {
-            print("Menu Closed");
+            _inPauseMenu = true;
+            _pauseMenu.SetActive(true);
+            _album.SetActive(false);
+            
+
+        }
+        else if (_inMenu)
+        {
+            _inMenu = false;
+            _inPauseMenu = false;
+            _pauseMenu.SetActive(true);
+            _album.SetActive(false);
+            SetCursorState(true);
+
             _controls.FindActionMap("BasicControls").Enable();
             _controls.FindActionMap("Menu").Disable();
-
+            _playerCam.Priority = 10;
+            _menuCam.Priority = 0;
+            _mainVolume.priority = 10;
+            _menuVolume.priority = 0;
+            
         }
     }
 

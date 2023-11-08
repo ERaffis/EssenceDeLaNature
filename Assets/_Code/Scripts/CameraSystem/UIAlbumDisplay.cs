@@ -5,55 +5,29 @@ using UnityEngine.UI;
 
 public class UIAlbumDisplay : MonoBehaviour
 {
-    public Image _currentDisplay;
-    public Animator _animator;
-    public AudioSource _audioClip;
-
-    public CameraController _cameraController;
-    public CanvasGroup _canvasGroup;
-
-    public int _photoDisplaying;
-    public bool _isSelectingPhoto;
-    public int _maxPhoto;
+    public Image[] _pictures;
+    public GameObject[] _pictureParent;
+    public SO_Picture[] _pictureHolder;
 
     private void OnEnable()
     {
-        _currentDisplay.sprite = _cameraController.photoAlbum[_photoDisplaying].imageSprite;
-    }
-    private void OnDisable()
-    {
-        _canvasGroup.interactable = true;
-        _canvasGroup.alpha = 1f;
-        _isSelectingPhoto = false;
-    }
-
-    public void Next()
-    {
-        _photoDisplaying++;
-        if (_photoDisplaying > _maxPhoto-1)
+        for (int i = 0; i < _pictures.Length; i++)
         {
-            _photoDisplaying = 0;
-        }
-        StartCoroutine(ChangePhoto());
-        
-    }
-    public void Previous()
-    {
-        _photoDisplaying--;
-        if (_photoDisplaying < 0)
-        {
-            _photoDisplaying = _maxPhoto-1;
-        }
-        StartCoroutine(ChangePhoto());
-        
-    }
 
-    public IEnumerator ChangePhoto()
-    {
-        _animator.Play("FadeInOut");
-        _audioClip.Play();
-        yield return new WaitForSeconds(0.5f);
-        _currentDisplay.sprite = _cameraController.photoAlbum[_photoDisplaying].imageSprite;
-    }
+            if (!_pictureHolder[i].isEmpty)
+            {
+                _pictureParent[i].GetComponent<CanvasGroup>().alpha = 1f;
+                _pictures[i].sprite = _pictureHolder[i].imageSprite;
+                _pictureParent[i].GetComponent<Button>().interactable = true;
+                _pictureParent[i].GetComponent<CenterPicture>().bigImagePicture.sprite = _pictures[i].sprite;
+            }
+            else
+            {
+                break;
+            }
 
+        }
+    }
+        
 }
+

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a3e315514b680e438761082613552c4, type: 3}
   m_Name: Picture_06
   m_EditorClassIdentifier: 
-  prefabName: 
-  imageSprite: {fileID: 0}
+  prefabName: Juin
+  imageSprite: {fileID: 21300000, guid: 83ffc35c24554854ca9bc26e664a84f5, type: 3}
   imageTexture2D: {fileID: 0}
-  isEmpty: 0
+  isEmpty: 1
   isPlaced: 0

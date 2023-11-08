@@ -40,9 +40,6 @@ public class CameraController : MonoBehaviour
     [Space(1)]
     public int photoNumber;
     public SO_Picture[] photoAlbum;
-    public GameObject photoAlbumUI;
-    public Sprite[] placeholder;
-    public int currentlyShownPhoto;
 
     //private bool canTakePicture;
     private Texture2D screenCapture;
@@ -75,16 +72,8 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         screenCapture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
-        //canTakePicture = true;
         photoNumber = 0;
-        currentlyShownPhoto = 0;
-        //_turnOnOrOff = true;
-        isSelectingPhoto = false;
-
-        for (int i = 0; i < photoAlbum.Length; i++)
-        {
-            photoAlbum[i].imageSprite = placeholder[i];
-        }
+        
     }
 
     private void Update()
@@ -105,12 +94,7 @@ public class CameraController : MonoBehaviour
         {
             if (_playerInventory._cameraState)
             {
-                print("take photo");
                 InitiateCapture();
-            }
-            else
-            {
-                print("camera not activated, no photo taken");
             }
         }
         
@@ -143,7 +127,6 @@ public class CameraController : MonoBehaviour
         photoCapture.name = "Image " + photoNumber;
 
         cameraShutter.SetActive(true);
-        print(cameraShutter.activeSelf);
         _worldEvolutionManager.PhotoCaptured(photoNumber);
         photoNumber++;
 
@@ -155,12 +138,11 @@ public class CameraController : MonoBehaviour
         
         ShowPhoto(photoCapture);
         cameraShutter.SetActive(false);
-        print(cameraShutter.activeSelf);
         //Show photo
         ShowPhoto(photoCapture);
 
         //Hide photo
-        yield return new WaitForSeconds(2.31f);
+        yield return new WaitForSeconds(3.31f);
         photoFrame.SetActive(false);
         photoFrame.GetComponent<CanvasGroup>().alpha = 0;
         //transitionText.SetActive(false);
