@@ -38,8 +38,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   tempratureFilter: 0
   precipitationFilter: 0
-  currentTicks: 282
-  currentDay: 22
+  currentTicks: 323.16434
+  currentDay: 3
   currentYear: 0
   dayAndTime: 14.619445
   pauseTime: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
   resetTicksOnStart: 0
   startTicks: 120
   ticksPerDay: 360
-  tickSpeed: 5
+  tickSpeed: 10
   tickSpeedMultiplier:
     serializedVersion: 2
     m_Curve:
@@ -242,7 +242,7 @@ MonoBehaviour:
   - name: December
     days: 31
   timeCurveSettings: 2
-  daysPerYear: 48
+  daysPerYear: 12
   dawnBlock:
     start: 0.1388889
     end: 0.20833333

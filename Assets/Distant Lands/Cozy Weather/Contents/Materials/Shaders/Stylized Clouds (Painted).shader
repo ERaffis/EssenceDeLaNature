@@ -1,4 +1,4 @@
-// Made with Amplify Shader Editor v1.9.1.5
+// Made with Amplify Shader Editor v1.9.1.3
 // Available at the Unity Asset Store - http://u3d.as/y3X 
 Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 {
@@ -67,7 +67,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 
 		
 
-		Tags { "RenderPipeline"="UniversalPipeline" "RenderType"="Transparent" "Queue"="Transparent" "UniversalMaterialType"="Unlit" }
+		Tags { "RenderPipeline"="UniversalPipeline" "RenderType"="Transparent" "Queue"="Transparent+1" }
 
 		Cull Front
 		AlphaToMask Off
@@ -211,7 +211,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 
 			#pragma multi_compile_instancing
 			#define _SURFACE_TYPE_TRANSPARENT 1
-			#define ASE_SRP_VERSION 120108
+			#define ASE_SRP_VERSION 130108
 
 
 			#pragma multi_compile _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
@@ -239,6 +239,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Input.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceData.hlsl"
 
+			#include "Packages/com.occasoftware.buto/Shaders/Resources/Buto.hlsl"
 			#define ASE_NEEDS_FRAG_WORLD_POSITION
 
 
@@ -263,6 +264,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 					float fogFactor : TEXCOORD2;
 				#endif
 				float4 ase_texcoord3 : TEXCOORD3;
+				float4 ase_texcoord4 : TEXCOORD4;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -555,10 +557,14 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
-				o.ase_texcoord3.xy = v.ase_texcoord.xy;
+				float4 ase_clipPos = TransformObjectToHClip((v.vertex).xyz);
+				float4 screenPos = ComputeScreenPos(ase_clipPos);
+				o.ase_texcoord3 = screenPos;
+				
+				o.ase_texcoord4.xy = v.ase_texcoord.xy;
 				
 				//setting value to unused interpolator channels and avoid initialization warnings
-				o.ase_texcoord3.zw = 0;
+				o.ase_texcoord4.zw = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
@@ -698,9 +704,13 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 					#endif
 				#endif
 
+				float4 screenPos = IN.ase_texcoord3;
+				float4 ase_screenPosNorm = screenPos / screenPos.w;
+				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
+				float2 ScreenPosition918 = ase_screenPosNorm.xy;
 				float4 CloudColor332 = _CloudColor;
 				float4 CloudHighlightColor334 = _CloudHighlightColor;
-				float2 texCoord94 = IN.ase_texcoord3.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 texCoord94 = IN.ase_texcoord4.xy * float2( 1,1 ) + float2( 0,0 );
 				float2 Pos159 = texCoord94;
 				float mulTime61 = _TimeParameters.x * ( 0.001 * _WindSpeed );
 				float TIme152 = mulTime61;
@@ -758,7 +768,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 				float temp_output_47_0 = ( (0.0 + (( 1.0 - voroi77 ) - 0.3) * (0.5 - 0.0) / (1.0 - 0.3)) * 0.1 * _DetailAmount );
 				float DetailedClouds347 = saturate( ( ComplexCloudDensity344 + temp_output_47_0 ) );
 				float CloudDetail294 = temp_output_47_0;
-				float2 texCoord113 = IN.ase_texcoord3.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 texCoord113 = IN.ase_texcoord4.xy * float2( 1,1 ) + float2( 0,0 );
 				float2 temp_output_114_0 = ( texCoord113 - float2( 0.5,0.5 ) );
 				float dotResult140 = dot( temp_output_114_0 , temp_output_114_0 );
 				float BorderHeight386 = ( 1.0 - _BorderHeight );
@@ -768,7 +778,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 				float3 normalizeResult745 = normalize( ( WorldPosition - _WorldSpaceCameraPos ) );
 				float3 normalizeResult773 = normalize( _StormDirection );
 				float dotResult743 = dot( normalizeResult745 , normalizeResult773 );
-				float2 texCoord721 = IN.ase_texcoord3.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 texCoord721 = IN.ase_texcoord4.xy * float2( 1,1 ) + float2( 0,0 );
 				float2 temp_output_726_0 = ( texCoord721 - float2( 0.5,0.5 ) );
 				float dotResult728 = dot( temp_output_726_0 , temp_output_726_0 );
 				float temp_output_763_0 = ( -2.0 * ( 1.0 - ( _NimbusVariation * 0.9 ) ) );
@@ -785,7 +795,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 				float mulTime568 = _TimeParameters.x * 0.01;
 				float simplePerlin2D570 = snoise( (Pos159*1.0 + mulTime568)*4.0 );
 				float4 ChemtrailsPattern576 = ( ( saturate( simplePerlin2D563 ) * tex2D( _ChemtrailsTexture, (rotator553*0.5 + 0.0) ) ) + ( tex2D( _ChemtrailsTexture, rotator561 ) * saturate( simplePerlin2D570 ) ) );
-				float2 texCoord583 = IN.ase_texcoord3.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 texCoord583 = IN.ase_texcoord4.xy * float2( 1,1 ) + float2( 0,0 );
 				float2 temp_output_581_0 = ( texCoord583 - float2( 0.5,0.5 ) );
 				float dotResult584 = dot( temp_output_581_0 , temp_output_581_0 );
 				float4 ChemtrailsFinal590 = ( ChemtrailsPattern576 * saturate( (0.4 + (dotResult584 - 0.0) * (2.0 - 0.4) / (0.1 - 0.0)) ) * ( _ChemtrailsMultiplier * 0.5 ) );
@@ -802,7 +812,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 				float simplePerlin2D682 = snoise( (Pos159*1.0 + mulTime670) );
 				simplePerlin2D682 = simplePerlin2D682*0.5 + 0.5;
 				float4 CirrusPattern696 = ( ( saturate( simplePerlin2D681 ) * tex2D( _CirrusTexture, (rotator677*1.5 + 0.75) ) ) + ( tex2D( _CirrusTexture, (rotator676*1.0 + 0.0) ) * saturate( simplePerlin2D682 ) ) );
-				float2 texCoord685 = IN.ase_texcoord3.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 texCoord685 = IN.ase_texcoord4.xy * float2( 1,1 ) + float2( 0,0 );
 				float2 temp_output_690_0 = ( texCoord685 - float2( 0.5,0.5 ) );
 				float dotResult694 = dot( temp_output_690_0 , temp_output_690_0 );
 				float4 temp_output_701_0 = ( CirrusPattern696 * saturate( (0.0 + (dotResult694 - 0.0) * (2.0 - 0.0) / (0.2 - 0.0)) ) );
@@ -833,7 +843,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 				float voroi601 = voronoi601( coords601, time601, id601, uv601, 0, voronoiSmoothId601 );
 				float time492 = ( 10.0 * mulTime602 );
 				float2 voronoiSmoothId492 = 0;
-				float2 coords492 = IN.ase_texcoord3.xy * 10.0;
+				float2 coords492 = IN.ase_texcoord4.xy * 10.0;
 				float2 id492 = 0;
 				float2 uv492 = 0;
 				float voroi492 = voronoi492( coords492, time492, id492, uv492, 0, voronoiSmoothId492 );
@@ -867,7 +877,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 				float mulTime612 = _TimeParameters.x * 0.01;
 				float simplePerlin2D618 = snoise( (Pos159*10.0 + mulTime612)*4.0 );
 				float4 CirrostratPattern634 = ( ( saturate( simplePerlin2D620 ) * tex2D( _CirrostratusTexture, (rotator615*1.5 + 0.75) ) ) + ( tex2D( _CirrostratusTexture, (rotator621*1.5 + 0.75) ) * saturate( simplePerlin2D618 ) ) );
-				float2 texCoord625 = IN.ase_texcoord3.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 texCoord625 = IN.ase_texcoord4.xy * float2( 1,1 ) + float2( 0,0 );
 				float2 temp_output_629_0 = ( texCoord625 - float2( 0.5,0.5 ) );
 				float dotResult630 = dot( temp_output_629_0 , temp_output_629_0 );
 				float4 CirrostratLightTransport641 = ( CirrostratPattern634 * saturate( (0.4 + (dotResult630 - 0.0) * (2.0 - 0.4) / (0.1 - 0.0)) ) * ( _CirrostratusMultiplier * 1.0 ) );
@@ -878,13 +888,15 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 				float4 lerpResult898 = lerp( _CloudTextureColor , CZY_LightColor , float4( 0.5,0.5,0.5,0 ));
 				float4 lerpResult891 = lerp( lerpResult522 , ( lerpResult898 * lerpResult522 ) , CloudTextureFinal847);
 				float4 FinalCloudColor351 = lerpResult891;
+				float3 InputColor918 = FinalCloudColor351.rgb;
+				float3 localButoFogBlend918 = ButoFogBlend( ScreenPosition918 , InputColor918 );
 				
 				float temp_output_863_0 = saturate( ( DetailedClouds347 + BorderLightTransport418 + NimbusLightTransport739 ) );
 				float4 FinalAlpha408 = saturate( ( saturate( ( temp_output_863_0 + ( (-1.0 + (CloudTextureFinal847 - 0.0) * (1.0 - -1.0) / (1.0 - 0.0)) * _TextureAmount * sin( ( temp_output_863_0 * PI ) ) ) ) ) + AltoCumulusLightTransport447 + ChemtrailsFinal590 + CirrostratLightTransport641 + CirrusAlpha715 ) );
 				
 				float3 BakedAlbedo = 0;
 				float3 BakedEmission = 0;
-				float3 Color = FinalCloudColor351.rgb;
+				float3 Color = localButoFogBlend918;
 				float Alpha = saturate( ( FinalAlpha408.r + ( FinalAlpha408.r * 2.0 * _CloudThickness ) ) );
 				float AlphaClipThreshold = 0.5;
 				float AlphaClipThresholdShadow = 0.5;
@@ -930,7 +942,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 
 			#pragma multi_compile_instancing
 			#define _SURFACE_TYPE_TRANSPARENT 1
-			#define ASE_SRP_VERSION 120108
+			#define ASE_SRP_VERSION 130108
 
 
 			#pragma vertex vert
@@ -1601,7 +1613,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 
 			#pragma multi_compile_instancing
 			#define _SURFACE_TYPE_TRANSPARENT 1
-			#define ASE_SRP_VERSION 120108
+			#define ASE_SRP_VERSION 130108
 
 
 			#pragma vertex vert
@@ -2241,7 +2253,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 
 			#pragma multi_compile_instancing
 			#define _SURFACE_TYPE_TRANSPARENT 1
-			#define ASE_SRP_VERSION 120108
+			#define ASE_SRP_VERSION 130108
 
 
 			#pragma vertex vert
@@ -2265,14 +2277,15 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 			{
 				float4 vertex : POSITION;
 				float3 ase_normal : NORMAL;
-				
+				float4 ase_texcoord : TEXCOORD0;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
 			struct VertexOutput
 			{
 				float4 clipPos : SV_POSITION;
-				
+				float4 ase_texcoord : TEXCOORD0;
+				float4 ase_texcoord1 : TEXCOORD1;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -2322,9 +2335,239 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 			#endif
 			CBUFFER_END
 
+			sampler2D _CloudTexture;
+			sampler2D _ChemtrailsTexture;
+			sampler2D _CirrostratusTexture;
+			sampler2D _CirrusTexture;
+
+
+			float3 mod2D289( float3 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
+			float2 mod2D289( float2 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
+			float3 permute( float3 x ) { return mod2D289( ( ( x * 34.0 ) + 1.0 ) * x ); }
+			float snoise( float2 v )
+			{
+				const float4 C = float4( 0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439 );
+				float2 i = floor( v + dot( v, C.yy ) );
+				float2 x0 = v - i + dot( i, C.xx );
+				float2 i1;
+				i1 = ( x0.x > x0.y ) ? float2( 1.0, 0.0 ) : float2( 0.0, 1.0 );
+				float4 x12 = x0.xyxy + C.xxzz;
+				x12.xy -= i1;
+				i = mod2D289( i );
+				float3 p = permute( permute( i.y + float3( 0.0, i1.y, 1.0 ) ) + i.x + float3( 0.0, i1.x, 1.0 ) );
+				float3 m = max( 0.5 - float3( dot( x0, x0 ), dot( x12.xy, x12.xy ), dot( x12.zw, x12.zw ) ), 0.0 );
+				m = m * m;
+				m = m * m;
+				float3 x = 2.0 * frac( p * C.www ) - 1.0;
+				float3 h = abs( x ) - 0.5;
+				float3 ox = floor( x + 0.5 );
+				float3 a0 = x - ox;
+				m *= 1.79284291400159 - 0.85373472095314 * ( a0 * a0 + h * h );
+				float3 g;
+				g.x = a0.x * x0.x + h.x * x0.y;
+				g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+				return 130.0 * dot( m, g );
+			}
+			
+					float2 voronoihash148( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi148( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash148( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return (F2 + F1) * 0.5;
+					}
+			
+					float2 voronoihash234( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi234( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash234( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return (F2 + F1) * 0.5;
+					}
+			
+					float2 voronoihash77( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi77( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash77( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return F1;
+					}
+			
+					float2 voronoihash601( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi601( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash601( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return (F2 + F1) * 0.5;
+					}
+			
+					float2 voronoihash492( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi492( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash492( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return F1;
+					}
+			
+					float2 voronoihash463( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi463( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash463( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return F1;
+					}
 			
 
-			
 			int _ObjectId;
 			int _PassValue;
 
@@ -2343,7 +2586,14 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
+				float3 ase_worldPos = TransformObjectToWorld( (v.vertex).xyz );
+				o.ase_texcoord1.xyz = ase_worldPos;
 				
+				o.ase_texcoord.xy = v.ase_texcoord.xy;
+				
+				//setting value to unused interpolator channels and avoid initialization warnings
+				o.ase_texcoord.zw = 0;
+				o.ase_texcoord1.w = 0;
 
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
@@ -2372,7 +2622,8 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 			{
 				float4 vertex : INTERNALTESSPOS;
 				float3 ase_normal : NORMAL;
-				
+				float4 ase_texcoord : TEXCOORD0;
+
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -2389,7 +2640,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				o.vertex = v.vertex;
 				o.ase_normal = v.ase_normal;
-				
+				o.ase_texcoord = v.ase_texcoord;
 				return o;
 			}
 
@@ -2428,7 +2679,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 				VertexInput o = (VertexInput) 0;
 				o.vertex = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
 				o.ase_normal = patch[0].ase_normal * bary.x + patch[1].ase_normal * bary.y + patch[2].ase_normal * bary.z;
-				
+				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
@@ -2450,9 +2701,162 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 			{
 				SurfaceDescription surfaceDescription = (SurfaceDescription)0;
 
+				float2 texCoord94 = IN.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 Pos159 = texCoord94;
+				float mulTime61 = _TimeParameters.x * ( 0.001 * _WindSpeed );
+				float TIme152 = mulTime61;
+				float simplePerlin2D37 = snoise( ( Pos159 + ( TIme152 * float2( 0.2,-0.4 ) ) )*( 100.0 / _MainCloudScale ) );
+				simplePerlin2D37 = simplePerlin2D37*0.5 + 0.5;
+				float SimpleCloudDensity314 = simplePerlin2D37;
+				float time148 = 0.0;
+				float2 voronoiSmoothId148 = 0;
+				float2 temp_output_66_0 = ( Pos159 + ( TIme152 * float2( 0.3,0.2 ) ) );
+				float2 coords148 = temp_output_66_0 * ( 140.0 / _MainCloudScale );
+				float2 id148 = 0;
+				float2 uv148 = 0;
+				float voroi148 = voronoi148( coords148, time148, id148, uv148, 0, voronoiSmoothId148 );
+				float time234 = 0.0;
+				float2 voronoiSmoothId234 = 0;
+				float2 coords234 = temp_output_66_0 * ( 500.0 / _MainCloudScale );
+				float2 id234 = 0;
+				float2 uv234 = 0;
+				float voroi234 = voronoi234( coords234, time234, id234, uv234, 0, voronoiSmoothId234 );
+				float2 appendResult312 = (float2(voroi148 , voroi234));
+				float2 VoroDetails313 = appendResult312;
+				float simplePerlin2D80 = snoise( ( ( float2( 5,20 ) * TIme152 ) + Pos159 )*( 100.0 / 400.0 ) );
+				simplePerlin2D80 = simplePerlin2D80*0.5 + 0.5;
+				float CurrentCloudCover240 = (_MinCloudCover + (simplePerlin2D80 - 0.0) * (_MaxCloudCover - _MinCloudCover) / (1.0 - 0.0));
+				float CumulusCoverage376 = _CumulusCoverageMultiplier;
+				float ComplexCloudDensity344 = (0.0 + (min( SimpleCloudDensity314 , ( 1.0 - VoroDetails313.x ) ) - ( 1.0 - ( CurrentCloudCover240 * CumulusCoverage376 ) )) * (1.0 - 0.0) / (1.0 - ( 1.0 - ( CurrentCloudCover240 * CumulusCoverage376 ) )));
+				float time77 = 0.0;
+				float2 voronoiSmoothId77 = 0;
+				float2 coords77 = ( Pos159 + ( TIme152 * float2( 0.3,0.2 ) ) ) * ( 100.0 / _DetailScale );
+				float2 id77 = 0;
+				float2 uv77 = 0;
+				float fade77 = 0.5;
+				float voroi77 = 0;
+				float rest77 = 0;
+				for( int it77 = 0; it77 <3; it77++ ){
+				voroi77 += fade77 * voronoi77( coords77, time77, id77, uv77, 0,voronoiSmoothId77 );
+				rest77 += fade77;
+				coords77 *= 2;
+				fade77 *= 0.5;
+				}//Voronoi77
+				voroi77 /= rest77;
+				float temp_output_47_0 = ( (0.0 + (( 1.0 - voroi77 ) - 0.3) * (0.5 - 0.0) / (1.0 - 0.3)) * 0.1 * _DetailAmount );
+				float DetailedClouds347 = saturate( ( ComplexCloudDensity344 + temp_output_47_0 ) );
+				float CloudDetail294 = temp_output_47_0;
+				float2 texCoord113 = IN.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 temp_output_114_0 = ( texCoord113 - float2( 0.5,0.5 ) );
+				float dotResult140 = dot( temp_output_114_0 , temp_output_114_0 );
+				float BorderHeight386 = ( 1.0 - _BorderHeight );
+				float temp_output_392_0 = ( -2.0 * ( 1.0 - _BorderVariation ) );
+				float clampResult420 = clamp( ( ( ( CloudDetail294 + SimpleCloudDensity314 ) * saturate( (( BorderHeight386 * temp_output_392_0 ) + (dotResult140 - 0.0) * (( temp_output_392_0 * -4.0 ) - ( BorderHeight386 * temp_output_392_0 )) / (0.5 - 0.0)) ) ) * 10.0 * _BorderEffect ) , -1.0 , 1.0 );
+				float BorderLightTransport418 = clampResult420;
+				float3 ase_worldPos = IN.ase_texcoord1.xyz;
+				float3 normalizeResult745 = normalize( ( ase_worldPos - _WorldSpaceCameraPos ) );
+				float3 normalizeResult773 = normalize( _StormDirection );
+				float dotResult743 = dot( normalizeResult745 , normalizeResult773 );
+				float2 texCoord721 = IN.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 temp_output_726_0 = ( texCoord721 - float2( 0.5,0.5 ) );
+				float dotResult728 = dot( temp_output_726_0 , temp_output_726_0 );
+				float temp_output_763_0 = ( -2.0 * ( 1.0 - ( _NimbusVariation * 0.9 ) ) );
+				float NimbusLightTransport739 = saturate( ( ( ( CloudDetail294 + SimpleCloudDensity314 ) * saturate( (( ( 1.0 - _NimbusMultiplier ) * temp_output_763_0 ) + (( dotResult743 + ( _NimbusHeight * 4.0 * dotResult728 ) ) - 0.5) * (( temp_output_763_0 * -4.0 ) - ( ( 1.0 - _NimbusMultiplier ) * temp_output_763_0 )) / (7.0 - 0.5)) ) ) * 10.0 ) );
+				float temp_output_863_0 = saturate( ( DetailedClouds347 + BorderLightTransport418 + NimbusLightTransport739 ) );
+				float mulTime874 = _TimeParameters.x * 0.5;
+				float2 panner855 = ( ( mulTime874 * 0.004 ) * float2( 0.2,-0.4 ) + Pos159);
+				float4 tex2DNode827 = tex2D( _CloudTexture, (panner855*1.0 + 0.75) );
+				float cos818 = cos( ( mulTime874 * -0.01 ) );
+				float sin818 = sin( ( mulTime874 * -0.01 ) );
+				float2 rotator818 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos818 , -sin818 , sin818 , cos818 )) + float2( 0.5,0.5 );
+				float4 tex2DNode826 = tex2D( _CloudTexture, (rotator818*3.0 + 0.75) );
+				float4 CloudTexture839 = min( tex2DNode827 , tex2DNode826 );
+				float clampResult841 = clamp( ( 2.0 * 0.5 ) , 0.0 , 0.98 );
+				float CloudTextureFinal847 = ( CloudTexture839 * clampResult841 ).r;
+				float time601 = 0.0;
+				float2 voronoiSmoothId601 = 0;
+				float mulTime602 = _TimeParameters.x * 0.003;
+				float2 coords601 = (Pos159*1.0 + ( float2( 1,-2 ) * mulTime602 )) * 10.0;
+				float2 id601 = 0;
+				float2 uv601 = 0;
+				float voroi601 = voronoi601( coords601, time601, id601, uv601, 0, voronoiSmoothId601 );
+				float time492 = ( 10.0 * mulTime602 );
+				float2 voronoiSmoothId492 = 0;
+				float2 coords492 = IN.ase_texcoord.xy * 10.0;
+				float2 id492 = 0;
+				float2 uv492 = 0;
+				float voroi492 = voronoi492( coords492, time492, id492, uv492, 0, voronoiSmoothId492 );
+				float AltoCumulusPlacement461 = saturate( ( ( ( 1.0 - 0.0 ) - (1.0 + (voroi601 - 0.0) * (-0.5 - 1.0) / (1.0 - 0.0)) ) - voroi492 ) );
+				float time463 = 51.2;
+				float2 voronoiSmoothId463 = 0;
+				float2 coords463 = (Pos159*1.0 + ( _AltocumulusWindSpeed * TIme152 )) * ( 100.0 / _AltocumulusScale );
+				float2 id463 = 0;
+				float2 uv463 = 0;
+				float fade463 = 0.5;
+				float voroi463 = 0;
+				float rest463 = 0;
+				for( int it463 = 0; it463 <2; it463++ ){
+				voroi463 += fade463 * voronoi463( coords463, time463, id463, uv463, 0,voronoiSmoothId463 );
+				rest463 += fade463;
+				coords463 *= 2;
+				fade463 *= 0.5;
+				}//Voronoi463
+				voroi463 /= rest463;
+				float AltoCumulusLightTransport447 = saturate( (-1.0 + (( AltoCumulusPlacement461 * ( 0.1 > voroi463 ? (0.5 + (voroi463 - 0.0) * (0.0 - 0.5) / (0.15 - 0.0)) : 0.0 ) * _AltocumulusMultiplier ) - 0.0) * (3.0 - -1.0) / (1.0 - 0.0)) );
+				float mulTime566 = _TimeParameters.x * 0.01;
+				float simplePerlin2D563 = snoise( (Pos159*1.0 + mulTime566)*2.0 );
+				float mulTime560 = _TimeParameters.x * _ChemtrailsMoveSpeed;
+				float cos553 = cos( ( mulTime560 * 0.01 ) );
+				float sin553 = sin( ( mulTime560 * 0.01 ) );
+				float2 rotator553 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos553 , -sin553 , sin553 , cos553 )) + float2( 0.5,0.5 );
+				float cos561 = cos( ( mulTime560 * -0.02 ) );
+				float sin561 = sin( ( mulTime560 * -0.02 ) );
+				float2 rotator561 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos561 , -sin561 , sin561 , cos561 )) + float2( 0.5,0.5 );
+				float mulTime568 = _TimeParameters.x * 0.01;
+				float simplePerlin2D570 = snoise( (Pos159*1.0 + mulTime568)*4.0 );
+				float4 ChemtrailsPattern576 = ( ( saturate( simplePerlin2D563 ) * tex2D( _ChemtrailsTexture, (rotator553*0.5 + 0.0) ) ) + ( tex2D( _ChemtrailsTexture, rotator561 ) * saturate( simplePerlin2D570 ) ) );
+				float2 texCoord583 = IN.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 temp_output_581_0 = ( texCoord583 - float2( 0.5,0.5 ) );
+				float dotResult584 = dot( temp_output_581_0 , temp_output_581_0 );
+				float4 ChemtrailsFinal590 = ( ChemtrailsPattern576 * saturate( (0.4 + (dotResult584 - 0.0) * (2.0 - 0.4) / (0.1 - 0.0)) ) * ( _ChemtrailsMultiplier * 0.5 ) );
+				float mulTime611 = _TimeParameters.x * 0.01;
+				float simplePerlin2D620 = snoise( (Pos159*1.0 + mulTime611)*2.0 );
+				float mulTime607 = _TimeParameters.x * _CirrostratusMoveSpeed;
+				float cos615 = cos( ( mulTime607 * 0.01 ) );
+				float sin615 = sin( ( mulTime607 * 0.01 ) );
+				float2 rotator615 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos615 , -sin615 , sin615 , cos615 )) + float2( 0.5,0.5 );
+				float cos621 = cos( ( mulTime607 * -0.02 ) );
+				float sin621 = sin( ( mulTime607 * -0.02 ) );
+				float2 rotator621 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos621 , -sin621 , sin621 , cos621 )) + float2( 0.5,0.5 );
+				float mulTime612 = _TimeParameters.x * 0.01;
+				float simplePerlin2D618 = snoise( (Pos159*10.0 + mulTime612)*4.0 );
+				float4 CirrostratPattern634 = ( ( saturate( simplePerlin2D620 ) * tex2D( _CirrostratusTexture, (rotator615*1.5 + 0.75) ) ) + ( tex2D( _CirrostratusTexture, (rotator621*1.5 + 0.75) ) * saturate( simplePerlin2D618 ) ) );
+				float2 texCoord625 = IN.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 temp_output_629_0 = ( texCoord625 - float2( 0.5,0.5 ) );
+				float dotResult630 = dot( temp_output_629_0 , temp_output_629_0 );
+				float4 CirrostratLightTransport641 = ( CirrostratPattern634 * saturate( (0.4 + (dotResult630 - 0.0) * (2.0 - 0.4) / (0.1 - 0.0)) ) * ( _CirrostratusMultiplier * 1.0 ) );
+				float mulTime673 = _TimeParameters.x * 0.01;
+				float simplePerlin2D681 = snoise( (Pos159*1.0 + mulTime673)*2.0 );
+				float mulTime666 = _TimeParameters.x * _CirrusMoveSpeed;
+				float cos677 = cos( ( mulTime666 * 0.01 ) );
+				float sin677 = sin( ( mulTime666 * 0.01 ) );
+				float2 rotator677 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos677 , -sin677 , sin677 , cos677 )) + float2( 0.5,0.5 );
+				float cos676 = cos( ( mulTime666 * -0.02 ) );
+				float sin676 = sin( ( mulTime666 * -0.02 ) );
+				float2 rotator676 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos676 , -sin676 , sin676 , cos676 )) + float2( 0.5,0.5 );
+				float mulTime670 = _TimeParameters.x * 0.01;
+				float simplePerlin2D682 = snoise( (Pos159*1.0 + mulTime670) );
+				simplePerlin2D682 = simplePerlin2D682*0.5 + 0.5;
+				float4 CirrusPattern696 = ( ( saturate( simplePerlin2D681 ) * tex2D( _CirrusTexture, (rotator677*1.5 + 0.75) ) ) + ( tex2D( _CirrusTexture, (rotator676*1.0 + 0.0) ) * saturate( simplePerlin2D682 ) ) );
+				float2 texCoord685 = IN.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 temp_output_690_0 = ( texCoord685 - float2( 0.5,0.5 ) );
+				float dotResult694 = dot( temp_output_690_0 , temp_output_690_0 );
+				float4 temp_output_701_0 = ( CirrusPattern696 * saturate( (0.0 + (dotResult694 - 0.0) * (2.0 - 0.0) / (0.2 - 0.0)) ) );
+				float CirrusAlpha715 = ( ( temp_output_701_0 * ( _CirrusMultiplier * 10.0 ) ).r * 0.6 );
+				float4 FinalAlpha408 = saturate( ( saturate( ( temp_output_863_0 + ( (-1.0 + (CloudTextureFinal847 - 0.0) * (1.0 - -1.0) / (1.0 - 0.0)) * _TextureAmount * sin( ( temp_output_863_0 * PI ) ) ) ) ) + AltoCumulusLightTransport447 + ChemtrailsFinal590 + CirrostratLightTransport641 + CirrusAlpha715 ) );
 				
 
-				surfaceDescription.Alpha = 1;
+				surfaceDescription.Alpha = saturate( ( FinalAlpha408.r + ( FinalAlpha408.r * 2.0 * _CloudThickness ) ) );
 				surfaceDescription.AlphaClipThreshold = 0.5;
 
 				#if _ALPHATEST_ON
@@ -2480,7 +2884,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 
 			#pragma multi_compile_instancing
 			#define _SURFACE_TYPE_TRANSPARENT 1
-			#define ASE_SRP_VERSION 120108
+			#define ASE_SRP_VERSION 130108
 
 
 			#pragma vertex vert
@@ -2504,14 +2908,15 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 			{
 				float4 vertex : POSITION;
 				float3 ase_normal : NORMAL;
-				
+				float4 ase_texcoord : TEXCOORD0;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
 			struct VertexOutput
 			{
 				float4 clipPos : SV_POSITION;
-				
+				float4 ase_texcoord : TEXCOORD0;
+				float4 ase_texcoord1 : TEXCOORD1;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -2561,9 +2966,239 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 			#endif
 			CBUFFER_END
 
+			sampler2D _CloudTexture;
+			sampler2D _ChemtrailsTexture;
+			sampler2D _CirrostratusTexture;
+			sampler2D _CirrusTexture;
+
+
+			float3 mod2D289( float3 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
+			float2 mod2D289( float2 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
+			float3 permute( float3 x ) { return mod2D289( ( ( x * 34.0 ) + 1.0 ) * x ); }
+			float snoise( float2 v )
+			{
+				const float4 C = float4( 0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439 );
+				float2 i = floor( v + dot( v, C.yy ) );
+				float2 x0 = v - i + dot( i, C.xx );
+				float2 i1;
+				i1 = ( x0.x > x0.y ) ? float2( 1.0, 0.0 ) : float2( 0.0, 1.0 );
+				float4 x12 = x0.xyxy + C.xxzz;
+				x12.xy -= i1;
+				i = mod2D289( i );
+				float3 p = permute( permute( i.y + float3( 0.0, i1.y, 1.0 ) ) + i.x + float3( 0.0, i1.x, 1.0 ) );
+				float3 m = max( 0.5 - float3( dot( x0, x0 ), dot( x12.xy, x12.xy ), dot( x12.zw, x12.zw ) ), 0.0 );
+				m = m * m;
+				m = m * m;
+				float3 x = 2.0 * frac( p * C.www ) - 1.0;
+				float3 h = abs( x ) - 0.5;
+				float3 ox = floor( x + 0.5 );
+				float3 a0 = x - ox;
+				m *= 1.79284291400159 - 0.85373472095314 * ( a0 * a0 + h * h );
+				float3 g;
+				g.x = a0.x * x0.x + h.x * x0.y;
+				g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+				return 130.0 * dot( m, g );
+			}
+			
+					float2 voronoihash148( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi148( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash148( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return (F2 + F1) * 0.5;
+					}
+			
+					float2 voronoihash234( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi234( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash234( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return (F2 + F1) * 0.5;
+					}
+			
+					float2 voronoihash77( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi77( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash77( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return F1;
+					}
+			
+					float2 voronoihash601( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi601( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash601( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return (F2 + F1) * 0.5;
+					}
+			
+					float2 voronoihash492( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi492( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash492( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return F1;
+					}
+			
+					float2 voronoihash463( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi463( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash463( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return F1;
+					}
 			
 
-			
 			float4 _SelectionID;
 
 
@@ -2582,7 +3217,14 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
+				float3 ase_worldPos = TransformObjectToWorld( (v.vertex).xyz );
+				o.ase_texcoord1.xyz = ase_worldPos;
 				
+				o.ase_texcoord.xy = v.ase_texcoord.xy;
+				
+				//setting value to unused interpolator channels and avoid initialization warnings
+				o.ase_texcoord.zw = 0;
+				o.ase_texcoord1.w = 0;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
 				#else
@@ -2606,7 +3248,8 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 			{
 				float4 vertex : INTERNALTESSPOS;
 				float3 ase_normal : NORMAL;
-				
+				float4 ase_texcoord : TEXCOORD0;
+
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -2623,7 +3266,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				o.vertex = v.vertex;
 				o.ase_normal = v.ase_normal;
-				
+				o.ase_texcoord = v.ase_texcoord;
 				return o;
 			}
 
@@ -2662,7 +3305,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 				VertexInput o = (VertexInput) 0;
 				o.vertex = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
 				o.ase_normal = patch[0].ase_normal * bary.x + patch[1].ase_normal * bary.y + patch[2].ase_normal * bary.z;
-				
+				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
@@ -2684,9 +3327,162 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 			{
 				SurfaceDescription surfaceDescription = (SurfaceDescription)0;
 
+				float2 texCoord94 = IN.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 Pos159 = texCoord94;
+				float mulTime61 = _TimeParameters.x * ( 0.001 * _WindSpeed );
+				float TIme152 = mulTime61;
+				float simplePerlin2D37 = snoise( ( Pos159 + ( TIme152 * float2( 0.2,-0.4 ) ) )*( 100.0 / _MainCloudScale ) );
+				simplePerlin2D37 = simplePerlin2D37*0.5 + 0.5;
+				float SimpleCloudDensity314 = simplePerlin2D37;
+				float time148 = 0.0;
+				float2 voronoiSmoothId148 = 0;
+				float2 temp_output_66_0 = ( Pos159 + ( TIme152 * float2( 0.3,0.2 ) ) );
+				float2 coords148 = temp_output_66_0 * ( 140.0 / _MainCloudScale );
+				float2 id148 = 0;
+				float2 uv148 = 0;
+				float voroi148 = voronoi148( coords148, time148, id148, uv148, 0, voronoiSmoothId148 );
+				float time234 = 0.0;
+				float2 voronoiSmoothId234 = 0;
+				float2 coords234 = temp_output_66_0 * ( 500.0 / _MainCloudScale );
+				float2 id234 = 0;
+				float2 uv234 = 0;
+				float voroi234 = voronoi234( coords234, time234, id234, uv234, 0, voronoiSmoothId234 );
+				float2 appendResult312 = (float2(voroi148 , voroi234));
+				float2 VoroDetails313 = appendResult312;
+				float simplePerlin2D80 = snoise( ( ( float2( 5,20 ) * TIme152 ) + Pos159 )*( 100.0 / 400.0 ) );
+				simplePerlin2D80 = simplePerlin2D80*0.5 + 0.5;
+				float CurrentCloudCover240 = (_MinCloudCover + (simplePerlin2D80 - 0.0) * (_MaxCloudCover - _MinCloudCover) / (1.0 - 0.0));
+				float CumulusCoverage376 = _CumulusCoverageMultiplier;
+				float ComplexCloudDensity344 = (0.0 + (min( SimpleCloudDensity314 , ( 1.0 - VoroDetails313.x ) ) - ( 1.0 - ( CurrentCloudCover240 * CumulusCoverage376 ) )) * (1.0 - 0.0) / (1.0 - ( 1.0 - ( CurrentCloudCover240 * CumulusCoverage376 ) )));
+				float time77 = 0.0;
+				float2 voronoiSmoothId77 = 0;
+				float2 coords77 = ( Pos159 + ( TIme152 * float2( 0.3,0.2 ) ) ) * ( 100.0 / _DetailScale );
+				float2 id77 = 0;
+				float2 uv77 = 0;
+				float fade77 = 0.5;
+				float voroi77 = 0;
+				float rest77 = 0;
+				for( int it77 = 0; it77 <3; it77++ ){
+				voroi77 += fade77 * voronoi77( coords77, time77, id77, uv77, 0,voronoiSmoothId77 );
+				rest77 += fade77;
+				coords77 *= 2;
+				fade77 *= 0.5;
+				}//Voronoi77
+				voroi77 /= rest77;
+				float temp_output_47_0 = ( (0.0 + (( 1.0 - voroi77 ) - 0.3) * (0.5 - 0.0) / (1.0 - 0.3)) * 0.1 * _DetailAmount );
+				float DetailedClouds347 = saturate( ( ComplexCloudDensity344 + temp_output_47_0 ) );
+				float CloudDetail294 = temp_output_47_0;
+				float2 texCoord113 = IN.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 temp_output_114_0 = ( texCoord113 - float2( 0.5,0.5 ) );
+				float dotResult140 = dot( temp_output_114_0 , temp_output_114_0 );
+				float BorderHeight386 = ( 1.0 - _BorderHeight );
+				float temp_output_392_0 = ( -2.0 * ( 1.0 - _BorderVariation ) );
+				float clampResult420 = clamp( ( ( ( CloudDetail294 + SimpleCloudDensity314 ) * saturate( (( BorderHeight386 * temp_output_392_0 ) + (dotResult140 - 0.0) * (( temp_output_392_0 * -4.0 ) - ( BorderHeight386 * temp_output_392_0 )) / (0.5 - 0.0)) ) ) * 10.0 * _BorderEffect ) , -1.0 , 1.0 );
+				float BorderLightTransport418 = clampResult420;
+				float3 ase_worldPos = IN.ase_texcoord1.xyz;
+				float3 normalizeResult745 = normalize( ( ase_worldPos - _WorldSpaceCameraPos ) );
+				float3 normalizeResult773 = normalize( _StormDirection );
+				float dotResult743 = dot( normalizeResult745 , normalizeResult773 );
+				float2 texCoord721 = IN.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 temp_output_726_0 = ( texCoord721 - float2( 0.5,0.5 ) );
+				float dotResult728 = dot( temp_output_726_0 , temp_output_726_0 );
+				float temp_output_763_0 = ( -2.0 * ( 1.0 - ( _NimbusVariation * 0.9 ) ) );
+				float NimbusLightTransport739 = saturate( ( ( ( CloudDetail294 + SimpleCloudDensity314 ) * saturate( (( ( 1.0 - _NimbusMultiplier ) * temp_output_763_0 ) + (( dotResult743 + ( _NimbusHeight * 4.0 * dotResult728 ) ) - 0.5) * (( temp_output_763_0 * -4.0 ) - ( ( 1.0 - _NimbusMultiplier ) * temp_output_763_0 )) / (7.0 - 0.5)) ) ) * 10.0 ) );
+				float temp_output_863_0 = saturate( ( DetailedClouds347 + BorderLightTransport418 + NimbusLightTransport739 ) );
+				float mulTime874 = _TimeParameters.x * 0.5;
+				float2 panner855 = ( ( mulTime874 * 0.004 ) * float2( 0.2,-0.4 ) + Pos159);
+				float4 tex2DNode827 = tex2D( _CloudTexture, (panner855*1.0 + 0.75) );
+				float cos818 = cos( ( mulTime874 * -0.01 ) );
+				float sin818 = sin( ( mulTime874 * -0.01 ) );
+				float2 rotator818 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos818 , -sin818 , sin818 , cos818 )) + float2( 0.5,0.5 );
+				float4 tex2DNode826 = tex2D( _CloudTexture, (rotator818*3.0 + 0.75) );
+				float4 CloudTexture839 = min( tex2DNode827 , tex2DNode826 );
+				float clampResult841 = clamp( ( 2.0 * 0.5 ) , 0.0 , 0.98 );
+				float CloudTextureFinal847 = ( CloudTexture839 * clampResult841 ).r;
+				float time601 = 0.0;
+				float2 voronoiSmoothId601 = 0;
+				float mulTime602 = _TimeParameters.x * 0.003;
+				float2 coords601 = (Pos159*1.0 + ( float2( 1,-2 ) * mulTime602 )) * 10.0;
+				float2 id601 = 0;
+				float2 uv601 = 0;
+				float voroi601 = voronoi601( coords601, time601, id601, uv601, 0, voronoiSmoothId601 );
+				float time492 = ( 10.0 * mulTime602 );
+				float2 voronoiSmoothId492 = 0;
+				float2 coords492 = IN.ase_texcoord.xy * 10.0;
+				float2 id492 = 0;
+				float2 uv492 = 0;
+				float voroi492 = voronoi492( coords492, time492, id492, uv492, 0, voronoiSmoothId492 );
+				float AltoCumulusPlacement461 = saturate( ( ( ( 1.0 - 0.0 ) - (1.0 + (voroi601 - 0.0) * (-0.5 - 1.0) / (1.0 - 0.0)) ) - voroi492 ) );
+				float time463 = 51.2;
+				float2 voronoiSmoothId463 = 0;
+				float2 coords463 = (Pos159*1.0 + ( _AltocumulusWindSpeed * TIme152 )) * ( 100.0 / _AltocumulusScale );
+				float2 id463 = 0;
+				float2 uv463 = 0;
+				float fade463 = 0.5;
+				float voroi463 = 0;
+				float rest463 = 0;
+				for( int it463 = 0; it463 <2; it463++ ){
+				voroi463 += fade463 * voronoi463( coords463, time463, id463, uv463, 0,voronoiSmoothId463 );
+				rest463 += fade463;
+				coords463 *= 2;
+				fade463 *= 0.5;
+				}//Voronoi463
+				voroi463 /= rest463;
+				float AltoCumulusLightTransport447 = saturate( (-1.0 + (( AltoCumulusPlacement461 * ( 0.1 > voroi463 ? (0.5 + (voroi463 - 0.0) * (0.0 - 0.5) / (0.15 - 0.0)) : 0.0 ) * _AltocumulusMultiplier ) - 0.0) * (3.0 - -1.0) / (1.0 - 0.0)) );
+				float mulTime566 = _TimeParameters.x * 0.01;
+				float simplePerlin2D563 = snoise( (Pos159*1.0 + mulTime566)*2.0 );
+				float mulTime560 = _TimeParameters.x * _ChemtrailsMoveSpeed;
+				float cos553 = cos( ( mulTime560 * 0.01 ) );
+				float sin553 = sin( ( mulTime560 * 0.01 ) );
+				float2 rotator553 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos553 , -sin553 , sin553 , cos553 )) + float2( 0.5,0.5 );
+				float cos561 = cos( ( mulTime560 * -0.02 ) );
+				float sin561 = sin( ( mulTime560 * -0.02 ) );
+				float2 rotator561 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos561 , -sin561 , sin561 , cos561 )) + float2( 0.5,0.5 );
+				float mulTime568 = _TimeParameters.x * 0.01;
+				float simplePerlin2D570 = snoise( (Pos159*1.0 + mulTime568)*4.0 );
+				float4 ChemtrailsPattern576 = ( ( saturate( simplePerlin2D563 ) * tex2D( _ChemtrailsTexture, (rotator553*0.5 + 0.0) ) ) + ( tex2D( _ChemtrailsTexture, rotator561 ) * saturate( simplePerlin2D570 ) ) );
+				float2 texCoord583 = IN.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 temp_output_581_0 = ( texCoord583 - float2( 0.5,0.5 ) );
+				float dotResult584 = dot( temp_output_581_0 , temp_output_581_0 );
+				float4 ChemtrailsFinal590 = ( ChemtrailsPattern576 * saturate( (0.4 + (dotResult584 - 0.0) * (2.0 - 0.4) / (0.1 - 0.0)) ) * ( _ChemtrailsMultiplier * 0.5 ) );
+				float mulTime611 = _TimeParameters.x * 0.01;
+				float simplePerlin2D620 = snoise( (Pos159*1.0 + mulTime611)*2.0 );
+				float mulTime607 = _TimeParameters.x * _CirrostratusMoveSpeed;
+				float cos615 = cos( ( mulTime607 * 0.01 ) );
+				float sin615 = sin( ( mulTime607 * 0.01 ) );
+				float2 rotator615 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos615 , -sin615 , sin615 , cos615 )) + float2( 0.5,0.5 );
+				float cos621 = cos( ( mulTime607 * -0.02 ) );
+				float sin621 = sin( ( mulTime607 * -0.02 ) );
+				float2 rotator621 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos621 , -sin621 , sin621 , cos621 )) + float2( 0.5,0.5 );
+				float mulTime612 = _TimeParameters.x * 0.01;
+				float simplePerlin2D618 = snoise( (Pos159*10.0 + mulTime612)*4.0 );
+				float4 CirrostratPattern634 = ( ( saturate( simplePerlin2D620 ) * tex2D( _CirrostratusTexture, (rotator615*1.5 + 0.75) ) ) + ( tex2D( _CirrostratusTexture, (rotator621*1.5 + 0.75) ) * saturate( simplePerlin2D618 ) ) );
+				float2 texCoord625 = IN.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 temp_output_629_0 = ( texCoord625 - float2( 0.5,0.5 ) );
+				float dotResult630 = dot( temp_output_629_0 , temp_output_629_0 );
+				float4 CirrostratLightTransport641 = ( CirrostratPattern634 * saturate( (0.4 + (dotResult630 - 0.0) * (2.0 - 0.4) / (0.1 - 0.0)) ) * ( _CirrostratusMultiplier * 1.0 ) );
+				float mulTime673 = _TimeParameters.x * 0.01;
+				float simplePerlin2D681 = snoise( (Pos159*1.0 + mulTime673)*2.0 );
+				float mulTime666 = _TimeParameters.x * _CirrusMoveSpeed;
+				float cos677 = cos( ( mulTime666 * 0.01 ) );
+				float sin677 = sin( ( mulTime666 * 0.01 ) );
+				float2 rotator677 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos677 , -sin677 , sin677 , cos677 )) + float2( 0.5,0.5 );
+				float cos676 = cos( ( mulTime666 * -0.02 ) );
+				float sin676 = sin( ( mulTime666 * -0.02 ) );
+				float2 rotator676 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos676 , -sin676 , sin676 , cos676 )) + float2( 0.5,0.5 );
+				float mulTime670 = _TimeParameters.x * 0.01;
+				float simplePerlin2D682 = snoise( (Pos159*1.0 + mulTime670) );
+				simplePerlin2D682 = simplePerlin2D682*0.5 + 0.5;
+				float4 CirrusPattern696 = ( ( saturate( simplePerlin2D681 ) * tex2D( _CirrusTexture, (rotator677*1.5 + 0.75) ) ) + ( tex2D( _CirrusTexture, (rotator676*1.0 + 0.0) ) * saturate( simplePerlin2D682 ) ) );
+				float2 texCoord685 = IN.ase_texcoord.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 temp_output_690_0 = ( texCoord685 - float2( 0.5,0.5 ) );
+				float dotResult694 = dot( temp_output_690_0 , temp_output_690_0 );
+				float4 temp_output_701_0 = ( CirrusPattern696 * saturate( (0.0 + (dotResult694 - 0.0) * (2.0 - 0.0) / (0.2 - 0.0)) ) );
+				float CirrusAlpha715 = ( ( temp_output_701_0 * ( _CirrusMultiplier * 10.0 ) ).r * 0.6 );
+				float4 FinalAlpha408 = saturate( ( saturate( ( temp_output_863_0 + ( (-1.0 + (CloudTextureFinal847 - 0.0) * (1.0 - -1.0) / (1.0 - 0.0)) * _TextureAmount * sin( ( temp_output_863_0 * PI ) ) ) ) ) + AltoCumulusLightTransport447 + ChemtrailsFinal590 + CirrostratLightTransport641 + CirrusAlpha715 ) );
 				
 
-				surfaceDescription.Alpha = 1;
+				surfaceDescription.Alpha = saturate( ( FinalAlpha408.r + ( FinalAlpha408.r * 2.0 * _CloudThickness ) ) );
 				surfaceDescription.AlphaClipThreshold = 0.5;
 
 				#if _ALPHATEST_ON
@@ -2721,7 +3517,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 
 			#pragma multi_compile_instancing
 			#define _SURFACE_TYPE_TRANSPARENT 1
-			#define ASE_SRP_VERSION 120108
+			#define ASE_SRP_VERSION 130108
 
 
 			#pragma vertex vert
@@ -2747,7 +3543,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 			{
 				float4 vertex : POSITION;
 				float3 ase_normal : NORMAL;
-				
+				float4 ase_texcoord : TEXCOORD0;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -2755,7 +3551,8 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 			{
 				float4 clipPos : SV_POSITION;
 				float3 normalWS : TEXCOORD0;
-				
+				float4 ase_texcoord1 : TEXCOORD1;
+				float4 ase_texcoord2 : TEXCOORD2;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -2805,9 +3602,239 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 			#endif
 			CBUFFER_END
 
+			sampler2D _CloudTexture;
+			sampler2D _ChemtrailsTexture;
+			sampler2D _CirrostratusTexture;
+			sampler2D _CirrusTexture;
+
+
+			float3 mod2D289( float3 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
+			float2 mod2D289( float2 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
+			float3 permute( float3 x ) { return mod2D289( ( ( x * 34.0 ) + 1.0 ) * x ); }
+			float snoise( float2 v )
+			{
+				const float4 C = float4( 0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439 );
+				float2 i = floor( v + dot( v, C.yy ) );
+				float2 x0 = v - i + dot( i, C.xx );
+				float2 i1;
+				i1 = ( x0.x > x0.y ) ? float2( 1.0, 0.0 ) : float2( 0.0, 1.0 );
+				float4 x12 = x0.xyxy + C.xxzz;
+				x12.xy -= i1;
+				i = mod2D289( i );
+				float3 p = permute( permute( i.y + float3( 0.0, i1.y, 1.0 ) ) + i.x + float3( 0.0, i1.x, 1.0 ) );
+				float3 m = max( 0.5 - float3( dot( x0, x0 ), dot( x12.xy, x12.xy ), dot( x12.zw, x12.zw ) ), 0.0 );
+				m = m * m;
+				m = m * m;
+				float3 x = 2.0 * frac( p * C.www ) - 1.0;
+				float3 h = abs( x ) - 0.5;
+				float3 ox = floor( x + 0.5 );
+				float3 a0 = x - ox;
+				m *= 1.79284291400159 - 0.85373472095314 * ( a0 * a0 + h * h );
+				float3 g;
+				g.x = a0.x * x0.x + h.x * x0.y;
+				g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+				return 130.0 * dot( m, g );
+			}
+			
+					float2 voronoihash148( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi148( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash148( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return (F2 + F1) * 0.5;
+					}
+			
+					float2 voronoihash234( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi234( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash234( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return (F2 + F1) * 0.5;
+					}
+			
+					float2 voronoihash77( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi77( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash77( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return F1;
+					}
+			
+					float2 voronoihash601( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi601( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash601( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return (F2 + F1) * 0.5;
+					}
+			
+					float2 voronoihash492( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi492( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash492( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return F1;
+					}
+			
+					float2 voronoihash463( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi463( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash463( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return F1;
+					}
 			
 
-			
 			struct SurfaceDescription
 			{
 				float Alpha;
@@ -2823,7 +3850,14 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
+				float3 ase_worldPos = TransformObjectToWorld( (v.vertex).xyz );
+				o.ase_texcoord2.xyz = ase_worldPos;
 				
+				o.ase_texcoord1.xy = v.ase_texcoord.xy;
+				
+				//setting value to unused interpolator channels and avoid initialization warnings
+				o.ase_texcoord1.zw = 0;
+				o.ase_texcoord2.w = 0;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
 				#else
@@ -2854,7 +3888,8 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 			{
 				float4 vertex : INTERNALTESSPOS;
 				float3 ase_normal : NORMAL;
-				
+				float4 ase_texcoord : TEXCOORD0;
+
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -2871,7 +3906,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				o.vertex = v.vertex;
 				o.ase_normal = v.ase_normal;
-				
+				o.ase_texcoord = v.ase_texcoord;
 				return o;
 			}
 
@@ -2910,7 +3945,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 				VertexInput o = (VertexInput) 0;
 				o.vertex = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
 				o.ase_normal = patch[0].ase_normal * bary.x + patch[1].ase_normal * bary.y + patch[2].ase_normal * bary.z;
-				
+				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
@@ -2932,9 +3967,162 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 			{
 				SurfaceDescription surfaceDescription = (SurfaceDescription)0;
 
+				float2 texCoord94 = IN.ase_texcoord1.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 Pos159 = texCoord94;
+				float mulTime61 = _TimeParameters.x * ( 0.001 * _WindSpeed );
+				float TIme152 = mulTime61;
+				float simplePerlin2D37 = snoise( ( Pos159 + ( TIme152 * float2( 0.2,-0.4 ) ) )*( 100.0 / _MainCloudScale ) );
+				simplePerlin2D37 = simplePerlin2D37*0.5 + 0.5;
+				float SimpleCloudDensity314 = simplePerlin2D37;
+				float time148 = 0.0;
+				float2 voronoiSmoothId148 = 0;
+				float2 temp_output_66_0 = ( Pos159 + ( TIme152 * float2( 0.3,0.2 ) ) );
+				float2 coords148 = temp_output_66_0 * ( 140.0 / _MainCloudScale );
+				float2 id148 = 0;
+				float2 uv148 = 0;
+				float voroi148 = voronoi148( coords148, time148, id148, uv148, 0, voronoiSmoothId148 );
+				float time234 = 0.0;
+				float2 voronoiSmoothId234 = 0;
+				float2 coords234 = temp_output_66_0 * ( 500.0 / _MainCloudScale );
+				float2 id234 = 0;
+				float2 uv234 = 0;
+				float voroi234 = voronoi234( coords234, time234, id234, uv234, 0, voronoiSmoothId234 );
+				float2 appendResult312 = (float2(voroi148 , voroi234));
+				float2 VoroDetails313 = appendResult312;
+				float simplePerlin2D80 = snoise( ( ( float2( 5,20 ) * TIme152 ) + Pos159 )*( 100.0 / 400.0 ) );
+				simplePerlin2D80 = simplePerlin2D80*0.5 + 0.5;
+				float CurrentCloudCover240 = (_MinCloudCover + (simplePerlin2D80 - 0.0) * (_MaxCloudCover - _MinCloudCover) / (1.0 - 0.0));
+				float CumulusCoverage376 = _CumulusCoverageMultiplier;
+				float ComplexCloudDensity344 = (0.0 + (min( SimpleCloudDensity314 , ( 1.0 - VoroDetails313.x ) ) - ( 1.0 - ( CurrentCloudCover240 * CumulusCoverage376 ) )) * (1.0 - 0.0) / (1.0 - ( 1.0 - ( CurrentCloudCover240 * CumulusCoverage376 ) )));
+				float time77 = 0.0;
+				float2 voronoiSmoothId77 = 0;
+				float2 coords77 = ( Pos159 + ( TIme152 * float2( 0.3,0.2 ) ) ) * ( 100.0 / _DetailScale );
+				float2 id77 = 0;
+				float2 uv77 = 0;
+				float fade77 = 0.5;
+				float voroi77 = 0;
+				float rest77 = 0;
+				for( int it77 = 0; it77 <3; it77++ ){
+				voroi77 += fade77 * voronoi77( coords77, time77, id77, uv77, 0,voronoiSmoothId77 );
+				rest77 += fade77;
+				coords77 *= 2;
+				fade77 *= 0.5;
+				}//Voronoi77
+				voroi77 /= rest77;
+				float temp_output_47_0 = ( (0.0 + (( 1.0 - voroi77 ) - 0.3) * (0.5 - 0.0) / (1.0 - 0.3)) * 0.1 * _DetailAmount );
+				float DetailedClouds347 = saturate( ( ComplexCloudDensity344 + temp_output_47_0 ) );
+				float CloudDetail294 = temp_output_47_0;
+				float2 texCoord113 = IN.ase_texcoord1.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 temp_output_114_0 = ( texCoord113 - float2( 0.5,0.5 ) );
+				float dotResult140 = dot( temp_output_114_0 , temp_output_114_0 );
+				float BorderHeight386 = ( 1.0 - _BorderHeight );
+				float temp_output_392_0 = ( -2.0 * ( 1.0 - _BorderVariation ) );
+				float clampResult420 = clamp( ( ( ( CloudDetail294 + SimpleCloudDensity314 ) * saturate( (( BorderHeight386 * temp_output_392_0 ) + (dotResult140 - 0.0) * (( temp_output_392_0 * -4.0 ) - ( BorderHeight386 * temp_output_392_0 )) / (0.5 - 0.0)) ) ) * 10.0 * _BorderEffect ) , -1.0 , 1.0 );
+				float BorderLightTransport418 = clampResult420;
+				float3 ase_worldPos = IN.ase_texcoord2.xyz;
+				float3 normalizeResult745 = normalize( ( ase_worldPos - _WorldSpaceCameraPos ) );
+				float3 normalizeResult773 = normalize( _StormDirection );
+				float dotResult743 = dot( normalizeResult745 , normalizeResult773 );
+				float2 texCoord721 = IN.ase_texcoord1.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 temp_output_726_0 = ( texCoord721 - float2( 0.5,0.5 ) );
+				float dotResult728 = dot( temp_output_726_0 , temp_output_726_0 );
+				float temp_output_763_0 = ( -2.0 * ( 1.0 - ( _NimbusVariation * 0.9 ) ) );
+				float NimbusLightTransport739 = saturate( ( ( ( CloudDetail294 + SimpleCloudDensity314 ) * saturate( (( ( 1.0 - _NimbusMultiplier ) * temp_output_763_0 ) + (( dotResult743 + ( _NimbusHeight * 4.0 * dotResult728 ) ) - 0.5) * (( temp_output_763_0 * -4.0 ) - ( ( 1.0 - _NimbusMultiplier ) * temp_output_763_0 )) / (7.0 - 0.5)) ) ) * 10.0 ) );
+				float temp_output_863_0 = saturate( ( DetailedClouds347 + BorderLightTransport418 + NimbusLightTransport739 ) );
+				float mulTime874 = _TimeParameters.x * 0.5;
+				float2 panner855 = ( ( mulTime874 * 0.004 ) * float2( 0.2,-0.4 ) + Pos159);
+				float4 tex2DNode827 = tex2D( _CloudTexture, (panner855*1.0 + 0.75) );
+				float cos818 = cos( ( mulTime874 * -0.01 ) );
+				float sin818 = sin( ( mulTime874 * -0.01 ) );
+				float2 rotator818 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos818 , -sin818 , sin818 , cos818 )) + float2( 0.5,0.5 );
+				float4 tex2DNode826 = tex2D( _CloudTexture, (rotator818*3.0 + 0.75) );
+				float4 CloudTexture839 = min( tex2DNode827 , tex2DNode826 );
+				float clampResult841 = clamp( ( 2.0 * 0.5 ) , 0.0 , 0.98 );
+				float CloudTextureFinal847 = ( CloudTexture839 * clampResult841 ).r;
+				float time601 = 0.0;
+				float2 voronoiSmoothId601 = 0;
+				float mulTime602 = _TimeParameters.x * 0.003;
+				float2 coords601 = (Pos159*1.0 + ( float2( 1,-2 ) * mulTime602 )) * 10.0;
+				float2 id601 = 0;
+				float2 uv601 = 0;
+				float voroi601 = voronoi601( coords601, time601, id601, uv601, 0, voronoiSmoothId601 );
+				float time492 = ( 10.0 * mulTime602 );
+				float2 voronoiSmoothId492 = 0;
+				float2 coords492 = IN.ase_texcoord1.xy * 10.0;
+				float2 id492 = 0;
+				float2 uv492 = 0;
+				float voroi492 = voronoi492( coords492, time492, id492, uv492, 0, voronoiSmoothId492 );
+				float AltoCumulusPlacement461 = saturate( ( ( ( 1.0 - 0.0 ) - (1.0 + (voroi601 - 0.0) * (-0.5 - 1.0) / (1.0 - 0.0)) ) - voroi492 ) );
+				float time463 = 51.2;
+				float2 voronoiSmoothId463 = 0;
+				float2 coords463 = (Pos159*1.0 + ( _AltocumulusWindSpeed * TIme152 )) * ( 100.0 / _AltocumulusScale );
+				float2 id463 = 0;
+				float2 uv463 = 0;
+				float fade463 = 0.5;
+				float voroi463 = 0;
+				float rest463 = 0;
+				for( int it463 = 0; it463 <2; it463++ ){
+				voroi463 += fade463 * voronoi463( coords463, time463, id463, uv463, 0,voronoiSmoothId463 );
+				rest463 += fade463;
+				coords463 *= 2;
+				fade463 *= 0.5;
+				}//Voronoi463
+				voroi463 /= rest463;
+				float AltoCumulusLightTransport447 = saturate( (-1.0 + (( AltoCumulusPlacement461 * ( 0.1 > voroi463 ? (0.5 + (voroi463 - 0.0) * (0.0 - 0.5) / (0.15 - 0.0)) : 0.0 ) * _AltocumulusMultiplier ) - 0.0) * (3.0 - -1.0) / (1.0 - 0.0)) );
+				float mulTime566 = _TimeParameters.x * 0.01;
+				float simplePerlin2D563 = snoise( (Pos159*1.0 + mulTime566)*2.0 );
+				float mulTime560 = _TimeParameters.x * _ChemtrailsMoveSpeed;
+				float cos553 = cos( ( mulTime560 * 0.01 ) );
+				float sin553 = sin( ( mulTime560 * 0.01 ) );
+				float2 rotator553 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos553 , -sin553 , sin553 , cos553 )) + float2( 0.5,0.5 );
+				float cos561 = cos( ( mulTime560 * -0.02 ) );
+				float sin561 = sin( ( mulTime560 * -0.02 ) );
+				float2 rotator561 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos561 , -sin561 , sin561 , cos561 )) + float2( 0.5,0.5 );
+				float mulTime568 = _TimeParameters.x * 0.01;
+				float simplePerlin2D570 = snoise( (Pos159*1.0 + mulTime568)*4.0 );
+				float4 ChemtrailsPattern576 = ( ( saturate( simplePerlin2D563 ) * tex2D( _ChemtrailsTexture, (rotator553*0.5 + 0.0) ) ) + ( tex2D( _ChemtrailsTexture, rotator561 ) * saturate( simplePerlin2D570 ) ) );
+				float2 texCoord583 = IN.ase_texcoord1.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 temp_output_581_0 = ( texCoord583 - float2( 0.5,0.5 ) );
+				float dotResult584 = dot( temp_output_581_0 , temp_output_581_0 );
+				float4 ChemtrailsFinal590 = ( ChemtrailsPattern576 * saturate( (0.4 + (dotResult584 - 0.0) * (2.0 - 0.4) / (0.1 - 0.0)) ) * ( _ChemtrailsMultiplier * 0.5 ) );
+				float mulTime611 = _TimeParameters.x * 0.01;
+				float simplePerlin2D620 = snoise( (Pos159*1.0 + mulTime611)*2.0 );
+				float mulTime607 = _TimeParameters.x * _CirrostratusMoveSpeed;
+				float cos615 = cos( ( mulTime607 * 0.01 ) );
+				float sin615 = sin( ( mulTime607 * 0.01 ) );
+				float2 rotator615 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos615 , -sin615 , sin615 , cos615 )) + float2( 0.5,0.5 );
+				float cos621 = cos( ( mulTime607 * -0.02 ) );
+				float sin621 = sin( ( mulTime607 * -0.02 ) );
+				float2 rotator621 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos621 , -sin621 , sin621 , cos621 )) + float2( 0.5,0.5 );
+				float mulTime612 = _TimeParameters.x * 0.01;
+				float simplePerlin2D618 = snoise( (Pos159*10.0 + mulTime612)*4.0 );
+				float4 CirrostratPattern634 = ( ( saturate( simplePerlin2D620 ) * tex2D( _CirrostratusTexture, (rotator615*1.5 + 0.75) ) ) + ( tex2D( _CirrostratusTexture, (rotator621*1.5 + 0.75) ) * saturate( simplePerlin2D618 ) ) );
+				float2 texCoord625 = IN.ase_texcoord1.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 temp_output_629_0 = ( texCoord625 - float2( 0.5,0.5 ) );
+				float dotResult630 = dot( temp_output_629_0 , temp_output_629_0 );
+				float4 CirrostratLightTransport641 = ( CirrostratPattern634 * saturate( (0.4 + (dotResult630 - 0.0) * (2.0 - 0.4) / (0.1 - 0.0)) ) * ( _CirrostratusMultiplier * 1.0 ) );
+				float mulTime673 = _TimeParameters.x * 0.01;
+				float simplePerlin2D681 = snoise( (Pos159*1.0 + mulTime673)*2.0 );
+				float mulTime666 = _TimeParameters.x * _CirrusMoveSpeed;
+				float cos677 = cos( ( mulTime666 * 0.01 ) );
+				float sin677 = sin( ( mulTime666 * 0.01 ) );
+				float2 rotator677 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos677 , -sin677 , sin677 , cos677 )) + float2( 0.5,0.5 );
+				float cos676 = cos( ( mulTime666 * -0.02 ) );
+				float sin676 = sin( ( mulTime666 * -0.02 ) );
+				float2 rotator676 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos676 , -sin676 , sin676 , cos676 )) + float2( 0.5,0.5 );
+				float mulTime670 = _TimeParameters.x * 0.01;
+				float simplePerlin2D682 = snoise( (Pos159*1.0 + mulTime670) );
+				simplePerlin2D682 = simplePerlin2D682*0.5 + 0.5;
+				float4 CirrusPattern696 = ( ( saturate( simplePerlin2D681 ) * tex2D( _CirrusTexture, (rotator677*1.5 + 0.75) ) ) + ( tex2D( _CirrusTexture, (rotator676*1.0 + 0.0) ) * saturate( simplePerlin2D682 ) ) );
+				float2 texCoord685 = IN.ase_texcoord1.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 temp_output_690_0 = ( texCoord685 - float2( 0.5,0.5 ) );
+				float dotResult694 = dot( temp_output_690_0 , temp_output_690_0 );
+				float4 temp_output_701_0 = ( CirrusPattern696 * saturate( (0.0 + (dotResult694 - 0.0) * (2.0 - 0.0) / (0.2 - 0.0)) ) );
+				float CirrusAlpha715 = ( ( temp_output_701_0 * ( _CirrusMultiplier * 10.0 ) ).r * 0.6 );
+				float4 FinalAlpha408 = saturate( ( saturate( ( temp_output_863_0 + ( (-1.0 + (CloudTextureFinal847 - 0.0) * (1.0 - -1.0) / (1.0 - 0.0)) * _TextureAmount * sin( ( temp_output_863_0 * PI ) ) ) ) ) + AltoCumulusLightTransport447 + ChemtrailsFinal590 + CirrostratLightTransport641 + CirrusAlpha715 ) );
 				
 
-				surfaceDescription.Alpha = 1;
+				surfaceDescription.Alpha = saturate( ( FinalAlpha408.r + ( FinalAlpha408.r * 2.0 * _CloudThickness ) ) );
 				surfaceDescription.AlphaClipThreshold = 0.5;
 
 				#if _ALPHATEST_ON
@@ -2967,7 +4155,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 
 			#pragma multi_compile_instancing
 			#define _SURFACE_TYPE_TRANSPARENT 1
-			#define ASE_SRP_VERSION 120108
+			#define ASE_SRP_VERSION 130108
 
 
 			#pragma exclude_renderers glcore gles gles3 
@@ -2996,7 +4184,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 			{
 				float4 vertex : POSITION;
 				float3 ase_normal : NORMAL;
-				
+				float4 ase_texcoord : TEXCOORD0;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -3004,7 +4192,8 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 			{
 				float4 clipPos : SV_POSITION;
 				float3 normalWS : TEXCOORD0;
-				
+				float4 ase_texcoord1 : TEXCOORD1;
+				float4 ase_texcoord2 : TEXCOORD2;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
@@ -3053,9 +4242,239 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 				float _TessMaxDisp;
 			#endif
 			CBUFFER_END
+			sampler2D _CloudTexture;
+			sampler2D _ChemtrailsTexture;
+			sampler2D _CirrostratusTexture;
+			sampler2D _CirrusTexture;
+
+
+			float3 mod2D289( float3 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
+			float2 mod2D289( float2 x ) { return x - floor( x * ( 1.0 / 289.0 ) ) * 289.0; }
+			float3 permute( float3 x ) { return mod2D289( ( ( x * 34.0 ) + 1.0 ) * x ); }
+			float snoise( float2 v )
+			{
+				const float4 C = float4( 0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439 );
+				float2 i = floor( v + dot( v, C.yy ) );
+				float2 x0 = v - i + dot( i, C.xx );
+				float2 i1;
+				i1 = ( x0.x > x0.y ) ? float2( 1.0, 0.0 ) : float2( 0.0, 1.0 );
+				float4 x12 = x0.xyxy + C.xxzz;
+				x12.xy -= i1;
+				i = mod2D289( i );
+				float3 p = permute( permute( i.y + float3( 0.0, i1.y, 1.0 ) ) + i.x + float3( 0.0, i1.x, 1.0 ) );
+				float3 m = max( 0.5 - float3( dot( x0, x0 ), dot( x12.xy, x12.xy ), dot( x12.zw, x12.zw ) ), 0.0 );
+				m = m * m;
+				m = m * m;
+				float3 x = 2.0 * frac( p * C.www ) - 1.0;
+				float3 h = abs( x ) - 0.5;
+				float3 ox = floor( x + 0.5 );
+				float3 a0 = x - ox;
+				m *= 1.79284291400159 - 0.85373472095314 * ( a0 * a0 + h * h );
+				float3 g;
+				g.x = a0.x * x0.x + h.x * x0.y;
+				g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+				return 130.0 * dot( m, g );
+			}
+			
+					float2 voronoihash148( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi148( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash148( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return (F2 + F1) * 0.5;
+					}
+			
+					float2 voronoihash234( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi234( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash234( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return (F2 + F1) * 0.5;
+					}
+			
+					float2 voronoihash77( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi77( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash77( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return F1;
+					}
+			
+					float2 voronoihash601( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi601( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash601( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return (F2 + F1) * 0.5;
+					}
+			
+					float2 voronoihash492( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi492( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash492( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return F1;
+					}
+			
+					float2 voronoihash463( float2 p )
+					{
+						
+						p = float2( dot( p, float2( 127.1, 311.7 ) ), dot( p, float2( 269.5, 183.3 ) ) );
+						return frac( sin( p ) *43758.5453);
+					}
+			
+					float voronoi463( float2 v, float time, inout float2 id, inout float2 mr, float smoothness, inout float2 smoothId )
+					{
+						float2 n = floor( v );
+						float2 f = frac( v );
+						float F1 = 8.0;
+						float F2 = 8.0; float2 mg = 0;
+						for ( int j = -1; j <= 1; j++ )
+						{
+							for ( int i = -1; i <= 1; i++ )
+						 	{
+						 		float2 g = float2( i, j );
+						 		float2 o = voronoihash463( n + g );
+								o = ( sin( time + o * 6.2831 ) * 0.5 + 0.5 ); float2 r = f - g - o;
+								float d = 0.5 * dot( r, r );
+						 		if( d<F1 ) {
+						 			F2 = F1;
+						 			F1 = d; mg = g; mr = r; id = o;
+						 		} else if( d<F2 ) {
+						 			F2 = d;
+						
+						 		}
+						 	}
+						}
+						return F1;
+					}
 			
 
-			
 			struct SurfaceDescription
 			{
 				float Alpha;
@@ -3071,7 +4490,14 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
+				float3 ase_worldPos = TransformObjectToWorld( (v.vertex).xyz );
+				o.ase_texcoord2.xyz = ase_worldPos;
 				
+				o.ase_texcoord1.xy = v.ase_texcoord.xy;
+				
+				//setting value to unused interpolator channels and avoid initialization warnings
+				o.ase_texcoord1.zw = 0;
+				o.ase_texcoord2.w = 0;
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
 				#else
@@ -3102,7 +4528,8 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 			{
 				float4 vertex : INTERNALTESSPOS;
 				float3 ase_normal : NORMAL;
-				
+				float4 ase_texcoord : TEXCOORD0;
+
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
@@ -3119,7 +4546,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
 				o.vertex = v.vertex;
 				o.ase_normal = v.ase_normal;
-				
+				o.ase_texcoord = v.ase_texcoord;
 				return o;
 			}
 
@@ -3158,7 +4585,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 				VertexInput o = (VertexInput) 0;
 				o.vertex = patch[0].vertex * bary.x + patch[1].vertex * bary.y + patch[2].vertex * bary.z;
 				o.ase_normal = patch[0].ase_normal * bary.x + patch[1].ase_normal * bary.y + patch[2].ase_normal * bary.z;
-				
+				o.ase_texcoord = patch[0].ase_texcoord * bary.x + patch[1].ase_texcoord * bary.y + patch[2].ase_texcoord * bary.z;
 				#if defined(ASE_PHONG_TESSELLATION)
 				float3 pp[3];
 				for (int i = 0; i < 3; ++i)
@@ -3180,9 +4607,162 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 			{
 				SurfaceDescription surfaceDescription = (SurfaceDescription)0;
 
+				float2 texCoord94 = IN.ase_texcoord1.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 Pos159 = texCoord94;
+				float mulTime61 = _TimeParameters.x * ( 0.001 * _WindSpeed );
+				float TIme152 = mulTime61;
+				float simplePerlin2D37 = snoise( ( Pos159 + ( TIme152 * float2( 0.2,-0.4 ) ) )*( 100.0 / _MainCloudScale ) );
+				simplePerlin2D37 = simplePerlin2D37*0.5 + 0.5;
+				float SimpleCloudDensity314 = simplePerlin2D37;
+				float time148 = 0.0;
+				float2 voronoiSmoothId148 = 0;
+				float2 temp_output_66_0 = ( Pos159 + ( TIme152 * float2( 0.3,0.2 ) ) );
+				float2 coords148 = temp_output_66_0 * ( 140.0 / _MainCloudScale );
+				float2 id148 = 0;
+				float2 uv148 = 0;
+				float voroi148 = voronoi148( coords148, time148, id148, uv148, 0, voronoiSmoothId148 );
+				float time234 = 0.0;
+				float2 voronoiSmoothId234 = 0;
+				float2 coords234 = temp_output_66_0 * ( 500.0 / _MainCloudScale );
+				float2 id234 = 0;
+				float2 uv234 = 0;
+				float voroi234 = voronoi234( coords234, time234, id234, uv234, 0, voronoiSmoothId234 );
+				float2 appendResult312 = (float2(voroi148 , voroi234));
+				float2 VoroDetails313 = appendResult312;
+				float simplePerlin2D80 = snoise( ( ( float2( 5,20 ) * TIme152 ) + Pos159 )*( 100.0 / 400.0 ) );
+				simplePerlin2D80 = simplePerlin2D80*0.5 + 0.5;
+				float CurrentCloudCover240 = (_MinCloudCover + (simplePerlin2D80 - 0.0) * (_MaxCloudCover - _MinCloudCover) / (1.0 - 0.0));
+				float CumulusCoverage376 = _CumulusCoverageMultiplier;
+				float ComplexCloudDensity344 = (0.0 + (min( SimpleCloudDensity314 , ( 1.0 - VoroDetails313.x ) ) - ( 1.0 - ( CurrentCloudCover240 * CumulusCoverage376 ) )) * (1.0 - 0.0) / (1.0 - ( 1.0 - ( CurrentCloudCover240 * CumulusCoverage376 ) )));
+				float time77 = 0.0;
+				float2 voronoiSmoothId77 = 0;
+				float2 coords77 = ( Pos159 + ( TIme152 * float2( 0.3,0.2 ) ) ) * ( 100.0 / _DetailScale );
+				float2 id77 = 0;
+				float2 uv77 = 0;
+				float fade77 = 0.5;
+				float voroi77 = 0;
+				float rest77 = 0;
+				for( int it77 = 0; it77 <3; it77++ ){
+				voroi77 += fade77 * voronoi77( coords77, time77, id77, uv77, 0,voronoiSmoothId77 );
+				rest77 += fade77;
+				coords77 *= 2;
+				fade77 *= 0.5;
+				}//Voronoi77
+				voroi77 /= rest77;
+				float temp_output_47_0 = ( (0.0 + (( 1.0 - voroi77 ) - 0.3) * (0.5 - 0.0) / (1.0 - 0.3)) * 0.1 * _DetailAmount );
+				float DetailedClouds347 = saturate( ( ComplexCloudDensity344 + temp_output_47_0 ) );
+				float CloudDetail294 = temp_output_47_0;
+				float2 texCoord113 = IN.ase_texcoord1.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 temp_output_114_0 = ( texCoord113 - float2( 0.5,0.5 ) );
+				float dotResult140 = dot( temp_output_114_0 , temp_output_114_0 );
+				float BorderHeight386 = ( 1.0 - _BorderHeight );
+				float temp_output_392_0 = ( -2.0 * ( 1.0 - _BorderVariation ) );
+				float clampResult420 = clamp( ( ( ( CloudDetail294 + SimpleCloudDensity314 ) * saturate( (( BorderHeight386 * temp_output_392_0 ) + (dotResult140 - 0.0) * (( temp_output_392_0 * -4.0 ) - ( BorderHeight386 * temp_output_392_0 )) / (0.5 - 0.0)) ) ) * 10.0 * _BorderEffect ) , -1.0 , 1.0 );
+				float BorderLightTransport418 = clampResult420;
+				float3 ase_worldPos = IN.ase_texcoord2.xyz;
+				float3 normalizeResult745 = normalize( ( ase_worldPos - _WorldSpaceCameraPos ) );
+				float3 normalizeResult773 = normalize( _StormDirection );
+				float dotResult743 = dot( normalizeResult745 , normalizeResult773 );
+				float2 texCoord721 = IN.ase_texcoord1.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 temp_output_726_0 = ( texCoord721 - float2( 0.5,0.5 ) );
+				float dotResult728 = dot( temp_output_726_0 , temp_output_726_0 );
+				float temp_output_763_0 = ( -2.0 * ( 1.0 - ( _NimbusVariation * 0.9 ) ) );
+				float NimbusLightTransport739 = saturate( ( ( ( CloudDetail294 + SimpleCloudDensity314 ) * saturate( (( ( 1.0 - _NimbusMultiplier ) * temp_output_763_0 ) + (( dotResult743 + ( _NimbusHeight * 4.0 * dotResult728 ) ) - 0.5) * (( temp_output_763_0 * -4.0 ) - ( ( 1.0 - _NimbusMultiplier ) * temp_output_763_0 )) / (7.0 - 0.5)) ) ) * 10.0 ) );
+				float temp_output_863_0 = saturate( ( DetailedClouds347 + BorderLightTransport418 + NimbusLightTransport739 ) );
+				float mulTime874 = _TimeParameters.x * 0.5;
+				float2 panner855 = ( ( mulTime874 * 0.004 ) * float2( 0.2,-0.4 ) + Pos159);
+				float4 tex2DNode827 = tex2D( _CloudTexture, (panner855*1.0 + 0.75) );
+				float cos818 = cos( ( mulTime874 * -0.01 ) );
+				float sin818 = sin( ( mulTime874 * -0.01 ) );
+				float2 rotator818 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos818 , -sin818 , sin818 , cos818 )) + float2( 0.5,0.5 );
+				float4 tex2DNode826 = tex2D( _CloudTexture, (rotator818*3.0 + 0.75) );
+				float4 CloudTexture839 = min( tex2DNode827 , tex2DNode826 );
+				float clampResult841 = clamp( ( 2.0 * 0.5 ) , 0.0 , 0.98 );
+				float CloudTextureFinal847 = ( CloudTexture839 * clampResult841 ).r;
+				float time601 = 0.0;
+				float2 voronoiSmoothId601 = 0;
+				float mulTime602 = _TimeParameters.x * 0.003;
+				float2 coords601 = (Pos159*1.0 + ( float2( 1,-2 ) * mulTime602 )) * 10.0;
+				float2 id601 = 0;
+				float2 uv601 = 0;
+				float voroi601 = voronoi601( coords601, time601, id601, uv601, 0, voronoiSmoothId601 );
+				float time492 = ( 10.0 * mulTime602 );
+				float2 voronoiSmoothId492 = 0;
+				float2 coords492 = IN.ase_texcoord1.xy * 10.0;
+				float2 id492 = 0;
+				float2 uv492 = 0;
+				float voroi492 = voronoi492( coords492, time492, id492, uv492, 0, voronoiSmoothId492 );
+				float AltoCumulusPlacement461 = saturate( ( ( ( 1.0 - 0.0 ) - (1.0 + (voroi601 - 0.0) * (-0.5 - 1.0) / (1.0 - 0.0)) ) - voroi492 ) );
+				float time463 = 51.2;
+				float2 voronoiSmoothId463 = 0;
+				float2 coords463 = (Pos159*1.0 + ( _AltocumulusWindSpeed * TIme152 )) * ( 100.0 / _AltocumulusScale );
+				float2 id463 = 0;
+				float2 uv463 = 0;
+				float fade463 = 0.5;
+				float voroi463 = 0;
+				float rest463 = 0;
+				for( int it463 = 0; it463 <2; it463++ ){
+				voroi463 += fade463 * voronoi463( coords463, time463, id463, uv463, 0,voronoiSmoothId463 );
+				rest463 += fade463;
+				coords463 *= 2;
+				fade463 *= 0.5;
+				}//Voronoi463
+				voroi463 /= rest463;
+				float AltoCumulusLightTransport447 = saturate( (-1.0 + (( AltoCumulusPlacement461 * ( 0.1 > voroi463 ? (0.5 + (voroi463 - 0.0) * (0.0 - 0.5) / (0.15 - 0.0)) : 0.0 ) * _AltocumulusMultiplier ) - 0.0) * (3.0 - -1.0) / (1.0 - 0.0)) );
+				float mulTime566 = _TimeParameters.x * 0.01;
+				float simplePerlin2D563 = snoise( (Pos159*1.0 + mulTime566)*2.0 );
+				float mulTime560 = _TimeParameters.x * _ChemtrailsMoveSpeed;
+				float cos553 = cos( ( mulTime560 * 0.01 ) );
+				float sin553 = sin( ( mulTime560 * 0.01 ) );
+				float2 rotator553 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos553 , -sin553 , sin553 , cos553 )) + float2( 0.5,0.5 );
+				float cos561 = cos( ( mulTime560 * -0.02 ) );
+				float sin561 = sin( ( mulTime560 * -0.02 ) );
+				float2 rotator561 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos561 , -sin561 , sin561 , cos561 )) + float2( 0.5,0.5 );
+				float mulTime568 = _TimeParameters.x * 0.01;
+				float simplePerlin2D570 = snoise( (Pos159*1.0 + mulTime568)*4.0 );
+				float4 ChemtrailsPattern576 = ( ( saturate( simplePerlin2D563 ) * tex2D( _ChemtrailsTexture, (rotator553*0.5 + 0.0) ) ) + ( tex2D( _ChemtrailsTexture, rotator561 ) * saturate( simplePerlin2D570 ) ) );
+				float2 texCoord583 = IN.ase_texcoord1.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 temp_output_581_0 = ( texCoord583 - float2( 0.5,0.5 ) );
+				float dotResult584 = dot( temp_output_581_0 , temp_output_581_0 );
+				float4 ChemtrailsFinal590 = ( ChemtrailsPattern576 * saturate( (0.4 + (dotResult584 - 0.0) * (2.0 - 0.4) / (0.1 - 0.0)) ) * ( _ChemtrailsMultiplier * 0.5 ) );
+				float mulTime611 = _TimeParameters.x * 0.01;
+				float simplePerlin2D620 = snoise( (Pos159*1.0 + mulTime611)*2.0 );
+				float mulTime607 = _TimeParameters.x * _CirrostratusMoveSpeed;
+				float cos615 = cos( ( mulTime607 * 0.01 ) );
+				float sin615 = sin( ( mulTime607 * 0.01 ) );
+				float2 rotator615 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos615 , -sin615 , sin615 , cos615 )) + float2( 0.5,0.5 );
+				float cos621 = cos( ( mulTime607 * -0.02 ) );
+				float sin621 = sin( ( mulTime607 * -0.02 ) );
+				float2 rotator621 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos621 , -sin621 , sin621 , cos621 )) + float2( 0.5,0.5 );
+				float mulTime612 = _TimeParameters.x * 0.01;
+				float simplePerlin2D618 = snoise( (Pos159*10.0 + mulTime612)*4.0 );
+				float4 CirrostratPattern634 = ( ( saturate( simplePerlin2D620 ) * tex2D( _CirrostratusTexture, (rotator615*1.5 + 0.75) ) ) + ( tex2D( _CirrostratusTexture, (rotator621*1.5 + 0.75) ) * saturate( simplePerlin2D618 ) ) );
+				float2 texCoord625 = IN.ase_texcoord1.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 temp_output_629_0 = ( texCoord625 - float2( 0.5,0.5 ) );
+				float dotResult630 = dot( temp_output_629_0 , temp_output_629_0 );
+				float4 CirrostratLightTransport641 = ( CirrostratPattern634 * saturate( (0.4 + (dotResult630 - 0.0) * (2.0 - 0.4) / (0.1 - 0.0)) ) * ( _CirrostratusMultiplier * 1.0 ) );
+				float mulTime673 = _TimeParameters.x * 0.01;
+				float simplePerlin2D681 = snoise( (Pos159*1.0 + mulTime673)*2.0 );
+				float mulTime666 = _TimeParameters.x * _CirrusMoveSpeed;
+				float cos677 = cos( ( mulTime666 * 0.01 ) );
+				float sin677 = sin( ( mulTime666 * 0.01 ) );
+				float2 rotator677 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos677 , -sin677 , sin677 , cos677 )) + float2( 0.5,0.5 );
+				float cos676 = cos( ( mulTime666 * -0.02 ) );
+				float sin676 = sin( ( mulTime666 * -0.02 ) );
+				float2 rotator676 = mul( Pos159 - float2( 0.5,0.5 ) , float2x2( cos676 , -sin676 , sin676 , cos676 )) + float2( 0.5,0.5 );
+				float mulTime670 = _TimeParameters.x * 0.01;
+				float simplePerlin2D682 = snoise( (Pos159*1.0 + mulTime670) );
+				simplePerlin2D682 = simplePerlin2D682*0.5 + 0.5;
+				float4 CirrusPattern696 = ( ( saturate( simplePerlin2D681 ) * tex2D( _CirrusTexture, (rotator677*1.5 + 0.75) ) ) + ( tex2D( _CirrusTexture, (rotator676*1.0 + 0.0) ) * saturate( simplePerlin2D682 ) ) );
+				float2 texCoord685 = IN.ase_texcoord1.xy * float2( 1,1 ) + float2( 0,0 );
+				float2 temp_output_690_0 = ( texCoord685 - float2( 0.5,0.5 ) );
+				float dotResult694 = dot( temp_output_690_0 , temp_output_690_0 );
+				float4 temp_output_701_0 = ( CirrusPattern696 * saturate( (0.0 + (dotResult694 - 0.0) * (2.0 - 0.0) / (0.2 - 0.0)) ) );
+				float CirrusAlpha715 = ( ( temp_output_701_0 * ( _CirrusMultiplier * 10.0 ) ).r * 0.6 );
+				float4 FinalAlpha408 = saturate( ( saturate( ( temp_output_863_0 + ( (-1.0 + (CloudTextureFinal847 - 0.0) * (1.0 - -1.0) / (1.0 - 0.0)) * _TextureAmount * sin( ( temp_output_863_0 * PI ) ) ) ) ) + AltoCumulusLightTransport447 + ChemtrailsFinal590 + CirrostratLightTransport641 + CirrusAlpha715 ) );
 				
 
-				surfaceDescription.Alpha = 1;
+				surfaceDescription.Alpha = saturate( ( FinalAlpha408.r + ( FinalAlpha408.r * 2.0 * _CloudThickness ) ) );
 				surfaceDescription.AlphaClipThreshold = 0.5;
 
 				#if _ALPHATEST_ON
@@ -3209,7 +4789,7 @@ Shader "Distant Lands/Cozy/Stylized Clouds Painted"
 	Fallback "Hidden/InternalErrorShader"
 }
 /*ASEBEGIN
-Version=19105
+Version=19103
 Node;AmplifyShaderEditor.CommentaryNode;372;-4255.697,-4622.015;Inherit;False;2254.259;1199.93;;42;790;789;786;784;783;781;780;779;778;777;776;775;267;266;271;270;265;269;263;264;268;262;261;259;260;258;257;256;332;334;52;36;376;375;159;94;152;61;150;70;796;797;Variable Declaration;0.6196079,0.9508546,1,1;0;0
 Node;AmplifyShaderEditor.RangedFloatNode;70;-3324.89,-4226.262;Inherit;False;Property;_WindSpeed;Wind Speed;11;1;[HideInInspector];Create;True;0;0;0;False;0;False;0;3;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;150;-3172.891,-4247.994;Inherit;False;2;2;0;FLOAT;0.001;False;1;FLOAT;0;False;1;FLOAT;0
@@ -3597,7 +5177,7 @@ Node;AmplifyShaderEditor.GetLocalVarNode;379;-161.8844,-1034.554;Inherit;False;3
 Node;AmplifyShaderEditor.ScaleAndOffsetNode;262;-3527.523,-4095.134;Inherit;False;3;0;FLOAT;0;False;1;FLOAT;0.5;False;2;FLOAT;0.5;False;1;FLOAT;0
 Node;AmplifyShaderEditor.NormalizeNode;259;-3811.901,-4101.856;Inherit;False;False;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.SimpleAddOpNode;504;155.9575,-3319.181;Inherit;False;5;5;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;3;COLOR;0,0,0,0;False;4;FLOAT;0;False;1;COLOR;0
-Node;AmplifyShaderEditor.Vector3Node;260;-3865.421,-3964.893;Inherit;False;Global;CZY_SunDirection;CZY_SunDirection;6;1;[HideInInspector];Create;True;0;0;0;False;0;False;0,0,0;0.7706085,0.6345685,-0.05903803;0;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
+Node;AmplifyShaderEditor.Vector3Node;260;-3865.421,-3964.893;Inherit;False;Global;CZY_SunDirection;CZY_SunDirection;6;1;[HideInInspector];Create;True;0;0;0;False;0;False;0,0,0;0.05111951,0.966071,0.2531681;0;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
 Node;AmplifyShaderEditor.NormalizeNode;779;-3811.772,-3776.665;Inherit;False;False;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.SimpleMaxOpNode;854;-2022.233,610.462;Inherit;False;2;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.RangedFloatNode;263;-3370.048,-3982.888;Half;False;Property;_SunFlareFalloff;Sun Flare Falloff;7;1;[HideInInspector];Create;True;0;0;0;False;0;False;1;14.1;0;0;0;1;FLOAT;0
@@ -3616,7 +5196,7 @@ Node;AmplifyShaderEditor.GetLocalVarNode;645;4913.45,2071.161;Inherit;False;506;
 Node;AmplifyShaderEditor.GetLocalVarNode;649;4928.082,2154.064;Inherit;False;515;Clipping;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.PowerNode;265;-3169.787,-4095.749;Inherit;False;False;2;0;FLOAT;0;False;1;FLOAT;1;False;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode;319;-180.5387,-1110.532;Inherit;False;317;RequestedCloudCover;1;0;OBJECT;;False;1;FLOAT2;0
-Node;AmplifyShaderEditor.Vector3Node;778;-3888.292,-3647.702;Inherit;False;Global;CZY_MoonDirection;CZY_MoonDirection;7;1;[HideInInspector];Create;True;0;0;0;False;0;False;0,0,0;0,-0.5829811,-0.8124858;0;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
+Node;AmplifyShaderEditor.Vector3Node;778;-3888.292,-3647.702;Inherit;False;Global;CZY_MoonDirection;CZY_MoonDirection;7;1;[HideInInspector];Create;True;0;0;0;False;0;False;0,0,0;0,-0.994522,0.1045284;0;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
 Node;AmplifyShaderEditor.SimpleSubtractOpNode;222;338.5966,-1080.611;Inherit;False;2;0;FLOAT;0;False;1;FLOAT;0.8;False;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode;654;1283.608,-3214.672;Inherit;False;648;CSCustomLightsClipping;1;0;OBJECT;;False;1;COLOR;0
 Node;AmplifyShaderEditor.SaturateNode;266;-3023.711,-4097.528;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
@@ -3671,7 +5251,6 @@ Node;AmplifyShaderEditor.SimpleMultiplyOpNode;893;1768.889,-2542.618;Inherit;Fal
 Node;AmplifyShaderEditor.RegisterLocalVarNode;351;2178.019,-2458.207;Inherit;False;FinalCloudColor;-1;True;1;0;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.OneMinusNode;792;146.648,-2010.958;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode;520;1986.173,1474.267;Inherit;False;-1;;1;0;OBJECT;;False;1;FLOAT;0
-Node;AmplifyShaderEditor.GetLocalVarNode;352;-965.2714,-671.483;Inherit;False;351;FinalCloudColor;1;0;OBJECT;;False;1;COLOR;0
 Node;AmplifyShaderEditor.DotProductOpNode;834;-3033.209,1396.164;Inherit;False;2;0;FLOAT2;0,0;False;1;FLOAT2;0,0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;886;267.8423,-4175.702;Inherit;False;PuffyClouds;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.ColorNode;796;-3354.791,-4527.796;Inherit;False;Property;_MoonColor;Moon Color;1;2;[HideInInspector];[HDR];Create;True;0;0;0;False;0;False;1,1,1,0;0.1100036,0.2264151,0.2252752,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
@@ -3694,16 +5273,19 @@ Node;AmplifyShaderEditor.RegisterLocalVarNode;797;-3135.136,-4528.331;Inherit;Fa
 Node;AmplifyShaderEditor.RegisterLocalVarNode;332;-3599.176,-4511.369;Inherit;False;CloudColor;-1;True;1;0;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;647;5324.791,2006.867;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;FLOAT;0;False;1;COLOR;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;267;-2875.538,-4104.635;Half;False;LightMask;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;910;-678.2959,-671.1561;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;DepthOnly;0;3;DepthOnly;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Unlit;True;3;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;False;False;True;False;False;False;False;0;False;;False;False;False;False;False;False;False;False;False;True;1;False;;False;False;True;1;LightMode=DepthOnly;False;False;0;Hidden/InternalErrorShader;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;909;-678.2959,-671.1561;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;ShadowCaster;0;2;ShadowCaster;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Unlit;True;3;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;False;False;True;False;False;False;False;0;False;;False;False;False;False;False;False;False;False;False;True;1;False;;True;3;False;;False;True;1;LightMode=ShadowCaster;False;False;0;Hidden/InternalErrorShader;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;911;-678.2959,-671.1561;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;Meta;0;4;Meta;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Unlit;True;3;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;2;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=Meta;False;False;0;Hidden/InternalErrorShader;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;908;-678.2959,-671.1561;Float;False;True;-1;2;EmptyShaderGUI;0;13;Distant Lands/Cozy/Stylized Clouds Painted;2992e84f91cbeb14eab234972e07ea9d;True;Forward;0;1;Forward;8;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;1;False;;False;False;False;False;False;False;False;False;True;True;True;221;False;;255;False;;255;False;;7;False;;2;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Transparent=RenderType;Queue=Transparent=Queue=0;UniversalMaterialType=Unlit;True;3;True;12;all;0;False;True;1;5;False;;10;False;;1;1;False;;10;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;True;2;False;;True;3;False;;True;True;0;False;;0;False;;True;1;LightMode=UniversalForward;False;False;0;Hidden/InternalErrorShader;0;0;Standard;23;Surface;1;637952268182895573;  Blend;0;0;Two Sided;2;637952268204981941;Forward Only;0;0;Cast Shadows;1;0;  Use Shadow Threshold;0;0;Receive Shadows;1;0;GPU Instancing;1;0;LOD CrossFade;0;0;Built-in Fog;0;0;DOTS Instancing;0;0;Meta Pass;0;0;Extra Pre Pass;0;0;Tessellation;0;0;  Phong;0;0;  Strength;0.5,False,;0;  Type;0;0;  Tess;16,False,;0;  Min;10,False,;0;  Max;25,False,;0;  Edge Length;16,False,;0;  Max Displacement;25,False,;0;Vertex Position,InvertActionOnDeselection;1;0;0;10;False;True;True;True;False;False;True;True;True;True;False;;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;907;-678.2959,-671.1561;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;ExtraPrePass;0;0;ExtraPrePass;5;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Unlit;True;3;True;12;all;0;False;True;1;1;False;;0;False;;0;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;0;False;False;0;Hidden/InternalErrorShader;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;912;-678.2959,-621.1561;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;Universal2D;0;5;Universal2D;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Unlit;True;3;True;12;all;0;False;True;1;1;False;;0;False;;0;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;1;LightMode=Universal2D;False;False;0;;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;913;-678.2959,-621.1561;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;SceneSelectionPass;0;6;SceneSelectionPass;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Unlit;True;3;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;2;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=SceneSelectionPass;False;False;0;;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;914;-678.2959,-621.1561;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;ScenePickingPass;0;7;ScenePickingPass;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Unlit;True;3;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=Picking;False;False;0;;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;915;-678.2959,-621.1561;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;DepthNormals;0;8;DepthNormals;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Unlit;True;3;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;False;;True;3;False;;False;True;1;LightMode=DepthNormalsOnly;False;False;0;;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;916;-678.2959,-621.1561;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;DepthNormalsOnly;0;9;DepthNormalsOnly;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;UniversalMaterialType=Unlit;True;3;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;False;;True;3;False;;False;True;1;LightMode=DepthNormalsOnly;False;True;9;d3d11;metal;vulkan;xboxone;xboxseries;playstation;ps4;ps5;switch;0;;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;910;-678.2959,-671.1561;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;DepthOnly;0;3;DepthOnly;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;3;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;False;False;True;False;False;False;False;0;False;;False;False;False;False;False;False;False;False;False;True;1;False;;False;False;True;1;LightMode=DepthOnly;False;False;0;Hidden/InternalErrorShader;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;909;-678.2959,-671.1561;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;ShadowCaster;0;2;ShadowCaster;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;3;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;False;False;True;False;False;False;False;0;False;;False;False;False;False;False;False;False;False;False;True;1;False;;True;3;False;;False;True;1;LightMode=ShadowCaster;False;False;0;Hidden/InternalErrorShader;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;911;-678.2959,-671.1561;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;Meta;0;4;Meta;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;3;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;2;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=Meta;False;False;0;Hidden/InternalErrorShader;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;907;-678.2959,-671.1561;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;ExtraPrePass;0;0;ExtraPrePass;5;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;3;True;12;all;0;False;True;1;1;False;;0;False;;0;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;0;False;False;0;Hidden/InternalErrorShader;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;912;-678.2959,-621.1561;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;Universal2D;0;5;Universal2D;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;3;True;12;all;0;False;True;1;1;False;;0;False;;0;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;1;False;;True;3;False;;True;True;0;False;;0;False;;True;1;LightMode=Universal2D;False;False;0;;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;913;-678.2959,-621.1561;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;SceneSelectionPass;0;6;SceneSelectionPass;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;3;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;2;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=SceneSelectionPass;False;False;0;;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;914;-678.2959,-621.1561;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;ScenePickingPass;0;7;ScenePickingPass;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;3;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=Picking;False;False;0;;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;915;-678.2959,-621.1561;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;DepthNormals;0;8;DepthNormals;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;3;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;False;;True;3;False;;False;True;1;LightMode=DepthNormalsOnly;False;False;0;;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;916;-678.2959,-621.1561;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;2992e84f91cbeb14eab234972e07ea9d;True;DepthNormalsOnly;0;9;DepthNormalsOnly;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;3;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;False;;True;3;False;;False;True;1;LightMode=DepthNormalsOnly;False;True;9;d3d11;metal;vulkan;xboxone;xboxseries;playstation;ps4;ps5;switch;0;;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.GetLocalVarNode;352;-1040,-672;Inherit;False;351;FinalCloudColor;1;0;OBJECT;;False;1;COLOR;0
+Node;AmplifyShaderEditor.CustomExpressionNode;918;-800,-688;Inherit;False; ;3;File;2;True;ScreenPosition;FLOAT2;0,0;In;;Inherit;False;True;InputColor;FLOAT3;0,0,0;In;;Inherit;False;ButoFogBlend;False;False;0;ada48e5159bb1a5469288f9c75ca4629;False;2;0;FLOAT2;0,0;False;1;FLOAT3;0,0,0;False;1;FLOAT3;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;908;-544,-688;Float;False;True;-1;2;EmptyShaderGUI;0;13;Distant Lands/Cozy/Stylized Clouds Painted;2992e84f91cbeb14eab234972e07ea9d;True;Forward;0;1;Forward;8;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;1;False;;False;False;False;False;False;False;False;False;True;True;True;221;False;;255;False;;255;False;;7;False;;2;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Transparent=RenderType;Queue=Transparent=Queue=1;True;3;True;12;all;0;False;True;1;5;False;;10;False;;1;1;False;;10;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;False;True;False;255;False;;255;False;;255;False;;7;False;;1;False;;1;False;;1;False;;7;False;;1;False;;1;False;;1;False;;False;True;2;False;;True;3;False;;True;True;0;False;;0;False;;True;1;LightMode=UniversalForward;False;False;0;Hidden/InternalErrorShader;0;0;Standard;23;Surface;1;637952268182895573;  Blend;0;0;Two Sided;2;637952268204981941;Forward Only;0;0;Cast Shadows;1;0;  Use Shadow Threshold;0;0;Receive Shadows;1;0;GPU Instancing;1;0;LOD CrossFade;0;0;Built-in Fog;0;0;DOTS Instancing;0;0;Meta Pass;0;0;Extra Pre Pass;0;0;Tessellation;0;0;  Phong;0;0;  Strength;0.5,False,;0;  Type;0;0;  Tess;16,False,;0;  Min;10,False,;0;  Max;25,False,;0;  Edge Length;16,False,;0;  Max Displacement;25,False,;0;Vertex Position,InvertActionOnDeselection;1;0;0;10;False;True;True;True;False;False;True;True;True;True;False;;False;0
+Node;AmplifyShaderEditor.ScreenPosInputsNode;917;-1040,-848;Float;False;0;False;0;5;FLOAT4;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 WireConnection;150;1;70;0
 WireConnection;61;0;150;0
 WireConnection;152;0;61;0
@@ -4146,7 +5728,9 @@ WireConnection;332;0;36;0
 WireConnection;647;0;650;0
 WireConnection;647;1;646;0
 WireConnection;267;0;266;0
-WireConnection;908;2;352;0
+WireConnection;918;0;917;0
+WireConnection;918;1;352;0
+WireConnection;908;2;918;0
 WireConnection;908;3;906;0
 ASEEND*/
-//CHKSM=D89C62CA354D08EF57C037BD660A4A86F7F2AF66
+//CHKSM=FEB59BDA3B65AC76CB607100DF6604D9E36D2364
