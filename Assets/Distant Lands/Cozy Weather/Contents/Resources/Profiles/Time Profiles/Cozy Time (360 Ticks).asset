@@ -48,7 +48,7 @@ MonoBehaviour:
   resetTicksOnStart: 0
   startTicks: 120
   ticksPerDay: 360
-  tickSpeed: 0.5
+  tickSpeed: 5
   tickSpeedMultiplier:
     serializedVersion: 2
     m_Curve:

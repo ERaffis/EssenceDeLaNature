@@ -115,6 +115,7 @@ public class InputManager : MonoBehaviour
                 _menuCam.Priority = 10;
                 _mainVolume.priority = 0;
                 _menuVolume.priority = 10;
+                gameObject.GetComponentInChildren<PlayerInventory>().OnAlbum();
             }
             else
             {
@@ -149,6 +150,8 @@ public class InputManager : MonoBehaviour
                 _menuCam.Priority = 10;
                 _mainVolume.priority = 0;
                 _menuVolume.priority = 10;
+                gameObject.GetComponentInChildren<PlayerInventory>().OnAlbum();
+
             }
             else
             {
@@ -176,6 +179,7 @@ public class InputManager : MonoBehaviour
             _pauseMenu.SetActive(true);
             _album.SetActive(false);
             SetCursorState(false);
+            gameObject.GetComponentInChildren<PlayerInventory>().OnAlbum();
 
 
             _controls.FindActionMap("BasicControls").Disable();
@@ -192,7 +196,8 @@ public class InputManager : MonoBehaviour
             _inPauseMenu = true;
             _pauseMenu.SetActive(true);
             _album.SetActive(false);
-            
+            gameObject.GetComponentInChildren<PlayerInventory>().OnAlbum();
+
 
         }
         else if (_inMenu)
