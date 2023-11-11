@@ -69,7 +69,7 @@ MonoBehaviour:
     m_Value: 2.5
   strength:
     m_OverrideState: 1
-    m_Value: 0.15
+    m_Value: 0.027
   tiling:
     m_OverrideState: 1
     m_Value: 25
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c34f6925a10ee4785d343a21b55802, type: 3}
   m_Name: NoiseGrainSettings
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   strength:
     m_OverrideState: 1
     m_Value: 0.01

@@ -1,0 +1,17 @@
+{
+  "displayName": "Buto",
+  "name": "com.occasoftware.buto",
+  "version": "7.7.3",
+  "unity": "2022.3",
+  "description": "Volumetric Fog and Volumetric Lighting for Unity URP.",
+  "author": {
+    "name": "OccaSoftware",
+    "email": "hello@occasoftware.com",
+    "url": "https://www.occasoftware.com/"
+  },
+  "documentationUrl": "https://occasoftware.com/manual/buto",
+  "unityRelease": "0f1",
+  "dependencies": {
+    "com.unity.render-pipelines.universal": "14.0.7"
+  }
+}

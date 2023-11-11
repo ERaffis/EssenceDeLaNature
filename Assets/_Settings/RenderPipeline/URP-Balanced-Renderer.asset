@@ -93,7 +93,8 @@ MonoBehaviour:
   - {fileID: -5409993238452724793}
   - {fileID: -4426003160649842043}
   - {fileID: 2154826945604924691}
-  m_RendererFeatureMap: adc0de57c6d2eee585c2b54a93ad93c21dbef836b32ba77b
+  - {fileID: 768379211337564614}
+  m_RendererFeatureMap: adc0de57c6d2eee585c2b54a93ad93c21dbef836b32ba77bc6019258d2d4a90a
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -136,6 +137,21 @@ MonoBehaviour:
   m_CopyDepthMode: 1
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 0
+--- !u!114 &768379211337564614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96dab975e69883249a56554e791c4fd0, type: 3}
+  m_Name: ButoRenderFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    renderPassEvent: 450
 --- !u!114 &1923709585937863902
 MonoBehaviour:
   m_ObjectHideFlags: 0

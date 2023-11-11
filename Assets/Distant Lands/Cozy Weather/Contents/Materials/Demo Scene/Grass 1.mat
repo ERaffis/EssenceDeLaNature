@@ -105,10 +105,10 @@ Material:
     - __dirty: 1
     m_Colors:
     - CZY_SnowColor: {r: 1, g: 1, b: 1, a: 0}
-    - _BottomColor: {r: 0.13104287, g: 0.42318004, b: 0.21128452, a: 1}
+    - _BottomColor: {r: 0.1098175, g: 0.4287297, b: 0.1531188, a: 1}
     - _Color: {r: 0.44968325, g: 0.6669885, b: 0.5206348, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SnowColor1: {r: 1, g: 1, b: 1, a: 0}
-    - _TopColor: {r: 0.24945682, g: 0.48940554, b: 0.21879491, a: 1}
+    - _TopColor: {r: 0.26282766, g: 0.4931543, b: 0.160303, a: 1}
     - _WindStrength: {r: 0.2, g: 0, b: 0.2, a: 0}
   m_BuildTextureStacks: []
