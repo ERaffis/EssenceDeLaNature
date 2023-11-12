@@ -103,7 +103,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _LightFalloff: 10.900717
+    - _LightFalloff: 7.1602554
     - _LightFalloff1: 10
     - _LightIntensity: 1
     - _Metallic: 0
@@ -122,13 +122,13 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FogColor1: {r: 0, g: 0, b: 0, a: 0.007843138}
-    - _FogColor2: {r: 0.24272895, g: 0.054746233, b: 0.000889551, a: 0.13725491}
-    - _FogColor3: {r: 0.34955072, g: 0.0584774, b: 0.047256973, a: 0.5019608}
-    - _FogColor4: {r: 0.2954557, g: 0.0727005, b: 0.06480012, a: 0.75686276}
-    - _FogColor5: {r: 0.4197973, g: 0.5497574, b: 0.6975358, a: 1}
+    - _FogColor2: {r: 0.01038408, g: 0.07161072, b: 0.110318914, a: 0.13725491}
+    - _FogColor3: {r: 0.033259407, g: 0.13105226, b: 0.2154997, a: 0.5019608}
+    - _FogColor4: {r: 0.06426737, g: 0.17104653, b: 0.2734432, a: 0.75686276}
+    - _FogColor5: {r: 0.26532423, g: 0.4440766, b: 0.5277091, a: 1}
     - _FogSquish: {r: 1, g: 3.93, b: 0, a: 0}
-    - _LightColor: {r: 5.4244814, g: 0.7338861, b: 0.37387764, a: 1}
+    - _LightColor: {r: 3.974184, g: 0.863792, b: 0.87969285, a: 1}
     - _LightColor1: {r: 11.924528, g: 32, b: 29.818542, a: 0}
-    - _SunDirection: {r: 0.73852885, g: 0.23090231, b: 0.6334506, a: 0}
+    - _SunDirection: {r: -0.8107917, g: 0.10601678, b: -0.5756539, a: 0}
     - _SunDirection1: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
