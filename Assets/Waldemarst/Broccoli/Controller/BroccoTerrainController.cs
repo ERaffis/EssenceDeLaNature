@@ -234,7 +234,7 @@ namespace Broccoli.Controller {
 
 			// Get all BroccoTreeController2 materials.
 			for (int i = 0; i < terrain.terrainData.treePrototypes.Length; i++) {
-				treePrefab = terrain.terrainData.treePrototypes [i].prefab;
+				treePrefab = terrain.terrainData.treePrototypes[i].prefab;
 				if (treePrefab != null) {
 					brocco2TreeControllers = treePrefab.GetComponentsInChildren<BroccoTreeController2> ();
 					foreach (BroccoTreeController2 treeController in brocco2TreeControllers) {

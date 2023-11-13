@@ -7,13 +7,15 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.Animations;
+using UnityEngine.Rendering;
 
 public class WorldEvolutionManager : MonoBehaviour
 {
 
-    public Material[] _materials;
     public WeatherProfile[] _weather;
     public AtmosphereProfile _atmosphere;
+    public VolumeProfile[] _volumeProfiles;
+    public Volume _mainVolume;
 
     [Header("Player Object")]
     [Space(5)]
@@ -21,6 +23,9 @@ public class WorldEvolutionManager : MonoBehaviour
     public Transform _cameraTransform;
     public PlayerController _playerController;
     [Space(5)]
+    public Vector3[] _teleportPosition;
+    public Vector3[] _teleportRotation;
+    public Vector3[] _teleportCameraAim;
 
     [Header("Scene Transition")]
     public string[] _SceneNames;
@@ -30,7 +35,6 @@ public class WorldEvolutionManager : MonoBehaviour
 
     [Header("Terrain Information")]
     [Space(5)]
-    public Terrain[] _terrains;
     public CozyWeather _cozyManager;
     public WindZone _windZone;
 
@@ -38,212 +42,80 @@ public class WorldEvolutionManager : MonoBehaviour
 
     public int _positionNumber = 0;
 
+
     private void Start()
-    {/*
-        _atmosphere.fogHeight.floatVal = 0.8f;
-        _atmosphere.fogDensityMultiplier.floatVal = 0.5f;
-        _windZone.windMain = 0.1f;
-        _playerTransform.position = _startPosition;
-        _playerTransform.rotation = Quaternion.Euler(_startRotation.x, _startRotation.y, _startRotation.z);
-        _cameraTransform.rotation = Quaternion.Euler(_startCameraAim.x, _startCameraAim.y, _startCameraAim.z);
-        */
+    {
         SceneManager.LoadScene(_SceneNames[0], LoadSceneMode.Additive);
+        _cozyManager.currentTicks = 60;
+        _cozyManager.currentDay = 0;
         _transitionText[0].SetActive(true);
     }
     public void PhotoCaptured(int number)
     {
-
+        print(number);
         switch (number)
         {
             case 0:
-                ChangeScene(1, 0);
-
-                /*
-                print("Day 2");
-                
-                _cozyManager.SetWeather(_weather[17], 0);
-                _atmosphere.fogHeight.floatVal = 0.8f;
-                _atmosphere.fogDensityMultiplier.floatVal = 1.5f;
-                _windZone.windMain = 1f;
-                _playerTransform.position = _teleportPosition[_positionNumber];
-                _playerTransform.rotation = Quaternion.Euler(0, _teleportRotation[_positionNumber].y, 0);
-                _cameraTransform.rotation = Quaternion.Euler(_teleportCameraAim[_positionNumber].x, _teleportCameraAim[_positionNumber].y, 0);
-                _playerController._cinemachineTargetPitch = _teleportCameraAim[_positionNumber].x;
                 _positionNumber++;
-                _transitionText.text = "Un bon matin, en passant devant le camp de trappage du père Lacombre, à la rivière Toulnoustock, j'aperçus un grand duc exposé sur une des billes du camp; le père venait de le prendre dans un de ses collets à renard";
-                */
+                print(_positionNumber);
+                ChangeScene(_positionNumber, 1);
+                ChangeCozySettings(0, 0.9f);
                 break;
             case 1:
-                ChangeScene(2, 1);
-                /*
-                print("Day 3");
-                FastForward(1);
-                _cozyManager.SetWeather(_weather[13], 0);
-                _atmosphere.fogHeight.floatVal = 1f;
-                _atmosphere.fogDensityMultiplier.floatVal = 2f;
-                _windZone.windMain = 2f;
-                _playerTransform.position = _teleportPosition[_positionNumber];
-                _playerTransform.rotation = Quaternion.Euler(0, _teleportRotation[_positionNumber].y, 0);
-                _cameraTransform.rotation = Quaternion.Euler(_teleportCameraAim[_positionNumber].x, _teleportCameraAim[_positionNumber].y, 0);
-                _playerController._cinemachineTargetPitch = _teleportCameraAim[_positionNumber].x;
                 _positionNumber++;
-                _transitionText.text = "L'hiver il fa frette";
-                */
+                print(_positionNumber);
+                ChangeScene(_positionNumber, 0);
+                ChangeCozySettings(0, 0.8f);
                 break;
             case 2:
-                ChangeScene(3, 2);
-                /*
-                print("Day 4");
-                FastForward(2);
-                _cozyManager.SetWeather(_weather[17], 0);
-                _atmosphere.fogHeight.floatVal = 0.8f;
-                _atmosphere.fogDensityMultiplier.floatVal = 1.5f;
-                _windZone.windMain = 1f;
-                _playerTransform.position = _teleportPosition[_positionNumber];
-                _playerTransform.rotation = Quaternion.Euler(0, _teleportRotation[_positionNumber].y, 0);
-                _cameraTransform.rotation = Quaternion.Euler(_teleportCameraAim[_positionNumber].x, _teleportCameraAim[_positionNumber].y, 0);
-                _playerController._cinemachineTargetPitch = _teleportCameraAim[_positionNumber].x;
                 _positionNumber++;
-                */
+                ChangeScene(_positionNumber, 2);
+                ChangeCozySettings(1, 0.4f);
                 break;
             case 3:
-                ChangeScene(4, 3);
-                /*
-                print("Day 5");
-                FastForward(3);
-                _cozyManager.SetWeather(_weather[18], 0);
-                _atmosphere.fogHeight.floatVal = 0.8f;
-                _atmosphere.fogDensityMultiplier.floatVal = 0.5f;
-                _windZone.windMain = 0.1f;
-                _playerTransform.position = _teleportPosition[_positionNumber];
-                _playerTransform.rotation = Quaternion.Euler(0, _teleportRotation[_positionNumber].y, 0);
-                _cameraTransform.rotation = Quaternion.Euler(_teleportCameraAim[_positionNumber].x, _teleportCameraAim[_positionNumber].y, 0);
-                _playerController._cinemachineTargetPitch = _teleportCameraAim[_positionNumber].x;
                 _positionNumber++;
-                */
+                ChangeScene(_positionNumber, 3);
+                ChangeCozySettings(1, 0.1f);
                 break;
             case 4:
-                ChangeScene(5, 0);
-                /*
-                print("Day 6");
-                FastForward(0);
-                _cozyManager.SetWeather(_weather[3], 0);
-                _windZone.windMain = 0.45f;
-                for (int i = 0; i < _terrains.Length; i++)
-                {
-                    _terrains[i].materialTemplate = _materials[1];
-
-                }
-                _playerTransform.position = _teleportPosition[_positionNumber];
-                _playerTransform.rotation = Quaternion.Euler(0, _teleportRotation[_positionNumber].y, 0);
-                _cameraTransform.rotation = Quaternion.Euler(_teleportCameraAim[_positionNumber].x, _teleportCameraAim[_positionNumber].y, 0);
-                _playerController._cinemachineTargetPitch = _teleportCameraAim[_positionNumber].x;
                 _positionNumber++;
-                */
+                ChangeScene(_positionNumber, 0);
+                ChangeCozySettings(1, 0f);
                 break;
             case 5:
-                ChangeScene(6, 1);
-                /*
-                print("Day 7 - Spring Starts");
-                FastForward(1);
-                _cozyManager.SetWeather(_weather[19], 0);
-                _windZone.windMain = 0.05f;
-                for (int i = 0; i < _terrains.Length; i++)
-                {
-                    _terrains[i].materialTemplate = _materials[2];
-
-                }
-                _playerTransform.position = _teleportPosition[_positionNumber];
-                _playerTransform.rotation = Quaternion.Euler(0, _teleportRotation[_positionNumber].y, 0);
-                _cameraTransform.rotation = Quaternion.Euler(_teleportCameraAim[_positionNumber].x, _teleportCameraAim[_positionNumber].y, 0);
-                _playerController._cinemachineTargetPitch = _teleportCameraAim[_positionNumber].x;
                 _positionNumber++;
-                */
+                ChangeScene(_positionNumber, 2);
+                ChangeCozySettings(2, 0f);
                 break;
             //Fin Hiver
             case 6:
-                ChangeScene(7, 2);
-                /*
-                print("Day 8");
-                FastForward(2);
-                for (int i = 0; i < _terrains.Length; i++)
-                {
-                    _terrains[i].materialTemplate = _materials[3];
-
-                }
-                _playerTransform.position = _teleportPosition[_positionNumber];
-                _playerTransform.rotation = Quaternion.Euler(0, _teleportRotation[_positionNumber].y, 0);
-                _cameraTransform.rotation = Quaternion.Euler(_teleportCameraAim[_positionNumber].x, _teleportCameraAim[_positionNumber].y, 0);
-                _playerController._cinemachineTargetPitch = _teleportCameraAim[_positionNumber].x;
                 _positionNumber++;
-                */
+                ChangeScene(_positionNumber, 1);
+                ChangeCozySettings(2, 0f);
                 break;
             case 7:
-                ChangeScene(8, 3);
-                /*
-                print("Day 9");
-                FastForward(3);
-                for (int i = 0; i < _terrains.Length; i++)
-                {
-                    _terrains[i].materialTemplate = _materials[4];
-
-                }
-                _playerTransform.position = _teleportPosition[_positionNumber];
-                _playerTransform.rotation = Quaternion.Euler(0, _teleportRotation[_positionNumber].y, 0);
-                _cameraTransform.rotation = Quaternion.Euler(_teleportCameraAim[_positionNumber].x, _teleportCameraAim[_positionNumber].y, 0);
-                _playerController._cinemachineTargetPitch = _teleportCameraAim[_positionNumber].x;
                 _positionNumber++;
-                */
+                ChangeScene(_positionNumber, 3);
+                ChangeCozySettings(2, 0.25f);
                 break;
             case 8:
-                ChangeScene(9, 0);
-                /*
-                print("Day 10");
-                FastForward(0);
-                _playerTransform.position = _teleportPosition[_positionNumber];
-                _playerTransform.rotation = Quaternion.Euler(0, _teleportRotation[_positionNumber].y, 0);
-                _cameraTransform.rotation = Quaternion.Euler(_teleportCameraAim[_positionNumber].x, _teleportCameraAim[_positionNumber].y, 0);
-                _playerController._cinemachineTargetPitch = _teleportCameraAim[_positionNumber].x;
                 _positionNumber++;
-                */
+                ChangeCozySettings(3, 0.6f);
                 break;
 
             case 9:
-                ChangeScene(10, 1);
-                /*
-                print("Day 11");
-                FastForward(1);
-                _playerTransform.position = _teleportPosition[_positionNumber];
-                _playerTransform.rotation = Quaternion.Euler(0, _teleportRotation[_positionNumber].y, 0);
-                _cameraTransform.rotation = Quaternion.Euler(_teleportCameraAim[_positionNumber].x, _teleportCameraAim[_positionNumber].y, 0);
-                _playerController._cinemachineTargetPitch = _teleportCameraAim[_positionNumber].x;
                 _positionNumber++;
-                */
+                ChangeScene(_positionNumber, 0);
+                ChangeCozySettings(3, 0.8f);
                 break;
             case 10:
-                ChangeScene(11, 2);
-                /*
-                print("Day 12");
-                FastForward(2);
-                _playerTransform.position = _teleportPosition[_positionNumber];
-                _playerTransform.rotation = Quaternion.Euler(0, _teleportRotation[_positionNumber].y, 0);
-                _cameraTransform.rotation = Quaternion.Euler(_teleportCameraAim[_positionNumber].x, _teleportCameraAim[_positionNumber].y, 0);
-                _playerController._cinemachineTargetPitch = _teleportCameraAim[_positionNumber].x;
                 _positionNumber++;
-                */
+                ChangeScene(_positionNumber, 2);
+                ChangeCozySettings(3, 0.9f);
                 break;
         
                 case 11:
                 SceneManager.LoadSceneAsync(0);
-                /*
-                print("Day 13");
-                FastForward(3);
-                _playerTransform.position = _teleportPosition[_positionNumber];
-                _playerTransform.rotation = Quaternion.Euler(0, _teleportRotation[_positionNumber].y, 0);
-                _cameraTransform.rotation = Quaternion.Euler(_teleportCameraAim[_positionNumber].x, _teleportCameraAim[_positionNumber].y, 0);
-                _playerController._cinemachineTargetPitch = _teleportCameraAim[_positionNumber].x;
-                _positionNumber++;
-                */
                 break;
 
             
@@ -255,16 +127,16 @@ public class WorldEvolutionManager : MonoBehaviour
         switch (i)
         {
             case 0:
-                _cozyManager.currentTicks = 120;
+                _cozyManager.currentTicks = 15;
                 break;
             case 1:
-                _cozyManager.currentTicks = 240;
+                _cozyManager.currentTicks = 30;
                 break;
             case 2:
-                _cozyManager.currentTicks = 360;
+                _cozyManager.currentTicks = 45;
                 break;
             case 3:
-                _cozyManager.currentTicks = 480;
+                _cozyManager.currentTicks = 60;
                 break; 
             default:
                 break;
@@ -275,10 +147,28 @@ public class WorldEvolutionManager : MonoBehaviour
     public void ChangeScene(int sceneNumber, int timeChange )
     {
         SceneManager.UnloadSceneAsync(_SceneNames[sceneNumber-1]);
-        SceneManager.LoadSceneAsync(_SceneNames[sceneNumber], LoadSceneMode.Additive);
+        SceneManager.LoadScene(_SceneNames[sceneNumber], LoadSceneMode.Additive);
+
         FastForward(timeChange);
         _transitionText[sceneNumber-1].SetActive(false);
         _transitionText[sceneNumber].SetActive(true);
         _transitionHolder.GetComponent<Animator>().Play("TransitionFadeOut");
+        TeleportPlayer();
     } 
+
+    private void TeleportPlayer()
+    {
+        _playerTransform.position = _teleportPosition[_positionNumber];
+        _playerTransform.rotation = Quaternion.Euler(0, _teleportRotation[_positionNumber].y, 0);
+        _cameraTransform.rotation = Quaternion.Euler(_teleportCameraAim[_positionNumber].x, _teleportCameraAim[_positionNumber].y, 0);
+        print("Teleported player");
+    }
+
+    private void ChangeCozySettings(int volumeProfile, float snowAmount)
+    {
+        _cozyManager.currentDay = _positionNumber;
+        _cozyManager.SetWeather(_weather[_positionNumber]);
+        _mainVolume.profile = _volumeProfiles[volumeProfile];
+        _cozyManager.cozyMaterials.snowAmount = snowAmount;
+    }
 }

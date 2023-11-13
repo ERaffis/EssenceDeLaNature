@@ -1,0 +1,23 @@
+{
+  "prompt_text": "ice ground snow polished cracked, high definition",
+  "patch": {
+    "ext": "png",
+    "dtype": "uint8",
+    "width": 512,
+    "height": 512,
+    "url": "https://static-dev.withpoly.com/v3/textures/patches/de845835-e58f-40e8-9031-e14081e3ded4.png",
+    "patch_id": "aYGLPtMMbh"
+  },
+  "seamless_prompt_text": "",
+  "seamless_patch_scale": 0.8,
+  "upscale_prompt_text": "ice ground snow polished cracked, high definition",
+  "upscale_resolution": 2048,
+  "is_seamless": true,
+  "pbr_mode": "polished",
+  "pbr_generate_color": true,
+  "pbr_generate_normal": true,
+  "pbr_generate_height": true,
+  "pbr_generate_ao": true,
+  "pbr_generate_roughness": true,
+  "pbr_generate_metallic": false
+}

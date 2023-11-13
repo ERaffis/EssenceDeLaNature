@@ -134,12 +134,8 @@ public class CameraController : MonoBehaviour
         
         yield return new WaitForSeconds(shutterDuration);
 
-        yield return new WaitForEndOfFrame();
-        
         ShowPhoto(photoCapture);
         cameraShutter.SetActive(false);
-        //Show photo
-        ShowPhoto(photoCapture);
 
         //Hide photo
         yield return new WaitForSeconds(3.31f);
@@ -159,18 +155,12 @@ public class CameraController : MonoBehaviour
         photoAlbum[photoNumber - 1].imageTexture2D = LoadTexture(Application.dataPath + "/SavedScreen" + photoNumber + ".png");
         photoAlbum[photoNumber - 1].isEmpty = false;
 
-        //if (photoDisplay.Length >= photoNumber)
-        //   photoDisplay[photoNumber - 1].sprite = photoAlbum[photoNumber - 1].imageSprite;
 
         photoDisplayArea.sprite = photoCapture;
         photoFrame.GetComponent<CanvasGroup>().alpha = 0;
         photoFrame.SetActive(true);
-        //transitionText.SetActive(true);
-        //frameAnimator.Play("FrameFadeIn");
-        //photoAnimator.Play("PhotoFadeIn");
 
         mainUI.SetActive(true);
-        //shotNumberUI.SetText(photoNumber + " / 36");
     }
 
     public Sprite LoadNewSprite(string FilePath, float PixelsPerUnit = 100.0f, SpriteMeshType spriteType = SpriteMeshType.Tight)

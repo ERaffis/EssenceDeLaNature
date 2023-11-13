@@ -14,11 +14,16 @@ Material:
   m_ValidKeywords:
   - EFFECT_BUMP
   - EFFECT_EXTRA_TEX
+  - EFFECT_HUE_VARIATION
   - EFFECT_SUBSURFACE
   - _WINDQUALITY_BEST
   m_InvalidKeywords:
   - EFFECT_BACKSIDE_NORMALS
   - GEOM_TYPE_LEAF
+  - _ALPHATEST_ON
+  - _DOUBLESIDED_ON
+  - _PW_SF_COVER_ON
+  - _PW_SF_WIND_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 1
@@ -41,26 +46,123 @@ Material:
         m_Texture: {fileID: 2800000, guid: 7d018d8df9075fd4791a5ea0d5b0cafb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PW_CoverLayer0:
+        m_Texture: {fileID: 2800000, guid: ffa01093856b873448237de84289ee85, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PW_CoverLayer0Normal:
+        m_Texture: {fileID: 2800000, guid: baca4d94b1d1d8046ab52ce1570a24c7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PW_CoverLayer1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PW_CoverLayer1Normal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PW_WorldMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SubsurfaceTex:
         m_Texture: {fileID: 2800000, guid: e76d90358e370571ab78e4740514777f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _ALPHATEST: 1
+    - _AOPower: 0
+    - _AOPowerExp: 0
+    - _AOVertexMask: 0
+    - _AlphaTest: 0
     - _BillboardKwToggle: 0
     - _BillboardShadowFade: 0.5
+    - _BumpMapScale: 1
+    - _CullMode: 0
+    - _Cutoff: 0.359
     - _Glossiness: 0.25
-    - _HueVariationKwToggle: 0
+    - _HueVariationKwToggle: 1
     - _Metallic: 0.5
     - _NormalMapKwToggle: 1
+    - _PW_Cover: 0
+    - _PW_CoverLayer0AlphaClamp: 1
+    - _PW_CoverLayer0Edge: 1
+    - _PW_CoverLayer0FadeDist: 0
+    - _PW_CoverLayer0FadeStart: 0
+    - _PW_CoverLayer0Metallic: 0
+    - _PW_CoverLayer0NormalScale: 0.847
+    - _PW_CoverLayer0Progress: 1
+    - _PW_CoverLayer0Smoothness: 0.5
+    - _PW_CoverLayer0Tiling: 0
+    - _PW_CoverLayer0Wrap: 1
+    - _PW_CoverLayer1AlphaClamp: 0
+    - _PW_CoverLayer1Edge: 0
+    - _PW_CoverLayer1FadeDist: 0
+    - _PW_CoverLayer1FadeStart: 0
+    - _PW_CoverLayer1Metallic: 0.5
+    - _PW_CoverLayer1NormalScale: 1
+    - _PW_CoverLayer1Progress: 0
+    - _PW_CoverLayer1Smoothness: 0.5
+    - _PW_CoverLayer1Tiling: 0
+    - _PW_CoverLayer1Wrap: 0
+    - _PW_GlobalControl: 1
+    - _PW_Global_Metallic: 0
+    - _PW_Global_SeasonalTintAmount: 0
+    - _PW_Global_Smoothness: 0
+    - _PW_SF_BILLBOARD: 0
+    - _PW_SF_COVER: 1
+    - _PW_SF_SSS: 0
+    - _PW_SF_WIND: 1
+    - _PW_SF_WORLDMAP: 0
+    - _PW_SSS: 0
+    - _PW_SSSDistortion: 0.5
+    - _PW_SSSPower: 2
+    - _PW_SSS_1: 0
+    - _PW_ShaderID: 0
+    - _PW_ShaderMode: 1
+    - _PW_TerrainSizeX: 0
+    - _PW_TerrainSizeY: 0
+    - _PW_WindToggle: 0
+    - _PW_WorldMapToggle: 0
+    - _PW_WorldMapUVScale: 0
+    - _QueueControl: -1
+    - _QueueOffset: 0
     - _SubsurfaceIndirect: 0.376
     - _SubsurfaceKwToggle: 1
     - _TwoSided: 0
     - _WindQuality: 4
+    - _WrapLighting: 0
     m_Colors:
-    - _Color: {r: 0.068582356, g: 0.6037736, b: 0, a: 0.66499996}
-    - _HueVariationColor: {r: 0.068582356, g: 0.6037736, b: 0, a: 1}
-    - _SubsurfaceColor: {r: 0.754717, g: 0.7410936, b: 0.009967921, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 0.62352943}
+    - _HueVariationColor: {r: 1, g: 1, b: 1, a: 0}
+    - _PW_CoverLayer0Color: {r: 1, g: 1, b: 1, a: 0}
+    - _PW_CoverLayer1Color: {r: 1, g: 1, b: 1, a: 0}
+    - _PW_SSSTint: {r: 1, g: 1, b: 1, a: 0}
+    - _PW_WindTreeFlex: {r: 0, g: 0, b: 0, a: 0}
+    - _PW_WindTreeFrequency: {r: 0, g: 0, b: 0, a: 0}
+    - _PW_WindTreeWidthHeight: {r: 0, g: 0, b: 0, a: 0}
+    - _PW_WorldMapColorCover0: {r: 1, g: 1, b: 1, a: 1}
+    - _PW_WorldMapColorCover1: {r: 1, g: 1, b: 1, a: 1}
+    - _PW_WorldMapColorObject: {r: 1, g: 1, b: 1, a: 1}
+    - _SubsurfaceColor: {r: 0.6901961, g: 0.34117648, b: 0.25490198, a: 0.43137255}
   m_BuildTextureStacks: []
 --- !u!114 &1082001691862072097
 MonoBehaviour:
@@ -74,4 +176,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
+  version: 7
