@@ -1,14 +1,3 @@
-%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: Stylized Flare 2
-  m_EditorClassIdentifier: 
+version https://git-lfs.github.com/spec/v1
+oid sha256:60c5f81e51b0cf3e213b044661d20b216284e7e91e8623481b3e9fec20ac2590
+size 349

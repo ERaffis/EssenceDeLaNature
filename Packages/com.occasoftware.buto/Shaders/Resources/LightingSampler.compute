@@ -1,0 +1,295 @@
+#pragma kernel CSMain
+
+#pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
+#pragma multi_compile _ MAIN_LIGHT_CALCULATE_SHADOWS
+#pragma multi_compile _ _LIGHT_COOKIES
+
+#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl"
+#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Shadows.hlsl"
+#include "Common.hlsl"
+
+RWTexture3D<float4> LightingDataTex;
+Texture3D<float4> LightingDataTexPrevious;
+Texture3D<float4> MediaData;
+
+#define MAX_LIGHT_COUNT 8
+float _LightCountButo;
+float3 _LightPosButo[MAX_LIGHT_COUNT];
+float _LightIntensityButo[MAX_LIGHT_COUNT];
+float3 _LightColorButo[MAX_LIGHT_COUNT];
+float3 _LightDirectionButo[MAX_LIGHT_COUNT];
+float4 _LightAngleButo[MAX_LIGHT_COUNT]; // x and y are spot angles (set to 0, 1 for point), z is squared bias, w is rcp(Range * Range);
+
+
+float3 _DirectionalLightingForward;
+float3 _DirectionalLightingBack;
+float _DirectionalLightingRatio;
+float3 _WorldColor;
+
+float GetLightFalloff(float3 positionWS, float3 LightPositionWS, float4 LightAngle, float3 LightForward)
+{
+	float3 ray = LightPositionWS - positionWS;
+	float d2 = dot(ray, ray);
+	float distanceAttenuation = rcp(1.0 + d2);
+
+	// Light range support
+	#define USE_EXPERIMENTAL_LIGHT_RANGE
+	#ifdef USE_EXPERIMENTAL_LIGHT_RANGE
+	float factor = d2 * LightAngle.w;
+	float smoothFactor = saturate(1.0 - factor*factor);
+	smoothFactor *= smoothFactor;
+	distanceAttenuation = distanceAttenuation * smoothFactor;
+	#endif
+
+	// Light biasing
+	#define USE_EXPERIMENTAL_LIGHT_BIAS
+	#ifdef USE_EXPERIMENTAL_LIGHT_BIAS
+	if(d2 < LightAngle.z)
+	{
+		d2 *= rcp(LightAngle.z);
+		distanceAttenuation *= d2;
+	}
+	#endif
+
+	// Falloff over distance
+	#define USE_EXPERIMENTAL_LIGHT_FALLOFF
+	#ifdef USE_EXPERIMENTAL_LIGHT_FALLOFF
+	float3 rayToCamera = _WorldSpaceCameraPos.xyz - positionWS;
+	float distanceToCamera = sqrt(dot(rayToCamera, rayToCamera));
+	float distanceToCameraAttenuation = 1.0 - (distanceToCamera * _InverseLightDistanceVolumetric);
+	distanceAttenuation *= saturate(distanceToCameraAttenuation);
+	#endif
+
+	// Spot Attenuation
+	float3 rayNormalized = normalize(ray);
+	float dotDir = dot(rayNormalized, LightForward);
+	float spotAttenuation = saturate((dotDir * LightAngle.x) + LightAngle.y);
+	spotAttenuation *= spotAttenuation;
+	distanceAttenuation *= spotAttenuation;
+
+	return distanceAttenuation;
+}
+
+float4 SampleCookieTexture(float2 uv)
+{
+    return SAMPLE_TEXTURE2D_LOD(_MainLightCookieTexture, sampler_MainLightCookieTexture, uv, 0);
+}
+
+float4 SampleCookie(float3 positionWS)
+{
+	float4 outputColor = float4(1,1,1,1);
+
+	#if defined(_LIGHT_COOKIES)
+    if(IsMainLightCookieEnabled())
+	{
+		float2 uv = ComputeLightCookieUVDirectional(_MainLightWorldToLight, positionWS, float4(1, 1, 0, 0), URP_TEXTURE_WRAP_MODE_NONE);
+		float4 color = SampleCookieTexture(uv);
+
+		// If RGB Format, treat the cookie as COLORED, ALPHA CHANNEL AFFECTING SHADOW
+		// If Alpha or Red format, treat the cookie as COLORLESS, INTENSITY AFFECTS SHADOW
+		if(IsMainLightCookieTextureRGBFormat())
+		{
+			outputColor = color;
+		}
+		else if(IsMainLightCookieTextureAlphaFormat())
+		{
+			outputColor = float4(1,1,1, color.a);
+		}
+		else
+		{
+			outputColor = float4(1,1,1, color.r);
+		}
+	}
+	#endif
+
+	return outputColor;
+}
+
+float3 mainLightDirection;
+float3 mainLightColor;
+float3 GetDirectionalLightOverrides(float3 rayDirectionWS)
+{
+	float3 color = float3(0, 0, 0);
+	
+	float cosAngle = dot(mainLightDirection, rayDirectionWS); // [-1, 1]
+	cosAngle = saturate((cosAngle + 1.0) * 0.5); // [0, 1]
+	cosAngle = pow(cosAngle, _DirectionalLightingRatio);
+	color = lerp(_DirectionalLightingBack, _DirectionalLightingForward, cosAngle);
+	
+	
+	float lightApexFade = abs(dot(mainLightDirection, float3(0, 1, 0))); // [0,1]
+	color = lerp(color, float3(1.0, 1.0, 1.0), lightApexFade);
+	
+	return color;
+}
+
+float3 GetAdditionalLightData(float3 positionWS)
+{
+	float3 additionalLightsColor = float3(0,0,0);
+	
+	for (int lightIndex = 0; lightIndex < _LightCountButo; lightIndex++)
+	{
+		float3 lightColor = 
+			_LightColorButo[lightIndex]
+			* GetLightFalloff(positionWS, _LightPosButo[lightIndex], _LightAngleButo[lightIndex], _LightDirectionButo[lightIndex])
+			* _LightIntensityButo[lightIndex];
+			
+		additionalLightsColor += lightColor;
+	}
+
+	return additionalLightsColor;
+}
+
+// Unity renamed sampler_MainLightShadowmapTexture to sampler_LinearClampCompare in 2022.2.11. 
+// So, we just declare our own sampler now. Unity cannot be trusted.
+SAMPLER_CMP(sampler_ButoLinearClampCompare); 
+
+// See https://github.com/Unity-Technologies/Graphics/blob/d84f56b68aea37785813fddfcbcf63384e9640ff/Packages/com.unity.render-pipelines.universal/ShaderLibrary/Shadows.hlsl
+// WebGL complains about a gradient instruction when sampling the Shadowmap using SampleCmpLevelZero, 
+// but this method always samples mip0. Why the complaint?
+// Anyway, WebGL is no longer supported since we switched to Compute Shaders and Froxel fog.
+float GetRealtimeShadows(float4 shadowCoord)
+{
+	// We just manually sample the shadowmap using unfiltered data.
+	float4 shadowParams = GetMainLightShadowParams();
+	float shadowStrength = shadowParams.x;
+	float attenuation = _MainLightShadowmapTexture.SampleCmpLevelZero(sampler_ButoLinearClampCompare, shadowCoord.xy, shadowCoord.z);
+    return BEYOND_SHADOW_FAR(shadowCoord) ? 1.0 : attenuation;
+}
+
+float4 GetShadowCoord(float3 positionWS)
+{
+	#ifdef _MAIN_LIGHT_SHADOWS_CASCADE
+    half cascadeIndex = ComputeCascadeIndex(positionWS);
+#else
+    half cascadeIndex = half(0.0);
+#endif
+
+	float4x4 mat = _MainLightWorldToShadow[cascadeIndex];
+	float4 shadowCoord = mul(mat, float4(positionWS, 1.0));
+	
+    return float4(shadowCoord.xyz, 0);
+}
+
+float GetShadowAttenuation(float3 positionWS)
+{
+	float4 shadowCoord = GetShadowCoord(positionWS);
+	return saturate(lerp(GetRealtimeShadows(shadowCoord), 1.0, GetMainLightShadowFade(positionWS)));
+}
+
+
+Texture2D<float4> _ColorRamp;
+float _ColorInfluence;
+float3 colorSamples[3];
+// SimpleColor[0] -> Lit, SimpleColor[1] -> Shadowed, SimpleColor[2] -> Emissive
+float3 _SimpleColor[3];
+
+static const float points[3] =
+{
+	0.165,
+	0.495,
+	0.825
+};
+	
+void EvaluateColorOverrides(in float distance01, inout float3 litColor, inout float3 shadedColor, inout float3 emitColor)
+{
+	if(_ColorInfluence < 1e-4)
+		return;
+
+	[unroll]
+    for (int i = 0; i <= 2; i++)
+	{
+		colorSamples[i] = _ColorRamp.SampleLevel(buto_point_clamp_sampler, float2(distance01, points[i]), 0).rgb;
+	}
+			
+	shadedColor = lerp(shadedColor, colorSamples[0] * _SimpleColor[1], _ColorInfluence);
+	litColor = lerp(litColor, colorSamples[1] * _SimpleColor[0], _ColorInfluence);
+	emitColor = colorSamples[2] * _SimpleColor[2] * _ColorInfluence;
+}
+
+
+
+float HenyeyGreenstein(float3 rayDirectionWS, float eccentricity)
+{
+	float cosAngle = dot(mainLightDirection, rayDirectionWS);
+	float e2 = eccentricity * eccentricity;
+	float n = 1.0 - e2;
+	float d = pow(abs(1.0 + e2 - 2.0 * eccentricity * cosAngle), 1.5);
+	float nd = n/d;
+	return nd * 0.78539;
+}
+
+float _Anisotropy;
+float _LightIntensity;
+float3 GetLighting(float3 positionWS, float3 rayDirectionWS, float distance01)
+{
+	float4 cookie = SampleCookie(positionWS);
+	
+	float3 directLighting = mainLightColor * cookie.rgb;
+	float3 ambientLighting = _WorldColor;
+	float3 additionalLighting = GetAdditionalLightData(positionWS);
+	float3 directionalLighting = GetDirectionalLightOverrides(rayDirectionWS);
+
+	float shading = GetShadowAttenuation(positionWS) * cookie.a;
+
+	float3 litColor = ambientLighting + directLighting;
+	float3 shadedColor = ambientLighting;
+	float3 emissionColor = 0;
+
+	EvaluateColorOverrides(distance01, litColor, shadedColor, emissionColor);
+	float hg = HenyeyGreenstein(rayDirectionWS, _Anisotropy);
+	float3 lighting = lerp(shadedColor, litColor * hg, shading) * directionalLighting + emissionColor + additionalLighting;
+	
+	return lighting * _LightIntensity;
+}
+
+float buto_TemporalIntegration_Lighting;
+
+[numthreads(8,8,8)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    if(id.x >= (uint)fog_volume_size.x || id.y >= (uint)fog_volume_size.y || id.z >= (uint)fog_volume_size.z)
+        return;
+
+	float3 r = halton[GetHaltonId(id)] - 0.5;
+	 
+    float3 uvw = IdToUVW(id, fog_cell_size);
+	float3 uvwJittered = uvw;
+
+	if(buto_TemporalIntegration_Lighting < 1.0)
+	{
+		uvwJittered = saturate(uvw + (r * fog_cell_size));;
+	}
+    float3 rayDirectionWS = GetRayDirectionCompute(uvwJittered.xy);
+
+	Light mainLight = GetMainLight();
+	mainLightColor = mainLight.color;
+	mainLightDirection = mainLight.direction;
+
+    float3 positionWS = DirectionAndDistanceToWorldPosition(rayDirectionWS, uvwJittered.z);
+		
+	float extinction = MediaData[id.xyz].a;
+
+	float3 lighting = GetLighting(positionWS, rayDirectionWS, uvwJittered.z);
+	float3 newResult = lighting.rgb;
+
+	//  TAA
+	if(buto_TemporalIntegration_Lighting > 0.0)
+	{
+		ReprojectionData reprojectionData = CalculateReprojection(uvw);
+		float integrationAmount = 1.0;
+		float3 previousValue = 0.0;
+		
+		if(reprojectionData.isValid)
+		{
+			integrationAmount = buto_TemporalIntegration_Lighting;
+			previousValue = LightingDataTexPrevious.SampleLevel(buto_linear_clamp_sampler, reprojectionData.uvwPrevious, 0).rgb;
+		}
+
+		newResult = lerp(previousValue, newResult, integrationAmount);
+	}
+	
+    LightingDataTex[id.xyz] = float4(newResult.rgb, extinction);
+}

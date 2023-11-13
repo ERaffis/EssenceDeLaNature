@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Fog
-  m_Shader: {fileID: 4800000, guid: 6490db4c7a37d8349b85b261b7ff5cea, type: 3}
+  m_Shader: {fileID: 4800000, guid: 64bcfabbbe8119648b5596522462f22a, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -93,18 +93,18 @@ Material:
     - _FogColorStart3: 10
     - _FogColorStart4: 30
     - _FogDensity: 2
-    - _FogDepthMultiplier: 1
+    - _FogDepthMultiplier: 2
     - _FogDepthMultiplier1: 1
     - _FogIntensity: 1
     - _FogIntensity1: 1
-    - _FogOffset: 0
+    - _FogOffset: 0.85
     - _FogOffset1: 1
-    - _FogSmoothness: 2000
+    - _FogSmoothness: 550450.56
     - _FogSmoothness1: 100
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _LightFalloff: 25.17635
+    - _LightFalloff: 4.7471576
     - _LightFalloff1: 10
     - _LightIntensity: 1
     - _Metallic: 0
@@ -124,13 +124,13 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FogColor1: {r: 0, g: 0, b: 0, a: 0.007843138}
-    - _FogColor2: {r: 0.03126603, g: 0.24306996, b: 0.38780376, a: 0.13725491}
-    - _FogColor3: {r: 0.07450981, g: 0.3098038, b: 0.5019608, a: 0.5019608}
-    - _FogColor4: {r: 0.012115479, g: 0.28606784, b: 0.5484506, a: 0.75686276}
-    - _FogColor5: {r: 0.3873498, g: 0.6784063, b: 0.86103, a: 1}
+    - _FogColor2: {r: 0, g: 0, b: 0, a: 0.13725491}
+    - _FogColor3: {r: 0.02246007, g: 0.033299986, b: 0.04190299, a: 0.5019608}
+    - _FogColor4: {r: 0.051495466, g: 0.07050338, b: 0.08465843, a: 0.75686276}
+    - _FogColor5: {r: 0.19400652, g: 0.22988676, b: 0.24330068, a: 1}
     - _FogSquish: {r: 1, g: 3.93, b: 0, a: 0}
-    - _LightColor: {r: 1.0833969, g: 1.3920008, b: 1.382235, a: 1}
+    - _LightColor: {r: 2.1455626, g: 1.73238, b: 1.851973, a: 1}
     - _LightColor1: {r: 11.924528, g: 32, b: 29.818542, a: 0}
-    - _SunDirection: {r: -0.32529196, g: 0.943087, b: 0.06908098, a: 0}
+    - _SunDirection: {r: -0.77453524, g: -0.11504009, b: -0.62198156, a: 0}
     - _SunDirection1: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

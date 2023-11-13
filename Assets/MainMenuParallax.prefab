@@ -1,0 +1,185 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &601075236414547749
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6228531980851476665}
+  - component: {fileID: 3260249184875351313}
+  m_Layer: 0
+  m_Name: MainMenuParallax
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6228531980851476665
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601075236414547749}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.6, z: 78.10001}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3260249184875351313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601075236414547749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2852911d573562f4a836903e5c779c94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mode: 0
+  AmplitudeMultiplier: 0.25
+  SpeedMultiplier: 0.5
+  ParallaxLayers:
+  - Rect: {fileID: 0}
+    Speed: 5
+    Amplitude: 1
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 10
+    Amplitude: 1.25
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 10
+    Amplitude: 1
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 10
+    Amplitude: 1.25
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 10
+    Amplitude: 1
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 10
+    Amplitude: 1.25
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 10
+    Amplitude: 1
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 10
+    Amplitude: 1.25
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 10
+    Amplitude: 1
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 10
+    Amplitude: 1.25
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 10
+    Amplitude: 1
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 10
+    Amplitude: 1.25
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 10
+    Amplitude: 1
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 10
+    Amplitude: 1.25
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 10
+    Amplitude: 1
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 10
+    Amplitude: 1.25
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 10
+    Amplitude: 1
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 10
+    Amplitude: 1.25
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 10
+    Amplitude: 1
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 10
+    Amplitude: 1.25
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 10
+    Amplitude: 1
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 10
+    Amplitude: 1
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 40
+    Amplitude: 10
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 60
+    Amplitude: 10
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 10
+    Amplitude: 1.25
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 10
+    Amplitude: 1
+    StartPosition: {x: 0, y: 0}
+    Active: 1
+  - Rect: {fileID: 0}
+    Speed: 40
+    Amplitude: 2
+    StartPosition: {x: 0, y: 0}
+    Active: 1
