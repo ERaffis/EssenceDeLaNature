@@ -100,6 +100,7 @@ public class WorldEvolutionManager : MonoBehaviour
                 break;
             case 8:
                 _positionNumber++;
+                ChangeScene(_positionNumber, 3);
                 ChangeCozySettings(3, 0.6f);
                 break;
 

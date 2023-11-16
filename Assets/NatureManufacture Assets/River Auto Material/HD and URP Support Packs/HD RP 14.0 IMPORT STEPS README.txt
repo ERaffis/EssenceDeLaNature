@@ -1,0 +1,13 @@
+Import 14.0 HD RP support pack for unity 2022.3 with HD RP 14.0 and all higher HD RP versions
+
+Please add our SSS settings to your project. 
+Please find: "HDRenderPipelineAsset" 
+At the brottom please add our "NM_SSSSettings_Water_RAM" Profile into "Diffusion Profile List" you can find it at:
+"Project settings" ->"Gaphics"-> "HDRP global settings" ->  "Default 
+It's because we use translucency on water.  You could also do it by "fix" button at material
+
+Make note that tesselation shaders doesn't support rtx at unity hd rp yet
+If you notice this error at 2022.3:
+""No more space in Reflection Probe Atlas. To solve this issue, increase the size of the Reflection Probe Atlas in the HDRP settings.
+UnityEngine.GUIUtility:ProcessEvent (int,intptr,bool&)""
+Just increase this value to 4x8k. 
