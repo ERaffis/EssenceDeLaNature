@@ -29,7 +29,7 @@ public class PlayerInventory : MonoBehaviour
         _camera.SetActive(!_camera.activeSelf);
         _cameraState = _camera.activeSelf;
         _controlsHUD.SetActive(!_cameraState);  
-
+        
     }
 
 

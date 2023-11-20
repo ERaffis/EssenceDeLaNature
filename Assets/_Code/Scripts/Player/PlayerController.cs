@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
+using MoreMountains.Tools;
+using MoreMountains.Feedbacks;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInput))]
@@ -69,6 +71,10 @@ public class PlayerController : MonoBehaviour
     public PlayerInventory _playerInventory;
 
     private const float _threshold = 0.01f;
+
+    //Footsteps
+    [Header("Footsteps")]
+    [SerializeField] private MMF_Player mMF;
 
 
     private void Awake()
@@ -147,7 +153,7 @@ public class PlayerController : MonoBehaviour
     {
         // set target speed based on _moveDirection speed, sprint speed and if sprint is pressed
         float targetSpeed = MoveSpeed;
-        
+
         // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
         // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
@@ -184,11 +190,15 @@ public class PlayerController : MonoBehaviour
         {
             // move
             inputDirection = transform.right * _input._moveDirection.x + transform.forward * _input._moveDirection.y;
+            PlayFootstepsAudio();
+        } else
+        {
+            StopFootstepsAudio();
         }
 
         // Move the player
         _controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
-        
+
     }
 
     private void JumpAndGravity()
@@ -258,4 +268,12 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
     }
 
+    private void PlayFootstepsAudio()
+    {
+        mMF.PlayFeedbacks();
+    }
+    private void StopFootstepsAudio()
+    {
+        mMF.StopFeedbacks();
+    }
 }

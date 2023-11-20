@@ -22,6 +22,7 @@ public class WorldEvolutionManager : MonoBehaviour
     public Transform _playerTransform;
     public Transform _cameraTransform;
     public PlayerController _playerController;
+    public InputManager _inputManager;
     [Space(5)]
     public Vector3[] _teleportPosition;
     public Vector3[] _teleportRotation;
@@ -115,8 +116,8 @@ public class WorldEvolutionManager : MonoBehaviour
                 ChangeCozySettings(3, 0.9f);
                 break;
         
-                case 11:
-                SceneManager.LoadSceneAsync(0);
+            case 11:
+                SceneManager.LoadScene(0);
                 break;
 
             
@@ -155,6 +156,7 @@ public class WorldEvolutionManager : MonoBehaviour
         _transitionText[sceneNumber].SetActive(true);
         _transitionHolder.GetComponent<Animator>().Play("TransitionFadeOut");
         TeleportPlayer();
+        _inputManager.OnCamera();
     } 
 
     private void TeleportPlayer()

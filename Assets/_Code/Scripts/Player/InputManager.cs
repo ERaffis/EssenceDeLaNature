@@ -33,6 +33,7 @@ public class InputManager : MonoBehaviour
     public GameObject _pauseMenu;
     public CinemachineVirtualCamera _playerCam;
     public CinemachineVirtualCamera _menuCam;
+    public CinemachineVirtualCamera _photoCam;
     public Volume _mainVolume;
     public Volume _menuVolume;
 
@@ -63,10 +64,26 @@ public class InputManager : MonoBehaviour
         _controls.FindActionMap("Menu").Disable();
         _playerCam.Priority = 10;
         _menuCam.Priority = 0;
+        _photoCam.Priority = -10;
         _mainVolume.priority = 10;
         _menuVolume.priority = 0;
         _inPauseMenu = false;
 
+    }
+
+    private void Update()
+    {
+        Vector2 vec = Mouse.current.scroll.ReadValue();
+        _photoCam.m_Lens.FieldOfView += ((vec.y / 120)*5)*-1;
+
+        if (_photoCam.m_Lens.FieldOfView < 20)
+        {
+            _photoCam.m_Lens.FieldOfView = 20;
+        }
+        if (_photoCam.m_Lens.FieldOfView > 120)
+        {
+            _photoCam.m_Lens.FieldOfView = 120;
+        }
     }
 
 
@@ -112,6 +129,7 @@ public class InputManager : MonoBehaviour
                 _controls.FindActionMap("BasicControls").Disable();
                 _controls.FindActionMap("Menu").Enable();
                 _playerCam.Priority = 0;
+                _photoCam.Priority = -10;
                 _menuCam.Priority = 10;
                 _mainVolume.priority = 0;
                 _menuVolume.priority = 10;
@@ -122,6 +140,7 @@ public class InputManager : MonoBehaviour
                 _controls.FindActionMap("BasicControls").Enable();
                 _controls.FindActionMap("Menu").Disable();
                 _playerCam.Priority = 10;
+                _photoCam.Priority = -10;
                 _menuCam.Priority = 0;
                 _mainVolume.priority = 10;
                 _menuVolume.priority = 0;
@@ -147,6 +166,7 @@ public class InputManager : MonoBehaviour
                 _controls.FindActionMap("BasicControls").Disable();
                 _controls.FindActionMap("Menu").Enable();
                 _playerCam.Priority = 0;
+                _photoCam.Priority = -10;
                 _menuCam.Priority = 10;
                 _mainVolume.priority = 0;
                 _menuVolume.priority = 10;
@@ -158,6 +178,7 @@ public class InputManager : MonoBehaviour
                 _controls.FindActionMap("BasicControls").Enable();
                 _controls.FindActionMap("Menu").Disable();
                 _playerCam.Priority = 10;
+                _photoCam.Priority = -10;
                 _menuCam.Priority = 0;
                 _mainVolume.priority = 10;
                 _menuVolume.priority = 0;
@@ -186,6 +207,7 @@ public class InputManager : MonoBehaviour
             _controls.FindActionMap("Menu").Enable();
 
             _playerCam.Priority = 0;
+            _photoCam.Priority = -10;
             _menuCam.Priority = 10;
             _mainVolume.priority = 0;
             _menuVolume.priority = 10;
@@ -211,10 +233,29 @@ public class InputManager : MonoBehaviour
             _controls.FindActionMap("BasicControls").Enable();
             _controls.FindActionMap("Menu").Disable();
             _playerCam.Priority = 10;
+            _photoCam.Priority = -10;
             _menuCam.Priority = 0;
             _mainVolume.priority = 10;
             _menuVolume.priority = 0;
             
+        }
+    }
+
+    public void OnCamera()
+    {
+        if (_photoCam.Priority == -10)
+        {
+            _playerCam.Priority = 0;
+            _photoCam.Priority = 10;
+            _menuCam.Priority = -10;
+            _photoCam.m_Lens.FieldOfView = 70;
+        }
+        else
+        {
+            _playerCam.Priority = 10;
+            _photoCam.Priority = -10;
+            _menuCam.Priority = 0;
+            _photoCam.m_Lens.FieldOfView = 70;
         }
     }
 
