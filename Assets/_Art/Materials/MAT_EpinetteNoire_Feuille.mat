@@ -171,7 +171,7 @@ Material:
     m_Colors:
     - _Color: {r: 0.32075468, g: 0.32075468, b: 0.32075468, a: 0.5764706}
     - _HueVariation: {r: 1, g: 0.5, b: 0, a: 0.1}
-    - _HueVariationColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HueVariationColor: {r: 1, g: 1, b: 1, a: 0}
     - _PW_CoverLayer0Color: {r: 1, g: 1, b: 1, a: 0}
     - _PW_CoverLayer1Color: {r: 1, g: 1, b: 1, a: 0}
     - _PW_SSSTint: {r: 1, g: 1, b: 1, a: 0}

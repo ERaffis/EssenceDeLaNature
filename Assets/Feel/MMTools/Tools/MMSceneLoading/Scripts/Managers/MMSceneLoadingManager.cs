@@ -170,7 +170,7 @@ namespace MoreMountains.Tools
 		/// </summary>
 		protected virtual void LoadingSetup() 
 		{
-			LoadingCompleteAnimation.alpha=0;
+			//LoadingCompleteAnimation.alpha=0;
 			_progressBarImage.fillAmount = 0f;
 			LoadingText.text = _loadingTextValue;
 		}
@@ -181,10 +181,10 @@ namespace MoreMountains.Tools
 		protected virtual void LoadingComplete() 
 		{
 			LoadingSceneEvent.Trigger(_sceneToLoad, LoadingStatus.InterpolatedLoadProgressComplete);
-			LoadingCompleteAnimation.gameObject.SetActive(true);
-			StartCoroutine(MMFade.FadeCanvasGroup(LoadingProgressBar,0.1f,0f));
-			StartCoroutine(MMFade.FadeCanvasGroup(LoadingAnimation,0.1f,0f));
-			StartCoroutine(MMFade.FadeCanvasGroup(LoadingCompleteAnimation,0.1f,1f));
+			//LoadingCompleteAnimation.gameObject.SetActive(true);
+			//StartCoroutine(MMFade.FadeCanvasGroup(LoadingProgressBar,0.1f,0f));
+			//StartCoroutine(MMFade.FadeCanvasGroup(LoadingAnimation,0.1f,0f));
+			//StartCoroutine(MMFade.FadeCanvasGroup(LoadingCompleteAnimation,0.1f,1f));
 		}
 	}
 }

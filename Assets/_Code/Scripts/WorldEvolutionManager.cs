@@ -53,18 +53,15 @@ public class WorldEvolutionManager : MonoBehaviour
     }
     public void PhotoCaptured(int number)
     {
-        print(number);
         switch (number)
         {
             case 0:
                 _positionNumber++;
-                print(_positionNumber);
                 ChangeScene(_positionNumber, 1);
                 ChangeCozySettings(0, 0.9f);
                 break;
             case 1:
                 _positionNumber++;
-                print(_positionNumber);
                 ChangeScene(_positionNumber, 0);
                 ChangeCozySettings(0, 0.8f);
                 break;
@@ -115,13 +112,18 @@ public class WorldEvolutionManager : MonoBehaviour
                 ChangeScene(_positionNumber, 2);
                 ChangeCozySettings(3, 0.9f);
                 break;
-        
+
             case 11:
-                SceneManager.LoadScene(0);
+                _positionNumber++;
+                ChangeScene(_positionNumber, 2);
+                ChangeCozySettings(3, 0.9f);
                 break;
 
-            
-            }
+            case 12:
+                StartCoroutine(LoadLastScene());
+                break;
+
+        }
         }
 
         public void FastForward(int i)
@@ -164,7 +166,6 @@ public class WorldEvolutionManager : MonoBehaviour
         _playerTransform.position = _teleportPosition[_positionNumber];
         _playerTransform.rotation = Quaternion.Euler(0, _teleportRotation[_positionNumber].y, 0);
         _cameraTransform.rotation = Quaternion.Euler(_teleportCameraAim[_positionNumber].x, _teleportCameraAim[_positionNumber].y, 0);
-        print("Teleported player");
     }
 
     private void ChangeCozySettings(int volumeProfile, float snowAmount)
@@ -173,5 +174,11 @@ public class WorldEvolutionManager : MonoBehaviour
         _cozyManager.SetWeather(_weather[_positionNumber]);
         _mainVolume.profile = _volumeProfiles[volumeProfile];
         _cozyManager.cozyMaterials.snowAmount = snowAmount;
+    }
+
+    private IEnumerator LoadLastScene()
+    {
+        yield return new WaitForEndOfFrame();
+        SceneManager.LoadScene(15);
     }
 }

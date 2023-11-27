@@ -171,7 +171,7 @@ Material:
     - _WrapLighting: 2.11
     m_Colors:
     - _Color: {r: 0.51886785, g: 0.51886785, b: 0.51886785, a: 0.5529412}
-    - _HueVariationColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HueVariationColor: {r: 1, g: 1, b: 1, a: 0}
     - _PW_CoverLayer0Color: {r: 1, g: 1, b: 1, a: 0}
     - _PW_CoverLayer1Color: {r: 1, g: 1, b: 1, a: 0}
     - _PW_SSSTint: {r: 1, g: 1, b: 1, a: 0}

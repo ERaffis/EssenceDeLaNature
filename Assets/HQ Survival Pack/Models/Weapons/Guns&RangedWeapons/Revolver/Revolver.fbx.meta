@@ -1,0 +1,267 @@
+fileFormatVersion: 2
+guid: 4c2a11f1f72370a41a3b52f2570bd27d
+ModelImporter:
+  serializedVersion: 19301
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: //RootNode
+  - first:
+      1: 100002
+    second: Revolver Bullet 01
+  - first:
+      1: 100004
+    second: Revolver Bullet 02
+  - first:
+      1: 100006
+    second: Revolver Bullet 03
+  - first:
+      1: 100008
+    second: Revolver Bullet 04
+  - first:
+      1: 100010
+    second: Revolver Bullet 05
+  - first:
+      1: 100012
+    second: Revolver Bullet 06
+  - first:
+      1: 100014
+    second: Revolver Chamber
+  - first:
+      1: 100016
+    second: Revolver Hammer
+  - first:
+      1: 100018
+    second: Revolver SpeedLoader
+  - first:
+      1: 100020
+    second: Revolver Trigger
+  - first:
+      4: 400000
+    second: //RootNode
+  - first:
+      4: 400002
+    second: Revolver Bullet 01
+  - first:
+      4: 400004
+    second: Revolver Bullet 02
+  - first:
+      4: 400006
+    second: Revolver Bullet 03
+  - first:
+      4: 400008
+    second: Revolver Bullet 04
+  - first:
+      4: 400010
+    second: Revolver Bullet 05
+  - first:
+      4: 400012
+    second: Revolver Bullet 06
+  - first:
+      4: 400014
+    second: Revolver Chamber
+  - first:
+      4: 400016
+    second: Revolver Hammer
+  - first:
+      4: 400018
+    second: Revolver SpeedLoader
+  - first:
+      4: 400020
+    second: Revolver Trigger
+  - first:
+      23: 2300000
+    second: //RootNode
+  - first:
+      23: 2300002
+    second: Revolver Bullet 01
+  - first:
+      23: 2300004
+    second: Revolver Bullet 02
+  - first:
+      23: 2300006
+    second: Revolver Bullet 03
+  - first:
+      23: 2300008
+    second: Revolver Bullet 04
+  - first:
+      23: 2300010
+    second: Revolver Bullet 05
+  - first:
+      23: 2300012
+    second: Revolver Bullet 06
+  - first:
+      23: 2300014
+    second: Revolver Chamber
+  - first:
+      23: 2300016
+    second: Revolver Hammer
+  - first:
+      23: 2300018
+    second: Revolver SpeedLoader
+  - first:
+      23: 2300020
+    second: Revolver Trigger
+  - first:
+      33: 3300000
+    second: //RootNode
+  - first:
+      33: 3300002
+    second: Revolver Bullet 01
+  - first:
+      33: 3300004
+    second: Revolver Bullet 02
+  - first:
+      33: 3300006
+    second: Revolver Bullet 03
+  - first:
+      33: 3300008
+    second: Revolver Bullet 04
+  - first:
+      33: 3300010
+    second: Revolver Bullet 05
+  - first:
+      33: 3300012
+    second: Revolver Bullet 06
+  - first:
+      33: 3300014
+    second: Revolver Chamber
+  - first:
+      33: 3300016
+    second: Revolver Hammer
+  - first:
+      33: 3300018
+    second: Revolver SpeedLoader
+  - first:
+      33: 3300020
+    second: Revolver Trigger
+  - first:
+      43: 4300000
+    second: Revolver
+  - first:
+      43: 4300002
+    second: Revolver Chamber
+  - first:
+      43: 4300004
+    second: Revolver Hammer
+  - first:
+      43: 4300006
+    second: Revolver Trigger
+  - first:
+      43: 4300008
+    second: Revolver SpeedLoader
+  - first:
+      43: 4300010
+    second: Revolver Bullet 06
+  - first:
+      43: 4300012
+    second: Revolver Bullet 05
+  - first:
+      43: 4300014
+    second: Revolver Bullet 04
+  - first:
+      43: 4300016
+    second: Revolver Bullet 03
+  - first:
+      43: 4300018
+    second: Revolver Bullet 02
+  - first:
+      43: 4300020
+    second: Revolver Bullet 01
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Revolver
+    second: {fileID: 2100000, guid: 78f16b7148cb1b145b2d9a02acf00d65, type: 2}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 5.5
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 0
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 0
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 5.5
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 0
+  humanoidOversampling: 1
+  avatarSetup: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

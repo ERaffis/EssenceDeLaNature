@@ -127,7 +127,6 @@ public class CameraController : MonoBehaviour
         photoCapture.name = "Image " + photoNumber;
 
         cameraShutter.SetActive(true);
-        _worldEvolutionManager.PhotoCaptured(photoNumber);
         photoNumber++;
 
         _playerInventory.OnCamera();
@@ -135,6 +134,7 @@ public class CameraController : MonoBehaviour
         yield return new WaitForSeconds(shutterDuration);
 
         ShowPhoto(photoCapture);
+        _worldEvolutionManager.PhotoCaptured(photoNumber);
         cameraShutter.SetActive(false);
 
         //Hide photo
@@ -154,6 +154,7 @@ public class CameraController : MonoBehaviour
         photoAlbum[photoNumber - 1].imageSprite = LoadNewSprite(Application.dataPath + "/SavedScreen" + photoNumber + ".png");
         photoAlbum[photoNumber - 1].imageTexture2D = LoadTexture(Application.dataPath + "/SavedScreen" + photoNumber + ".png");
         photoAlbum[photoNumber - 1].isEmpty = false;
+        print(photoNumber - 1 +", " + photoAlbum[photoNumber - 1].name + ", " + photoAlbum[photoNumber - 1].isEmpty);
 
 
         photoDisplayArea.sprite = photoCapture;

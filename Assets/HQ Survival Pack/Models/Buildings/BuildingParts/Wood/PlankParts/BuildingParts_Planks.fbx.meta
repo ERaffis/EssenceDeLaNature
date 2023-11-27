@@ -1,0 +1,622 @@
+fileFormatVersion: 2
+guid: 3b158854628c02e4ca515560ddf27c44
+ModelImporter:
+  serializedVersion: 19301
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: //RootNode
+  - first:
+      1: 100002
+    second: Doorway (Plank)
+  - first:
+      1: 100004
+    second: Floor (Plank)
+  - first:
+      1: 100006
+    second: L Shaped Stairs (Plank)
+  - first:
+      1: 100008
+    second: Pillar (Plank)
+  - first:
+      1: 100010
+    second: Platform (Plank)
+  - first:
+      1: 100012
+    second: Roof (Metal)
+  - first:
+      1: 100014
+    second: Stairs (Plank)
+  - first:
+      1: 100016
+    second: Wall (Plank)
+  - first:
+      1: 100018
+    second: Window Frame (Plank)
+  - first:
+      1: 100020
+    second: Platform (Planks)
+  - first:
+      1: 100022
+    second: Wooden Door
+  - first:
+      1: 100024
+    second: Wooden Window 02
+  - first:
+      1: 100026
+    second: Platform (Planks).001
+  - first:
+      1: 100028
+    second: L Shaped Stairs (Planks)
+  - first:
+      1: 100030
+    second: Stairs (Planks)
+  - first:
+      1: 100032
+    second: Doorway (Planks)
+  - first:
+      1: 100034
+    second: Wall (Planks)
+  - first:
+      1: 100036
+    second: Window Frame (Planks)
+  - first:
+      1: 100038
+    second: Floor (Planks)
+  - first:
+      1: 100040
+    second: Half Wall (Planks)
+  - first:
+      1: 100042
+    second: Half Wall Slope (Planks)
+  - first:
+      1: 100044
+    second: Straight Roof (Planks)
+  - first:
+      1: 100046
+    second: Tilted Roof (Planks)
+  - first:
+      1: 100048
+    second: Cube
+  - first:
+      1: 100050
+    second: Half Pillar
+  - first:
+      1: 100052
+    second: Window (Planks)
+  - first:
+      4: 400000
+    second: //RootNode
+  - first:
+      4: 400002
+    second: Doorway (Plank)
+  - first:
+      4: 400004
+    second: Floor (Plank)
+  - first:
+      4: 400006
+    second: L Shaped Stairs (Plank)
+  - first:
+      4: 400008
+    second: Pillar (Plank)
+  - first:
+      4: 400010
+    second: Platform (Plank)
+  - first:
+      4: 400012
+    second: Roof (Metal)
+  - first:
+      4: 400014
+    second: Stairs (Plank)
+  - first:
+      4: 400016
+    second: Wall (Plank)
+  - first:
+      4: 400018
+    second: Window Frame (Plank)
+  - first:
+      4: 400020
+    second: Platform (Planks)
+  - first:
+      4: 400022
+    second: Wooden Door
+  - first:
+      4: 400024
+    second: Wooden Window 02
+  - first:
+      4: 400026
+    second: Platform (Planks).001
+  - first:
+      4: 400028
+    second: L Shaped Stairs (Planks)
+  - first:
+      4: 400030
+    second: Stairs (Planks)
+  - first:
+      4: 400032
+    second: Doorway (Planks)
+  - first:
+      4: 400034
+    second: Wall (Planks)
+  - first:
+      4: 400036
+    second: Window Frame (Planks)
+  - first:
+      4: 400038
+    second: Floor (Planks)
+  - first:
+      4: 400040
+    second: Half Wall (Planks)
+  - first:
+      4: 400042
+    second: Half Wall Slope (Planks)
+  - first:
+      4: 400044
+    second: Straight Roof (Planks)
+  - first:
+      4: 400046
+    second: Tilted Roof (Planks)
+  - first:
+      4: 400048
+    second: Cube
+  - first:
+      4: 400050
+    second: Half Pillar
+  - first:
+      4: 400052
+    second: Window (Planks)
+  - first:
+      21: 2100000
+    second: No Name
+  - first:
+      23: 2300000
+    second: Doorway (Plank)
+  - first:
+      23: 2300002
+    second: Floor (Plank)
+  - first:
+      23: 2300004
+    second: L Shaped Stairs (Plank)
+  - first:
+      23: 2300006
+    second: Pillar (Plank)
+  - first:
+      23: 2300008
+    second: Platform (Plank)
+  - first:
+      23: 2300010
+    second: Roof (Metal)
+  - first:
+      23: 2300012
+    second: Stairs (Plank)
+  - first:
+      23: 2300014
+    second: Wall (Plank)
+  - first:
+      23: 2300016
+    second: Window Frame (Plank)
+  - first:
+      23: 2300018
+    second: Platform (Planks)
+  - first:
+      23: 2300020
+    second: Wooden Door
+  - first:
+      23: 2300022
+    second: Wooden Window 02
+  - first:
+      23: 2300024
+    second: Platform (Planks).001
+  - first:
+      23: 2300026
+    second: L Shaped Stairs (Planks)
+  - first:
+      23: 2300028
+    second: Stairs (Planks)
+  - first:
+      23: 2300030
+    second: Doorway (Planks)
+  - first:
+      23: 2300032
+    second: Wall (Planks)
+  - first:
+      23: 2300034
+    second: Window Frame (Planks)
+  - first:
+      23: 2300036
+    second: Floor (Planks)
+  - first:
+      23: 2300038
+    second: Half Wall (Planks)
+  - first:
+      23: 2300040
+    second: Half Wall Slope (Planks)
+  - first:
+      23: 2300042
+    second: Straight Roof (Planks)
+  - first:
+      23: 2300044
+    second: Tilted Roof (Planks)
+  - first:
+      23: 2300046
+    second: Cube
+  - first:
+      23: 2300048
+    second: Half Pillar
+  - first:
+      23: 2300050
+    second: Window (Planks)
+  - first:
+      33: 3300000
+    second: Doorway (Plank)
+  - first:
+      33: 3300002
+    second: Floor (Plank)
+  - first:
+      33: 3300004
+    second: L Shaped Stairs (Plank)
+  - first:
+      33: 3300006
+    second: Pillar (Plank)
+  - first:
+      33: 3300008
+    second: Platform (Plank)
+  - first:
+      33: 3300010
+    second: Roof (Metal)
+  - first:
+      33: 3300012
+    second: Stairs (Plank)
+  - first:
+      33: 3300014
+    second: Wall (Plank)
+  - first:
+      33: 3300016
+    second: Window Frame (Plank)
+  - first:
+      33: 3300018
+    second: Platform (Planks)
+  - first:
+      33: 3300020
+    second: Wooden Door
+  - first:
+      33: 3300022
+    second: Wooden Window 02
+  - first:
+      33: 3300024
+    second: Platform (Planks).001
+  - first:
+      33: 3300026
+    second: L Shaped Stairs (Planks)
+  - first:
+      33: 3300028
+    second: Stairs (Planks)
+  - first:
+      33: 3300030
+    second: Doorway (Planks)
+  - first:
+      33: 3300032
+    second: Wall (Planks)
+  - first:
+      33: 3300034
+    second: Window Frame (Planks)
+  - first:
+      33: 3300036
+    second: Floor (Planks)
+  - first:
+      33: 3300038
+    second: Half Wall (Planks)
+  - first:
+      33: 3300040
+    second: Half Wall Slope (Planks)
+  - first:
+      33: 3300042
+    second: Straight Roof (Planks)
+  - first:
+      33: 3300044
+    second: Tilted Roof (Planks)
+  - first:
+      33: 3300046
+    second: Cube
+  - first:
+      33: 3300048
+    second: Half Pillar
+  - first:
+      33: 3300050
+    second: Window (Planks)
+  - first:
+      43: 4300000
+    second: L Shaped Stairs (Plank)
+  - first:
+      43: 4300002
+    second: Stairs (Plank)
+  - first:
+      43: 4300004
+    second: Window Frame (Plank)
+  - first:
+      43: 4300006
+    second: Doorway (Plank)
+  - first:
+      43: 4300008
+    second: Roof (Metal)
+  - first:
+      43: 4300010
+    second: Floor (Plank)
+  - first:
+      43: 4300012
+    second: Pillar (Plank)
+  - first:
+      43: 4300014
+    second: Wall (Plank)
+  - first:
+      43: 4300016
+    second: Platform (Plank)
+  - first:
+      43: 4300018
+    second: Platform (Planks)
+  - first:
+      43: 4300020
+    second: Wooden Door
+  - first:
+      43: 4300022
+    second: Wooden Window 02
+  - first:
+      43: 4300024
+    second: Platform (Planks).001
+  - first:
+      43: 4300026
+    second: L Shaped Stairs (Planks)
+  - first:
+      43: 4300028
+    second: Stairs (Planks)
+  - first:
+      43: 4300030
+    second: Doorway (Planks)
+  - first:
+      43: 4300032
+    second: Window Frame (Planks)
+  - first:
+      43: 4300034
+    second: Wall (Planks)
+  - first:
+      43: 4300036
+    second: Half Wall (Planks)
+  - first:
+      43: 4300038
+    second: Half Wall Slope (Planks)
+  - first:
+      43: 4300040
+    second: Tilted Roof (Planks)
+  - first:
+      43: 4300042
+    second: Straight Roof (Planks)
+  - first:
+      43: 4300044
+    second: Floor (Planks)
+  - first:
+      43: 4300046
+    second: Cube
+  - first:
+      43: 4300048
+    second: Half Pillar
+  - first:
+      43: 4300050
+    second: Window (Planks)
+  - first:
+      64: 6400000
+    second: Doorway (Plank)
+  - first:
+      64: 6400002
+    second: Floor (Plank)
+  - first:
+      64: 6400004
+    second: L Shaped Stairs (Plank)
+  - first:
+      64: 6400006
+    second: Pillar (Plank)
+  - first:
+      64: 6400008
+    second: Platform (Plank)
+  - first:
+      64: 6400010
+    second: Roof (Metal)
+  - first:
+      64: 6400012
+    second: Stairs (Plank)
+  - first:
+      64: 6400014
+    second: Wall (Plank)
+  - first:
+      64: 6400016
+    second: Window Frame (Plank)
+  - first:
+      64: 6400018
+    second: Platform (Planks)
+  - first:
+      64: 6400020
+    second: Wooden Door
+  - first:
+      64: 6400022
+    second: Wooden Window 02
+  - first:
+      64: 6400024
+    second: Platform (Planks).001
+  - first:
+      64: 6400026
+    second: L Shaped Stairs (Planks)
+  - first:
+      64: 6400028
+    second: Stairs (Planks)
+  - first:
+      64: 6400030
+    second: Doorway (Planks)
+  - first:
+      64: 6400032
+    second: Wall (Planks)
+  - first:
+      64: 6400034
+    second: Window Frame (Planks)
+  - first:
+      64: 6400036
+    second: Floor (Planks)
+  - first:
+      64: 6400038
+    second: Half Wall (Planks)
+  - first:
+      64: 6400040
+    second: Half Wall Slope (Planks)
+  - first:
+      64: 6400042
+    second: Straight Roof (Planks)
+  - first:
+      64: 6400044
+    second: Tilted Roof (Planks)
+  - first:
+      64: 6400046
+    second: Cube
+  - first:
+      64: 6400048
+    second: Half Pillar
+  - first:
+      64: 6400050
+    second: Window (Planks)
+  - first:
+      41386430: 2186277476908879412
+    second: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Building Planks Atlas 01
+    second: {fileID: 2100000, guid: 5558c29fe3f3c2c41b14e6e523fe86df, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Building Planks Atlas 02
+    second: {fileID: 2100000, guid: efef5044c8577f344834bf7130143aac, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pillar (Plank)
+    second: {fileID: 2100000, guid: 861d28419f03890418e83a4ada6fb4f5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Platform (Plank)
+    second: {fileID: 2100000, guid: 931578459a690054fae72bf6f968c90f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Roof (Metal)
+    second: {fileID: 2100000, guid: a3ab6229afd21ed43ae2511ac5ca8232, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stairs (Plank)
+    second: {fileID: 2100000, guid: b08f223f12c818541a32c7036516e84c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wall (Plank)
+    second: {fileID: 2100000, guid: 0b91482f8d5a9f243ad5b26511b9db38, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Window (Wood)
+    second: {fileID: 2100000, guid: 22038227ea656ae44b87e81a57cc1185, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wooden Door
+    second: {fileID: 2100000, guid: 93551bf780e68c1429a8c4deee43fe34, type: 2}
+  materials:
+    materialImportMode: 1
+    materialName: 1
+    materialSearch: 0
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    useSRGBMaterialColor: 0
+    sortHierarchyByName: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    fileIdsGeneration: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 0
+    normalSmoothingSource: 1
+  referencedClips: []
+  importAnimation: 0
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 0
+  humanoidOversampling: 1
+  avatarSetup: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

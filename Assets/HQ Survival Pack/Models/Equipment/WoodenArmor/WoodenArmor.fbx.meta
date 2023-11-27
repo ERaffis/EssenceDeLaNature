@@ -1,0 +1,195 @@
+fileFormatVersion: 2
+guid: e555869469f14cd4eb3a7258a72779da
+ModelImporter:
+  serializedVersion: 19301
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: //RootNode
+  - first:
+      1: 100002
+    second: Wood Chestplate
+  - first:
+      1: 100004
+    second: Wood FootWear
+  - first:
+      1: 100006
+    second: Wood Helmet
+  - first:
+      1: 100008
+    second: Wood Leggings
+  - first:
+      4: 400000
+    second: //RootNode
+  - first:
+      4: 400002
+    second: Wood Chestplate
+  - first:
+      4: 400004
+    second: Wood FootWear
+  - first:
+      4: 400006
+    second: Wood Helmet
+  - first:
+      4: 400008
+    second: Wood Leggings
+  - first:
+      23: 2300000
+    second: Wood Chestplate
+  - first:
+      23: 2300002
+    second: Wood FootWear
+  - first:
+      23: 2300004
+    second: Wood Helmet
+  - first:
+      23: 2300006
+    second: Wood Leggings
+  - first:
+      33: 3300000
+    second: Wood Chestplate
+  - first:
+      33: 3300002
+    second: Wood FootWear
+  - first:
+      33: 3300004
+    second: Wood Helmet
+  - first:
+      33: 3300006
+    second: Wood Leggings
+  - first:
+      43: 4300000
+    second: Wood Chestplate
+  - first:
+      43: 4300002
+    second: Wood Helmet
+  - first:
+      43: 4300004
+    second: Wood FootWear
+  - first:
+      43: 4300006
+    second: Wood Leggings
+  - first:
+      64: 6400000
+    second: Wood Chestplate
+  - first:
+      64: 6400002
+    second: Wood FootWear
+  - first:
+      64: 6400004
+    second: Wood Helmet
+  - first:
+      64: 6400006
+    second: Wood Leggings
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wood Chestplate
+    second: {fileID: 2100000, guid: cec8673b4d2027144b0f5f7728ccd128, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wood FootWear
+    second: {fileID: 2100000, guid: 13d478f5286d25744bc71db5e4b3ca43, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wood Helmet
+    second: {fileID: 2100000, guid: 93be0290a8cfaa64ab14b05117f1087e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wood Leggings_
+    second: {fileID: 2100000, guid: 649b16c0666ac5d49995bf33e10bd982, type: 2}
+  materials:
+    materialImportMode: 1
+    materialName: 1
+    materialSearch: 2
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1.1
+    meshCompression: 0
+    addColliders: 1
+    useSRGBMaterialColor: 0
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 0
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1.1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 0
+  humanoidOversampling: 1
+  avatarSetup: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
