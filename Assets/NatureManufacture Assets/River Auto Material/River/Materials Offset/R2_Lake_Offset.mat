@@ -9,6 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: R2_Lake_Offset
   m_Shader: {fileID: 4800000, guid: afbb1d8a9ff99304691b993b80fbc309, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _SPECULAR_SETUP
   - _SURFACE_TYPE_TRANSPARENT
@@ -27,6 +29,7 @@ Material:
   disabledShaderPasses:
   - MOTIONVECTORS
   - TransparentBackface
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -219,6 +222,7 @@ Material:
     - _AlphaCutoffEnable: 0
     - _AlphaDstBlend: 10
     - _AlphaSrcBlend: 1
+    - _AlphaToMask: 0
     - _BackfaceAlpha: 0.964
     - _BigCascadeAngle: 10.2
     - _BigCascadeAngleFalloff: 2.3
@@ -238,6 +242,7 @@ Material:
     - _BigCascadeWaterTessScale: 0
     - _Blend: 0
     - _BlendMode: 0
+    - _BlendModePreserveSpecular: 0
     - _CascadeFalloff: 0.84
     - _CascadeFalloffSlow: 5.86
     - _CascadeMetalic: 0
@@ -292,8 +297,8 @@ Material:
     - _FoamColorNoiseMultiply: 21
     - _FoamColorNoisePower: 10
     - _FoamColorNoisePowerr: 10
-    - _FoamDepth: 0.79
-    - _FoamFalloff: -15.2
+    - _FoamDepth: 0.97
+    - _FoamFalloff: -100
     - _FoamMetalic: 0
     - _FoamPower: 4
     - _FoamSmoothness: 0
@@ -433,12 +438,13 @@ Material:
     - _Color0: {r: 0, g: 0.6749488, b: 0.8088235, a: 0}
     - _Color1: {r: 0, g: 0.048731543, b: 0.22794023, a: 0}
     - _DeepColor: {r: 0.026254892, g: 0.039871838, b: 0.09433959, a: 0}
-    - _DiffusionProfileAsset: {r: 0.0065936996, g: -1.7619802e-26, b: -9.742697e-30, a: 1.0868426e+35}
+    - _DiffusionProfileAsset: {r: 0.0065936996, g: -1.7619802e-26, b: -9.742697e-30,
+        a: 1.0868426e+35}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _FoamColor: {r: 1, g: 1, b: 1, a: 0}
-    - _FoamSpeed: {r: 0.1, g: 0.1, b: 0, a: 0}
-    - _FoamTiling: {r: 10, g: 10, b: 0, a: 0}
+    - _FoamSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _FoamTiling: {r: 0, g: 0, b: 0, a: 0}
     - _MacroWaveTiling: {r: 10, g: 10, b: 0, a: 0}
     - _MicroNRMTiling: {r: 20, g: 20, b: 0, a: 0}
     - _MicroNormalTiling: {r: 0, g: 0, b: 0, a: 0}
@@ -446,8 +452,8 @@ Material:
     - _MicroWaveNRMTiling: {r: 10, g: 10, b: 0, a: 0}
     - _MicroWaveTiling: {r: 3, g: 3, b: 0, a: 0}
     - _MicrolTiling: {r: 20, g: 20, b: 0, a: 0}
-    - _NoiseSpeed: {r: 1, g: 1, b: 0, a: 0}
-    - _NoiseTiling: {r: 2, g: 2, b: 0, a: 0}
+    - _NoiseSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _NoiseTiling: {r: 0, g: 0, b: 0, a: 0}
     - _NoiseTling: {r: 4, g: 4, b: 0, a: 0}
     - _ShalowColor: {r: 0.35686275, g: 0.4369022, b: 0.4627451, a: 0}
     - _SlowCascadeColor: {r: 20, g: 20, b: 20, a: 0}
