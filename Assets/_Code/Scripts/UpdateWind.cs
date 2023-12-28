@@ -1,3 +1,4 @@
+using System;
 using Broccoli.Controller;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,13 +16,18 @@ public class UpdateWind : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        StartCoroutine(WaitToUpdateTerrainWind());
     }
-
 
     // Update is called once per frame
     void Update()
     {
+        _windController.UpdateWind(_windStrenght, _windTurbulence, _windDirection);
+    }
+
+    IEnumerator WaitToUpdateTerrainWind()
+    {
+        yield return new WaitForSeconds(2);
         _windController.UpdateWind(_windStrenght, _windTurbulence, _windDirection);
     }
 }

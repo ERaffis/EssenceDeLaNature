@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2801883455919102893}
   - component: {fileID: 3355697110146092393}
-  - component: {fileID: 7176766274264084658}
-  m_Layer: 0
+  - component: {fileID: 2112126310879017216}
+  m_Layer: 10
   m_Name: DeadTree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,8 +63,8 @@ LODGroup:
     renderers:
     - renderer: {fileID: 2404031007022673424}
   m_Enabled: 1
---- !u!64 &7176766274264084658
-MeshCollider:
+--- !u!136 &2112126310879017216
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -81,10 +81,11 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -7621467606938704657, guid: f7c3e91338fb0264abac009e5a9fe22a, type: 3}
+  serializedVersion: 2
+  m_Radius: 0.85742426
+  m_Height: 4.66
+  m_Direction: 0
+  m_Center: {x: -0.55821633, y: 0, z: 0.20079207}
 --- !u!1 &3262255548347101715
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,7 +97,7 @@ GameObject:
   - component: {fileID: 5688743209407097377}
   - component: {fileID: 513871504399660552}
   - component: {fileID: 1954507754237119440}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wood_Log_M_qdtdP_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +113,7 @@ Transform:
   m_GameObject: {fileID: 3262255548347101715}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.134, z: 0}
+  m_LocalPosition: {x: -0.569, y: -0.134, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -179,7 +180,7 @@ GameObject:
   - component: {fileID: 3736262481421658672}
   - component: {fileID: 5914128607199898766}
   - component: {fileID: 4397718851250113851}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wood_Log_M_qdtdP_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,7 +196,7 @@ Transform:
   m_GameObject: {fileID: 3508891311903202666}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.134, z: 0}
+  m_LocalPosition: {x: -0.569, y: -0.134, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -262,7 +263,7 @@ GameObject:
   - component: {fileID: 3006170196108582726}
   - component: {fileID: 1872623303456299524}
   - component: {fileID: 2404031007022673424}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wood_Log_M_qdtdP_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +279,7 @@ Transform:
   m_GameObject: {fileID: 6630654420394781061}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.134, z: 0}
+  m_LocalPosition: {x: -0.569, y: -0.134, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

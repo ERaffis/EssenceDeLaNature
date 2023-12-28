@@ -31,7 +31,7 @@ Material:
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 1
+  m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
   stringTagMap:
@@ -118,20 +118,22 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _MainAlpha: 163.3
+    - _MainAlpha: 45.94
     - _Metallic: 0
     - _OcclusionStrength: 1
+    - _Offset: 4.5
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Radius: 4.84
+    - _Radius: 10
+    - _Range: 5
     - _ReceiveShadows: 0
-    - _ScrollSize1: 10
-    - _ScrollSize2: 20
-    - _ScrollSize3: 50
-    - _ScrollSpeed1: 0.25
-    - _ScrollSpeed2: 0.4
-    - _ScrollSpeed3: -0.17
+    - _ScrollSize1: 100
+    - _ScrollSize2: 200
+    - _ScrollSize3: 500
+    - _ScrollSpeed1: 1
+    - _ScrollSpeed2: 0.25
+    - _ScrollSpeed3: 0.05
     - _SeedSpeed: 0.1
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
@@ -148,4 +150,5 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _Tiling_and_Offset: {r: 0.05, g: 0.05, b: 0, a: 0}
   m_BuildTextureStacks: []

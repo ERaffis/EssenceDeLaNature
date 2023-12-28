@@ -22,7 +22,7 @@ namespace Broccoli.Controller {
         /// <summary>
         /// Terrain component.
         /// </summary>
-        Terrain terrain = null;
+        public Terrain terrain = null;
         /// <summary>
         /// Keeps track of the material instances to update.
         /// </summary>
@@ -157,7 +157,7 @@ namespace Broccoli.Controller {
 		/// </summary>
 		public void Start () {
             // Get the terrain.
-            terrain = GetComponent<Terrain> ();
+            terrain = this.GetComponent<Terrain>();
             if (terrain != null) {
 				requiresUpdateWindZoneValues = true;
 				SetupWind ();

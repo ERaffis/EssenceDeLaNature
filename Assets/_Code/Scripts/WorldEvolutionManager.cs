@@ -20,28 +20,26 @@ public class WorldEvolutionManager : MonoBehaviour
     [Header("Player Object")]
     [Space(5)]
     public Transform _playerTransform;
-    public Transform _cameraTransform;
-    public PlayerController _playerController;
     public InputManager _inputManager;
     [Space(5)]
     public Vector3[] _teleportPosition;
-    public Vector3[] _teleportRotation;
-    public Vector3[] _teleportCameraAim;
 
     [Header("Scene Transition")]
     public string[] _SceneNames;
     public GameObject _transitionHolder;
     public GameObject[] _transitionText;
+    
+    public string[] timeStamps;
 
 
     [Header("Terrain Information")]
     [Space(5)]
     public CozyWeather _cozyManager;
-    public WindZone _windZone;
+    //public WindZone _windZone;
 
-    public float _currentTicks;
+    //public float _currentTicks;
 
-    public int _positionNumber = 0;
+    public int positionNumber = 0;
 
 
     private void Start()
@@ -51,71 +49,74 @@ public class WorldEvolutionManager : MonoBehaviour
         _cozyManager.currentDay = 0;
         _transitionText[0].SetActive(true);
     }
+    // ReSharper disable Unity.PerformanceAnalysis
     public void PhotoCaptured(int number)
     {
+        StartCoroutine(BlockMovement());
+        
         switch (number)
         {
             case 0:
-                _positionNumber++;
-                ChangeScene(_positionNumber, 1);
+                positionNumber++;
+                StartCoroutine(ChangeScene(positionNumber, timeStamps[0]));
                 ChangeCozySettings(0, 0.9f);
                 break;
             case 1:
-                _positionNumber++;
-                ChangeScene(_positionNumber, 0);
+                positionNumber++;
+                StartCoroutine(ChangeScene(positionNumber, timeStamps[1]));
                 ChangeCozySettings(0, 0.8f);
                 break;
             case 2:
-                _positionNumber++;
-                ChangeScene(_positionNumber, 2);
+                positionNumber++;
+                StartCoroutine(ChangeScene(positionNumber, timeStamps[2]));
                 ChangeCozySettings(1, 0.4f);
                 break;
             case 3:
-                _positionNumber++;
-                ChangeScene(_positionNumber, 3);
+                positionNumber++;
+                StartCoroutine(ChangeScene(positionNumber, timeStamps[3]));
                 ChangeCozySettings(1, 0.1f);
                 break;
             case 4:
-                _positionNumber++;
-                ChangeScene(_positionNumber, 0);
+                positionNumber++;
+                StartCoroutine(ChangeScene(positionNumber, timeStamps[4]));
                 ChangeCozySettings(1, 0f);
                 break;
             case 5:
-                _positionNumber++;
-                ChangeScene(_positionNumber, 2);
+                positionNumber++;
+                StartCoroutine(ChangeScene(positionNumber, timeStamps[5]));
                 ChangeCozySettings(2, 0f);
                 break;
             //Fin Hiver
             case 6:
-                _positionNumber++;
-                ChangeScene(_positionNumber, 1);
+                positionNumber++;
+                StartCoroutine(ChangeScene(positionNumber, timeStamps[6]));
                 ChangeCozySettings(2, 0f);
                 break;
             case 7:
-                _positionNumber++;
-                ChangeScene(_positionNumber, 3);
+                positionNumber++;
+                StartCoroutine(ChangeScene(positionNumber, timeStamps[7]));
                 ChangeCozySettings(2, 0.25f);
                 break;
             case 8:
-                _positionNumber++;
-                ChangeScene(_positionNumber, 3);
+                positionNumber++;
+                StartCoroutine(ChangeScene(positionNumber, timeStamps[8]));
                 ChangeCozySettings(3, 0.6f);
                 break;
 
             case 9:
-                _positionNumber++;
-                ChangeScene(_positionNumber, 0);
+                positionNumber++;
+                StartCoroutine(ChangeScene(positionNumber, timeStamps[9]));
                 ChangeCozySettings(3, 0.8f);
                 break;
             case 10:
-                _positionNumber++;
-                ChangeScene(_positionNumber, 2);
+                positionNumber++;
+                StartCoroutine(ChangeScene(positionNumber, timeStamps[10]));
                 ChangeCozySettings(3, 0.9f);
                 break;
 
             case 11:
-                _positionNumber++;
-                ChangeScene(_positionNumber, 2);
+                positionNumber++;
+                StartCoroutine(ChangeScene(positionNumber, timeStamps[11]));
                 ChangeCozySettings(3, 0.9f);
                 break;
 
@@ -123,55 +124,52 @@ public class WorldEvolutionManager : MonoBehaviour
                 StartCoroutine(LoadLastScene());
                 break;
 
-        }
-        }
-
-        public void FastForward(int i)
-    {
-        switch (i)
-        {
-            case 0:
-                _cozyManager.currentTicks = 15;
-                break;
-            case 1:
-                _cozyManager.currentTicks = 30;
-                break;
-            case 2:
-                _cozyManager.currentTicks = 45;
-                break;
-            case 3:
-                _cozyManager.currentTicks = 60;
-                break; 
-            default:
-                break;
-        }
-        _cozyManager.currentDay++;
+        } 
     }
 
-    public void ChangeScene(int sceneNumber, int timeChange )
+    private void FastForward(string timeStamp)
+    {
+        _cozyManager.currentDay++;
+        _cozyManager.currentTicks = timeStamp switch
+        {
+            "Dawn" => 12.5f,
+            "Noon" => 30f,
+            "Dusk" => 50f,
+            "Night" => 60f,
+            _ => _cozyManager.currentTicks
+        };
+    }
+
+    public IEnumerator BlockMovement()
+    {
+        _inputManager._controls.FindActionMap("BasicControls").Disable();
+        yield return new WaitForSeconds(5f);
+        _inputManager._controls.FindActionMap("BasicControls").Enable();
+    }
+
+    private IEnumerator ChangeScene(int sceneNumber, string timeStamp )
     {
         SceneManager.UnloadSceneAsync(_SceneNames[sceneNumber-1]);
         SceneManager.LoadScene(_SceneNames[sceneNumber], LoadSceneMode.Additive);
 
-        FastForward(timeChange);
+        FastForward(timeStamp);
         _transitionText[sceneNumber-1].SetActive(false);
         _transitionText[sceneNumber].SetActive(true);
         _transitionHolder.GetComponent<Animator>().Play("TransitionFadeOut");
+        yield return new WaitForSeconds(2);
         TeleportPlayer();
         _inputManager.OnCamera();
     } 
 
     private void TeleportPlayer()
     {
-        _playerTransform.position = _teleportPosition[_positionNumber];
-        _playerTransform.rotation = Quaternion.Euler(0, _teleportRotation[_positionNumber].y, 0);
-        _cameraTransform.rotation = Quaternion.Euler(_teleportCameraAim[_positionNumber].x, _teleportCameraAim[_positionNumber].y, 0);
+        _playerTransform.position = _teleportPosition[positionNumber];
     }
 
     private void ChangeCozySettings(int volumeProfile, float snowAmount)
     {
-        _cozyManager.currentDay = _positionNumber;
-        _cozyManager.SetWeather(_weather[_positionNumber]);
+        _cozyManager.currentDay = positionNumber;
+        _cozyManager.SetWeather(_weather[positionNumber]);
         _mainVolume.profile = _volumeProfiles[volumeProfile];
         _cozyManager.cozyMaterials.snowAmount = snowAmount;
     }
@@ -179,6 +177,6 @@ public class WorldEvolutionManager : MonoBehaviour
     private IEnumerator LoadLastScene()
     {
         yield return new WaitForEndOfFrame();
-        SceneManager.LoadScene(15);
+        SceneManager.LoadScene(14);
     }
 }

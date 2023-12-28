@@ -60,8 +60,9 @@ public class InputManager : MonoBehaviour
     private void Start()
     {
         _inMenu = false;
-        _controls.FindActionMap("BasicControls").Enable();
+        _controls.FindActionMap("BasicControls").Disable();
         _controls.FindActionMap("Menu").Disable();
+        StartCoroutine(StartMovement());
         _playerCam.Priority = 10;
         _menuCam.Priority = 0;
         _photoCam.Priority = -10;
@@ -70,20 +71,15 @@ public class InputManager : MonoBehaviour
         _inPauseMenu = false;
 
     }
+    public IEnumerator StartMovement()
+    {
+        yield return new WaitForSecondsRealtime(7.5f);
+        _controls.FindActionMap("BasicControls").Enable();
+    }
 
     private void Update()
     {
-        Vector2 vec = Mouse.current.scroll.ReadValue();
-        _photoCam.m_Lens.FieldOfView += ((vec.y / 120)*5)*-1;
-
-        if (_photoCam.m_Lens.FieldOfView < 20)
-        {
-            _photoCam.m_Lens.FieldOfView = 20;
-        }
-        if (_photoCam.m_Lens.FieldOfView > 120)
-        {
-            _photoCam.m_Lens.FieldOfView = 120;
-        }
+        
     }
 
 

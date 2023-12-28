@@ -4854,6 +4854,8 @@ GameObject:
   - component: {fileID: 7714221331987295523}
   - component: {fileID: 7714221331987295522}
   - component: {fileID: -7453660033247556343}
+  - component: {fileID: 8549086185017708470}
+  - component: {fileID: 886351800664085002}
   m_Layer: 0
   m_Name: Heavy Snow
   m_TagString: Untagged
@@ -8657,8 +8659,9 @@ ParticleSystem:
     enter: 1
     exit: 0
     colliderQueryMode: 0
-    radiusScale: 1
-    primitives: []
+    radiusScale: 2.5
+    primitives:
+    - {fileID: 0}
   SubModule:
     serializedVersion: 2
     enabled: 1
@@ -9700,3 +9703,27 @@ MonoBehaviour:
     vfx: {fileID: 0}
     multiplier: 1
   m_ParticleTypes: []
+--- !u!114 &8549086185017708470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7714221331987295520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57dac73be725ff548b6cb9a83b54b32b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &886351800664085002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7714221331987295520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57dac73be725ff548b6cb9a83b54b32b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -290,6 +290,75 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!1 &432510937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 432510939}
+  - component: {fileID: 432510938}
+  m_Layer: 0
+  m_Name: LSS Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &432510938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 432510937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 691872b4669c9ee45847d2d10286d82f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadingMode: 0
+  presetName: Standard
+  enableTrigger: 0
+  onTriggerExit: 0
+  loadWithTag: 0
+  startLoadingAtStart: 0
+  objectTag: 
+  sceneName: 
+  audioFadeDuration: 5
+  audioSources:
+  - {fileID: 5021742014697941553}
+  loadingScreens:
+  - {fileID: 6498329938164979471, guid: a6d6d28fbef5e6f4aa3e250d402fdc36, type: 3}
+  - {fileID: 395881036633011262, guid: 95a7792292d18714aa328b4f7a725165, type: 3}
+  - {fileID: 8643118620972578112, guid: da9ecdb2e25bea342b5be62a75cc51e7, type: 3}
+  - {fileID: 8448866507439987890, guid: 54f98e891bed80f4684d3cf5e66899b5, type: 3}
+  - {fileID: 8985211846813716763, guid: 2e032f973bfa7da4b95039db5496ee9a, type: 3}
+  selectedLoadingIndex: 4
+  selectedTagIndex: 0
+  onLoadingStart:
+    m_PersistentCalls:
+      m_Calls: []
+  dontDestroyOnLoad: []
+  loadedScenes: []
+  lockSelection: 0
+--- !u!4 &432510939
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 432510937}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &485033190
 GameObject:
   m_ObjectHideFlags: 0
@@ -1537,9 +1606,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Universit\xE9 du Qu\xE9bec \xE0 Chicoutimi - \xC9cole NAD\n\nDirection
-    de recherche :\nLaureline Chiapello\n\nRemerciments :\nMadelaine Labrecque, F\xE9lix
-    Lemonde-Champagne,  \xC9mile Raffis, Martin Schefer, Victorian Thibault-Malo "
+  m_text: "\xC9cole NAD UQAC\n\nDirection de recherche :\nLaureline Chiapello\n\nRemerciments
+    :\nMadelaine Labrecque, F\xE9lix Lemonde-Champagne,  \xC9mile Raffis, Martin
+    Schefer, Victorian Thibault-Malo "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: aedd39232728aa54ab16e995e7703fa5, type: 2}
   m_sharedMaterial: {fileID: -1723684066935403281, guid: aedd39232728aa54ab16e995e7703fa5,
@@ -2156,16 +2225,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8340086809360153618}
-        m_TargetAssemblyTypeName: MoreMountains.Tools.MMLoadScene, MoreMountains.Tools
+      - m_Target: {fileID: 432510938}
+        m_TargetAssemblyTypeName: Michsky.LSS.LSS_Manager, Assembly-CSharp
         m_MethodName: LoadScene
-        m_Mode: 1
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: MainScene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &570472866624341416
@@ -2875,8 +2944,8 @@ MonoBehaviour:
         TargetAudioSource: {fileID: 5021742014697941553}
         Mode: 0
         RandomSfx: []
-        MinVolume: 0.7
-        MaxVolume: 0.8
+        MinVolume: 0.3
+        MaxVolume: 0.3
         MinPitch: 0.8
         MaxPitch: 1.1
         SfxAudioMixerGroup: {fileID: 24300002, guid: b7e97e4fc9c510c4dad011e12466d33e,
@@ -11095,3 +11164,4 @@ SceneRoots:
   - {fileID: 641693689}
   - {fileID: 2012098170}
   - {fileID: 7601153200789488058}
+  - {fileID: 432510939}

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -76,6 +77,11 @@ public class CameraController : MonoBehaviour
         
     }
 
+    private void OnRectTransformDimensionsChange()
+    {
+        resolution = new Vector2(Screen.width, Screen.height);
+    }
+
     private void Update()
     {
         if (resolution.x != Screen.width || resolution.y != Screen.height)
@@ -138,7 +144,7 @@ public class CameraController : MonoBehaviour
         cameraShutter.SetActive(false);
 
         //Hide photo
-        yield return new WaitForSeconds(3.31f);
+        yield return new WaitForSeconds(2.51f);
         photoFrame.SetActive(false);
         photoFrame.GetComponent<CanvasGroup>().alpha = 0;
         //transitionText.SetActive(false);
@@ -154,7 +160,7 @@ public class CameraController : MonoBehaviour
         photoAlbum[photoNumber - 1].imageSprite = LoadNewSprite(Application.dataPath + "/SavedScreen" + photoNumber + ".png");
         photoAlbum[photoNumber - 1].imageTexture2D = LoadTexture(Application.dataPath + "/SavedScreen" + photoNumber + ".png");
         photoAlbum[photoNumber - 1].isEmpty = false;
-        print(photoNumber - 1 +", " + photoAlbum[photoNumber - 1].name + ", " + photoAlbum[photoNumber - 1].isEmpty);
+        //print(photoNumber - 1 +", " + photoAlbum[photoNumber - 1].name + ", " + photoAlbum[photoNumber - 1].isEmpty);
 
 
         photoDisplayArea.sprite = photoCapture;
